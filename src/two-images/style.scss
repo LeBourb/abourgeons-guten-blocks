@@ -1,0 +1,24 @@
+@import "../common.scss";
+
+.wp-block-abourgeons-guten-t18fall-two-images {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  > div {
+
+    width : 100%;
+    height: 100vh;
+    .block-img {
+        background-size: cover;
+        height: 100%;
+        width: 100%;
+    }
+  }
+
+  @include break-small() {
+    > div {
+        width : 50%;
+    }
+  }
+}

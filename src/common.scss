@@ -1,0 +1,69 @@
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+//@import 'owl.carousel/dist/assets/owl.carousel.css';
+
+// Colors.
+$black: rgb(41, 41, 41);
+$white: #f4f4f4;
+$gray: #dedede;
+$green: #bada55;
+$red: orangered;
+
+/**
+ * Breakpoints & Media Queries
+ */
+
+// Most used breakpoints
+$break-huge: 1440px;
+$break-large: 1200px;	// admin sidebar auto folds
+$break-medium: 992px;	// adminbar goes big
+$break-small: 600px;
+$break-mobile: 480px;
+
+// Colors
+$color-border: #e6eaee;
+$color-link: #0073aa;
+$color-link-hover: #00a0d2;
+
+/**
+ * Breakpoint mixins
+ */
+
+@mixin break-huge() {
+	@media (min-width: #{ ($break-huge) }) {
+		@content;
+	}
+}
+
+@mixin break-large() {
+	@media (min-width: #{ ($break-large) }) {
+		@content;
+	}
+}
+
+@mixin break-medium() {
+	@media (min-width: #{ ($break-medium) }) {
+		@content;
+	}
+}
+
+@mixin break-small() {
+	@media (min-width: #{ ($break-small) }) {
+		@content;
+	}
+}
+
+@mixin break-mobile() {
+	@media (min-width: #{ ($break-mobile) }) {
+		@content;
+	}
+}
+
+/**
+  Woo Products
+  */
+@import './product-cover/searchproduct';

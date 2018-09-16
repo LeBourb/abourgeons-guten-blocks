@@ -1,0 +1,52 @@
+.wp-block-abourgeons-guten-t18fall-block01 {
+	margin: 0;
+
+	.editor-rich-text__tinymce[data-is-empty="true"]::before {
+		position: inherit;
+	}
+
+	.editor-rich-text__tinymce:focus a[data-mce-selected] {
+		padding: 0 2px;
+		margin: 0 -2px;
+		border-radius: 2px;
+		box-shadow: none;
+		background: rgba(255, 255, 255, 0.3);
+	}
+
+	.editor-rich-text strong {
+		font-weight: 300;
+	}
+
+	.editor-rich-text {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.block-inside {
+    width: 20rem;
+		hr {
+				margin: 6px 0;
+		}
+	}
+
+	.block-img {
+		width: 60%;
+		height: 25rem;
+	}
+
+	.block-text {
+		width: 40%;
+	}
+	
+	&.components-placeholder h2 {
+		color: inherit;
+	}
+
+	&.has-left-content .editor-rich-text__inline-toolbar {
+		justify-content: flex-start;
+	}
+
+	&.has-right-content .editor-rich-text__inline-toolbar {
+		justify-content: flex-end;
+	}
+}
