@@ -30,8 +30,8 @@ function my_block_cgb_block_assets() {
 	);
 
 	wp_enqueue_script(
-		'my_block-cgb-run-build-js', // Handle.
-		plugins_url( 'dist/blocks.run.build.js', dirname( __FILE__ ) ), // Block style CSS.
+		'my_block-cgb-result-build-js', // Handle.
+		plugins_url( 'dist/result.build.js', dirname( __FILE__ ) ), // Block style CSS.
 		array( 'wp-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
 	);

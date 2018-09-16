@@ -30,12 +30,14 @@ export class CarouselSpecificSelect extends React.Component {
 		this.onImageClick = this.onImageClick.bind( this );
 		this.onSelectCaption = this.onSelectCaption.bind( this );
     /*
+		*/
 		this.state = {
-			selectedProducts: props.selected_display_setting || [],
-		}*/
+			//selectedProducts: props.selected_display_setting || [],
+			captionSelected: true
+		}
 	}
 
-  state = { captionSelected: true };
+  //state = { captionSelected: true };
 
 	onSelectCaption() {
 		if ( ! this.state.captionSelected ) {
