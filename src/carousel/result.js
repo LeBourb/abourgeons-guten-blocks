@@ -8,18 +8,25 @@
  //import $ from 'jquery';
  //require("expose-loader?$!jquery");
  import 'owl.carousel';
- import 'owl.carousel/src/scss/owl.carousel.scss';
- import 'owl.carousel/src/scss/owl.theme.default.scss';
-//(function($) {
+ //(function($) {
 // Lazy-loading
   $( window ).ready(function() {
     const options = {
     //	autoplay: autoplay,
     //	items: itemsPerPage,
-      slideBy: 'page'
+    //slideBy: 'page'
+    animateIn: 'fadeIn',
+    animateOut: 'fadeOut',
+
     };
-    if($('.owl-carousel')) {
-      $('.owl-carousel').owlCarousel(options);
+    if($('.owl-carousel.owl-result')) {
+      $('.owl-carousel.owl-result').owlCarousel({
+        items: $('.owl-carousel').data('items'),
+        slideBy: 'page',
+        animateIn: 'fadeIn',
+        animateOut: 'fadeOut',
+        nav: true
+      });
     }
 
 

@@ -46,14 +46,13 @@ const linkOptions = [
 ];
 
 export function defaultColumnsNumber( attributes ) {
-	return Math.min( 3, attributes.images.length );
+	return attributes.columns ? Math.min( 3, attributes.columns ) : 1;
 }
 
 class carouselEdit extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.onSelectImage = this.onSelectImage.bind( this );
 		this.onSelectImages = this.onSelectImages.bind( this );
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
@@ -65,19 +64,14 @@ class carouselEdit extends Component {
 
 		this.state = {
 			selectedImage: null,
+			options: {
+				navigation : true,
+    		singleItem : true,
+    		transitionStyle : "fade"
+			}
 		};
 
 		this.$carousel = React.createRef();
-	}
-
-	onSelectImage( index ) {
-		return () => {
-			if ( this.state.selectedImage !== index ) {
-				this.setState( {
-					selectedImage: index,
-				} );
-			}
-		};
 	}
 
 	onRemoveImage( index ) {
@@ -94,9 +88,13 @@ class carouselEdit extends Component {
 
 	onSelectImages( image ) {
 		this.props.attributes.images.push(image);
+		this.setState({
+			selectedImage: this.props.attributes.images.length - 1
+		});
 		this.props.setAttributes( {
 			images:  this.props.attributes.images.slice()
 		} );
+
 	}
 
 	setLinkTo( value ) {
@@ -156,44 +154,26 @@ class carouselEdit extends Component {
 		if ( ! this.props.isSelected && prevProps.isSelected ) {
 			this.setState( {
 				selectedImage: null,
-				captionSelected: false,
 			} );
 		}
-
-		const options = {
-		//	autoplay: autoplay,
-		//	items: itemsPerPage,
-			slideBy: 'page'
-		};
 
 		var carousel = $(this.$carousel.current);
 
 		if (carousel) {
 			carousel.trigger('destroy.owl.carousel');
 		}
-		carousel.owlCarousel(options);
+		carousel.owlCarousel(this.state.options);
 
 	}
 
 	componentDidMount () {
-
-		const options = {
-		//	autoplay: autoplay,
-		//	items: itemsPerPage,
-			slideBy: 'page'
-		};
-
 		var carousel = $(this.$carousel.current);
 
 		if (carousel) {
 			carousel.trigger('destroy.owl.carousel');
 		}
 
-		carousel.owlCarousel(options);
-
-			//	this.$carousel = $('.owl-theme').owlCarousel(options);
-
-
+		carousel.owlCarousel(this.state.options);
 	}
 
 	render() {
@@ -205,6 +185,20 @@ class carouselEdit extends Component {
 				onFilesDrop={ this.addFiles }
 			/>
 		);
+
+
+		this.state.options = {
+			items: columns,
+			slideBy: 'page',
+			animateIn: 'fadeIn',
+			animateOut: 'fadeOut',
+			slideBy: 'page',
+			animateIn: 'fadeIn',
+			animateOut: 'fadeOut',
+			nav: true,
+			dots: true,
+			startPosition: this.state.selectedImage
+		}
 
 		// destroy before re-render
 		var carousel = $(this.$carousel.current);
@@ -290,18 +284,18 @@ class carouselEdit extends Component {
 				>
 
 					{ images.map( ( img, index ) => (
-						<div className="blocks-carousel-item" key={ img.id || img.url }>
+
 							<CarouselSpecificSelect
 								url={ img.url }
 								alt={ img.alt }
 								id={ img.id }
-								isSelected={ isSelected && this.state.selectedImage === index }
 								onRemove={ this.onRemoveImage( index ) }
-								onSelect={ this.onSelectImage( index ) }
 								setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
-								caption={ img.caption }
+								headline={ img.headline }
+								button={ img.button }
+								hlink={img.hlink}
 							/>
-					</div>
+
 					) ) }
 
 						<div className="blocks-carousel-item has-add-item-button">

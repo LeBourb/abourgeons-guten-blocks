@@ -7,7 +7,7 @@
 
 //  Import CSS.
 import './style.scss';
-import './editor.scss';
+import './editor.scss?editor';
 //R14 dze
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks

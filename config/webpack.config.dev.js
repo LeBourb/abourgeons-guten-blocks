@@ -116,7 +116,14 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				exclude: /bower_components/,
-				use: editBlocksCSSPlugin.extract( extractConfig ),
+			 	oneOf: [ {
+            resourceQuery: /editor/, // foo.css?editor
+            use: editBlocksCSSPlugin.extract( extractConfig )
+          },
+          {
+			//			resourceQuery: /^$/, // foo.css?editor
+            use: blocksCSSPlugin.extract( extractConfig )
+        }]
 			}
 		],
 	},
