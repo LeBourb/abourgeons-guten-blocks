@@ -35,6 +35,11 @@ function my_block_cgb_block_assets() {
 		array( 'wp-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
 	);
+
+	//Dynamic rendering.
+	require_once ('carousel/render.php');
+	require_once ('template-18-fall/render.php');
+	require_once ('two-images/render.php');
 } // End function my_block_cgb_block_assets().
 
 // Hook: Frontend assets.

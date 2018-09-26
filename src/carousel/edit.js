@@ -58,6 +58,7 @@ class carouselEdit extends Component {
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.toggleImageCrop = this.toggleImageCrop.bind( this );
 		this.onRemoveImage = this.onRemoveImage.bind( this );
+		this.onValidate = this.onValidate.bind( this );
 		this.setImageAttributes = this.setImageAttributes.bind( this );
 		this.addFiles = this.addFiles.bind( this );
 		this.uploadFromFiles = this.uploadFromFiles.bind( this );
@@ -83,6 +84,12 @@ class carouselEdit extends Component {
 				images,
 				columns: columns ? Math.min( images.length, columns ) : columns,
 			} );
+		};
+	}
+
+	onValidate( index ) {
+		return () => {
+			this.setState( { selectedImage: index } );
 		};
 	}
 
@@ -290,6 +297,7 @@ class carouselEdit extends Component {
 								alt={ img.alt }
 								id={ img.id }
 								onRemove={ this.onRemoveImage( index ) }
+								onValidate={ this.onValidate( index ) }
 								setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
 								headline={ img.headline }
 								button={ img.button }

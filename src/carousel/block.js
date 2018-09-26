@@ -84,6 +84,7 @@ registerBlockType( name, {
 	edit,
 
 	save( { attributes } ) {
+		return null;
 		const { images, columns = defaultColumnsNumber( attributes ), imageCrop, linkTo } = attributes;
 		const options = {
 			items: columns,
@@ -93,22 +94,15 @@ registerBlockType( name, {
 			<ul className={ `columns-${ columns }  owl-theme owl-carousel owl-result ${ imageCrop ? 'is-cropped' : '' }` }  data-items={ columns } >
 				{ images.map( ( image ) => {
 					let href;
-
-					switch ( linkTo ) {
-						case 'media':
-							href = image.url;
-							break;
-						case 'attachment':
-							href = image.link;
-							break;
-					}
+					href = image.hlink;
 
 					//const img = <img src={ image.url } alt={ image.alt } data-id={ image.id } data-link={ image.link } className={ image.id ? `wp-image-${ image.id }` : null } />;
 					const img = ( <div src={  image.url } alt={ image.alt } class={ `block-img img-lazy-load-rest`} data-id={ image.id } data-media-id={ image.id }>
-						{ image.caption && image.caption.length > 0 && (
-							<RichText.Content tagName="figcaption" value={ image.caption } />
-						)
-					}</div>);
+						<section class="offsetab">
+						{ image.headline ? <h3 className={'headline'}>{ image.headline }</h3>  : ''}
+						{ image.button ? <div className="">	<h3 className={'center'}>{ image.button }</h3> </div> : ''	}
+						</section>
+					</div>);
 
 					return (
 						<div key={ image.id || image.url } className="blocks-carousel-item">

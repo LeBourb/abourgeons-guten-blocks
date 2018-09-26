@@ -184,32 +184,7 @@ registerBlockType( name, {
 	} ),
 
 	save( { attributes, className } ) {
-    const { left_id, right_id, left_url, right_url, title, text , hasImgonRight } = attributes;
-    const classes = classnames(
-      className,
-      {
-        'has-img-on-right': hasImgonRight,
-      }
-    );
-
-    return (
-      <div className={ classes } >
-        <div className= 'block-left' >
-          <div
-  						data-url={ left_url }
-  						data-media-id={ left_id }
-  						className= 'block-img img-lazy-load-rest col-xs-12 col-sm-12 col-md-9 col-lg-9'
-  					/>
-        </div>
-        <div className= 'block-right' >
-          <div
-  						data-url={ right_url }
-  						data-media-id={ right_id }
-  						className= 'block-img img-lazy-load-rest col-xs-12 col-sm-12 col-md-9 col-lg-9'
-  					/>
-        </div>
-      </div>
-    );
+		return null;
 	},
 
 });

@@ -32,13 +32,13 @@ const { Button } = wp.components;
 const blockAttributes = {
 	title: {
 		type: 'array',
-		source: 'children',
-		selector: 'h3',
+	//	source: 'children',
+	//	selector: 'h3',
 	},
 	text: {
 		type: 'array',
-		source: 'children',
-		selector: 'p',
+//		source: 'children',
+	//	selector: 'p',
 	},
 	url: {
 		type: 'string',
@@ -179,34 +179,7 @@ registerBlockType( name, {
 	} ),
 
 	save( { attributes, className } ) {
-		const { id, url, title, text , hasImgonRight } = attributes;
-		const classes = classnames(
-			className,
-			{
-				'has-img-on-right': hasImgonRight,
-			}
-		);
-
-		return (
-			<div className={ classes } >
-				<div className= 'block-text col-xs-12 col-sm-12 col-md-3 col-lg-3' >
-					<div className='block-inside'>
-					{ title && title.length > 0 && (
-						<RichText.Content tagName="h3" className="title" value={ title } />
-					) }
-					<hr/>
-					{ text && text.length > 0 && (
-						<RichText.Content tagName="p" className="content-text" value={ text } />
-					) }
-					</div>
-				</div>
-				<div
-						data-url={ url }
-						data-media-id={ id }
-						className= 'block-img img-lazy-load-rest col-xs-12 col-sm-12 col-md-9 col-lg-9'
-					/>
-			</div>
-		);
+		return null;
 	},
 
 });

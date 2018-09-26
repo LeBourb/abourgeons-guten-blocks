@@ -90,11 +90,15 @@ export class CarouselSpecificSelect extends React.Component {
 	onValid () {
 		this.state.imageSelected = false;
 
-	this.props.setAttributes({
+		this.props.setAttributes({
 			button: this.state.button,
 			headline: this.state.headline,
 			hlink: this.HLinkRef.props.url
-		}); /*
+		});
+
+		this.props.onValidate();
+
+		 /*
 		this.props.setAttributes({
 				button: '',
 				headline: ''
@@ -172,7 +176,7 @@ export class CarouselSpecificSelect extends React.Component {
 						}
 
 
-				{ <div src={ url } alt={ alt } class={ 'block-img' } data-id={ id } style={ style }  onClick={ this.onImageClick } > }
+				{ <div src={ url } alt={ alt } class={ 'block-img' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
 							<section class="offsetab" ref={ this.bindContainer }>
 									{ this.state.imageSelected ? <RichText
 									tagName="h3"
