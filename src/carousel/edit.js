@@ -30,7 +30,8 @@ const {
 /**
  * Internal dependencies
  */
-import { carouselSelectImage , CarouselSpecificSelect } from './carousel-image';
+import { FeaturingImage } from './../lib/image-featuring';
+import { ClassicImage } from './../lib/image-classic';
 
 import React from 'react';
 
@@ -56,7 +57,7 @@ class carouselEdit extends Component {
 		this.onSelectImages = this.onSelectImages.bind( this );
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
-		this.toggleImageCrop = this.toggleImageCrop.bind( this );
+		this.toggleMultiMediaResponsive = this.toggleMultiMediaResponsive.bind( this );
 		this.onRemoveImage = this.onRemoveImage.bind( this );
 		this.onValidate = this.onValidate.bind( this );
 		this.setImageAttributes = this.setImageAttributes.bind( this );
@@ -69,7 +70,9 @@ class carouselEdit extends Component {
 				navigation : true,
     		singleItem : true,
     		transitionStyle : "fade"
-			}
+			},
+			size: 0,
+			MultiMediaResponsive: false
 		};
 
 		this.$carousel = React.createRef();
@@ -94,7 +97,14 @@ class carouselEdit extends Component {
 	}
 
 	onSelectImages( image ) {
-		this.props.attributes.images.push(image);
+		var imgs = [];
+		if (this.state.MultiMediaResponsive)
+		 	imgs[this.state.size] = image;
+		else
+			imgs[0] = image;
+
+
+		this.props.attributes.images.push(imgs);
 		this.setState({
 			selectedImage: this.props.attributes.images.length - 1
 		});
@@ -112,16 +122,17 @@ class carouselEdit extends Component {
 		this.props.setAttributes( { columns: value } );
 	}
 
-	toggleImageCrop() {
-		this.props.setAttributes( { imageCrop: ! this.props.attributes.imageCrop } );
+	toggleMultiMediaResponsive() {
+		this.props.setAttributes( { MultiMediaResponsive: (this.state.MultiMediaResponsive ? 'false' : 'true') } );
 	}
 
-	getImageCropHelp( checked ) {
-		return checked ? __( 'Thumbnails are cropped to align.' ) : __( 'Thumbnails are not cropped.' );
+	getMultiMediaResponsiveHelp( checked ) {
+		return checked ? __( 'Thumbnails are cropped to align and accepts button text and hyberlinks !' ) : __( 'Classic carousel of images.' );
 	}
 
-	setImageAttributes( index, attributes ) {
-		const { attributes: { images }, setAttributes } = this.props;
+	setImageAttributes( index, new_images ) {
+		const {  setAttributes , attributes } = this.props;
+		const { images } =  attributes;
 		if ( ! images[ index ] ) {
 			return;
 		}
@@ -130,7 +141,7 @@ class carouselEdit extends Component {
 				...images.slice( 0, index ),
 				{
 					...images[ index ],
-					...attributes,
+					...new_images,
 				},
 				...images.slice( index + 1 ),
 			],
@@ -185,8 +196,12 @@ class carouselEdit extends Component {
 
 	render() {
 		const { attributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-		const { images, columns = defaultColumnsNumber( attributes ), align, imageCrop, linkTo } = attributes;
-
+		const { images, columns = defaultColumnsNumber( attributes ), align, MultiMediaResponsive, linkTo } = attributes;
+		if( !!MultiMediaResponsive && MultiMediaResponsive === 'true') {
+			this.state.MultiMediaResponsive = true;
+		} else {
+			this.state.MultiMediaResponsive = false;
+		}
 		const dropZone = (
 			<DropZone
 				onFilesDrop={ this.addFiles }
@@ -221,7 +236,7 @@ class carouselEdit extends Component {
 							onSelect={ this.onSelectImages }
 							type="image"
 							carousel
-							value={ images.map( ( img ) => img.id ) }
+							value={ images.map( ( img ) => img.media_id ) }
 							render={ ( { open } ) => (
 								<IconButton
 									className="components-toolbar__control"
@@ -233,6 +248,7 @@ class carouselEdit extends Component {
 						/>
 					</Toolbar>
 				) }
+
 			</BlockControls>
 		);
 
@@ -270,10 +286,10 @@ class carouselEdit extends Component {
 							max={ Math.min( MAX_COLUMNS, images.length ) }
 						/> }
 						<ToggleControl
-							label={ __( 'Crop Images' ) }
-							checked={ !! imageCrop }
-							onChange={ this.toggleImageCrop }
-							help={ this.getImageCropHelp }
+							label={ __( 'Responsive Multi-Medias' ) }
+							checked={ !! this.state.MultiMediaResponsive }
+							onChange={ this.toggleMultiMediaResponsive }
+							help={ this.getMultiMediaResponsiveHelp }
 						/>
 						<SelectControl
 							label={ __( 'Link To' ) }
@@ -281,6 +297,17 @@ class carouselEdit extends Component {
 							onChange={ this.setLinkTo }
 							options={ linkOptions }
 						/>
+					{ !!this.state.MultiMediaResponsive ? <SelectControl
+		          label="Size"
+		          value={ this.state.size }
+		          options={ [
+		            { label: 'Big', value: 0 },
+		            { label: 'Medium', value: 1 },
+		            { label: 'Small', value: 2 },
+		          ] }
+		          onChange={ ( size ) => { this.setState( { size } ) } }
+		        /> : ''
+		        }
 					</PanelBody>
 				</InspectorControls>
 
@@ -291,11 +318,21 @@ class carouselEdit extends Component {
 				>
 
 					{ images.map( ( img, index ) => (
-
-							<CarouselSpecificSelect
-								url={ img.url }
+							  this.state.MultiMediaResponsive  ? (	<ClassicImage
+									media_url={ img.media_url ? img.media_url : [] }
+									media_id={ img.media_id ? img.media_id : [] }
+									size={this.state.size}
+									onRemove={ this.onRemoveImage( index ) }
+									onValidate={ this.onValidate( index ) }
+									setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
+									headline={ img.headline }
+									button={ img.button }
+									hlink={ img.hlink }
+								/> ) :	(
+								<FeaturingImage
+								media_url={ img.media_url ? img.media_url : [] }
 								alt={ img.alt }
-								id={ img.id }
+								media_id={ img.media_id ? img.media_id : [] }
 								onRemove={ this.onRemoveImage( index ) }
 								onValidate={ this.onValidate( index ) }
 								setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
@@ -303,7 +340,7 @@ class carouselEdit extends Component {
 								button={ img.button }
 								hlink={img.hlink}
 							/>
-
+						 )
 					) ) }
 
 						<div className="blocks-carousel-item has-add-item-button">

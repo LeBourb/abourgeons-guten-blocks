@@ -1,0 +1,89 @@
+@import "../common.scss";
+
+.image-featuring-container {
+    width: 100%;
+}
+
+.abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+  min-height: 80vh;
+}
+
+.abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing
+ {
+  position: relative;
+  width: 100%;
+  .textcontainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 2em;
+
+/*    h3: {
+      font-size: 44px;
+      line-height: 46px;
+      padding: normal;
+      margin: -30px 0 44px;
+      letter-spacing: 0;
+    }
+    */
+    section.offsettab {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 1.8rem;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-end;
+      align-items: flex-start;
+
+      div.button {
+        display: inline-block;
+        line-height: normal;
+        letter-spacing: 0.18em;
+        text-decoration: none;
+        transition: all 0.7s ease-in-out;
+        text-transform: uppercase;
+        margin-top: 5.5rem;
+        padding: 1.6rem 3.5rem;
+        border-width: 1px;
+        border-style: solid;
+        font-size: 1.7rem;
+        text-align: center;
+        border-color: #fff;
+        background-color: #fff;
+        color: #121212;
+      }
+
+      div.button:hover {
+        background-color: transparent;
+        color: #fff;
+      }
+    }
+
+
+
+  }
+
+  @include break-large() {
+    .block-img {
+      height: 100vh;
+    }
+  }
+  .block-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+
+  .imagecontainer {
+    img {
+      width: 100%;
+    }
+  }
+
+}

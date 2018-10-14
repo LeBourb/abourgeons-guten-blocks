@@ -11,16 +11,19 @@ const { IconButton, Spinner } = wp.components;
 const { __ } = wp.i18n;
 const { BACKSPACE, DELETE } = wp.keycodes;
 const { withSelect } = wp.data;
-const { RichText , URLInputButton } = wp.editor;
+const { RichText , URLInputButton, MediaUpload } = wp.editor;
 //const { URLInputButton } = wp.button;
 
+//  Import CSS.
+import './style.scss';
+import './editor.scss?editor';
 
 /**
  * When the display mode is 'Specific products' search for and add products to the block.
  *
  * @todo Add the functionality and everything.
  */
-export class CarouselSpecificSelect extends React.Component {
+export class FeaturingImage extends React.Component {
 
 	/**
 	 * Constructor.
@@ -83,6 +86,7 @@ export class CarouselSpecificSelect extends React.Component {
 		if(!this.state.imageSelected) {
 			this.setState( {
 				imageSelected: true,
+
 			} );
 		}
 	}
@@ -115,11 +119,13 @@ export class CarouselSpecificSelect extends React.Component {
 	}
 
 	render() {
-		const { url, alt, id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink } = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink } = this.props;
 
 		let href, currenthlink;
 
 		currenthlink = hlink;
+		const url = media_url[0] ? media_url[0]  : null ;
+		const id = media_id[0] ? media_id[0] : null ;
 
 
 		switch ( linkTo ) {
@@ -130,6 +136,22 @@ export class CarouselSpecificSelect extends React.Component {
 				href = link;
 				break;
 		}
+
+		const onSelectImage = ( media ) => {
+			var url = this.props.media_url.slice(0);
+			var id = this.props.media_id.slice(0);
+			if ( ! media || ! media.url ) {
+				url[0] = null;
+				id[0] = null;
+				setAttributes( { media_url: url, media_id: id } );
+				return;
+			}
+			url[0] = media.url;
+			id[0] = media.id;
+			setAttributes( { media_url: url, media_id: id } );
+
+		};
+
 
 		const style = backgroundImageStyles( url );
 		// Disable reason: Image itself is not meant to be
@@ -155,7 +177,20 @@ export class CarouselSpecificSelect extends React.Component {
 
 		*/
 		const editcmd = (
-			<div className="block-library-carousel-item__inline-menu">
+			<div className="block-library-item__inline-menu">
+				<MediaUpload
+					onSelect={ onSelectImage }
+					type="image"
+					value={ id }
+					render={ ( { open } ) => (
+						<IconButton
+							className="components-toolbar__control"
+							label={ __( 'Edit image' ) }
+							icon="edit"
+							onClick={ open }
+						/>
+					) }
+				/>
 				<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
 			 	<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
 			 	<URLInputButton
@@ -165,8 +200,8 @@ export class CarouselSpecificSelect extends React.Component {
 				 />
 		 </div>) ;
 		return (
-			<div className={ className } tabIndex="-1" ref={ this.bindContainer }>
-						{ this.state.imageSelected ? editcmd : <div className="block-library-carousel-item__inline-menu"> <IconButton
+			<div className={ "abourgeons_fall18abourgeons_fall18_render_imagefeaturing image-featuring-editor" } tabIndex="-1" ref={ this.bindContainer }>
+						{ this.state.imageSelected ? editcmd : <div className="block-library-item__inline-menu"> <IconButton
 								icon="no-alt"
 								onClick={ onRemove }
 								className="blocks-carousel-item__remove"
@@ -176,8 +211,9 @@ export class CarouselSpecificSelect extends React.Component {
 						}
 
 
-				{ <div src={ url } alt={ alt } class={ 'block-img' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
-							<section class="offsetab" ref={ this.bindContainer }>
+				{ <div src={ url } alt={ alt } className={ 'block-img textcontainer' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
+
+							<section className="offsettab" ref={ this.bindContainer }>
 									{ this.state.imageSelected ? <RichText
 									tagName="h3"
 									placeholder={ __(  'Enter Headline…' ) }
@@ -187,17 +223,17 @@ export class CarouselSpecificSelect extends React.Component {
 									inlineToolbar
 								/>  : <h3 className={'headline'}>{ headline }</h3>
 								}
-								<div className="">
+
 										{ this.state.imageSelected ? <RichText
-										tagName="h3"
+										tagName="div"
 										placeholder={ __(  'Enter Button Text…' ) }
 										value={ button }
-										className= {'center'}
+										className= {'button'}
 										onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
 										inlineToolbar
-									/>  : <h3 className={'center'}>{ button }</h3>
+									/>  : <div className={'button'}>{ button }</div>
 									}
-							</div>
+
 							</section>
 					</div>
 				}

@@ -30,26 +30,18 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { Button } = wp.components;
 
 const blockAttributes = {
-	title: {
-		type: 'array',
-		source: 'children',
-		selector: 'h3',
-	},
-	text: {
-		type: 'array',
-		source: 'children',
-		selector: 'p',
-	},
-	url: {
+	left_url: {
 		type: 'string',
 	},
-	id: {
-		type: 'number',
+	right_url: {
+		type: 'string',
 	},
-	hasImgonRight: {
-		type: 'boolean',
-		default: true,
+	left_id: {
+		type: 'string',
 	},
+	right_id: {
+		type: 'string',
+	}
 };
 
 export const name = 'abourgeons-guten/t18fall-two-images';

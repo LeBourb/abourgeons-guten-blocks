@@ -58,7 +58,7 @@ const blockAttributes = {
 	columns: {
 		type: 'number',
 	},
-	imageCrop: {
+	MultiMediaResponsive: {
 		type: 'boolean',
 		default: true,
 	},
@@ -85,34 +85,5 @@ registerBlockType( name, {
 
 	save( { attributes } ) {
 		return null;
-		const { images, columns = defaultColumnsNumber( attributes ), imageCrop, linkTo } = attributes;
-		const options = {
-			items: columns,
-			slideBy: 'page'
-		}
-		return (
-			<ul className={ `columns-${ columns }  owl-theme owl-carousel owl-result ${ imageCrop ? 'is-cropped' : '' }` }  data-items={ columns } >
-				{ images.map( ( image ) => {
-					let href;
-					href = image.hlink;
-
-					//const img = <img src={ image.url } alt={ image.alt } data-id={ image.id } data-link={ image.link } className={ image.id ? `wp-image-${ image.id }` : null } />;
-					const img = ( <div src={  image.url } alt={ image.alt } class={ `block-img img-lazy-load-rest`} data-id={ image.id } data-media-id={ image.id }>
-						<section class="offsetab">
-						{ image.headline ? <h3 className={'headline'}>{ image.headline }</h3>  : ''}
-						{ image.button ? <div className="">	<h3 className={'center'}>{ image.button }</h3> </div> : ''	}
-						</section>
-					</div>);
-
-					return (
-						<div key={ image.id || image.url } className="blocks-carousel-item">
-							 	<a href={ href }>{ img }
-
-								</a>
-						</div>
-					);
-				} ) }
-			</ul>
-		);
 	},
 });

@@ -21,7 +21,7 @@
     };
     if($('.owl-carousel.owl-result')) {
       $('.owl-carousel.owl-result').owlCarousel({
-        items: $('.owl-carousel').data('items'),
+        items: $('.owl-carousel').data('items') ? $('.owl-carousel').data('items') : 1, 
         slideBy: 'page',
         animateIn: 'fadeIn',
         animateOut: 'fadeOut',

@@ -8,19 +8,24 @@
 
 	.block-img {
 		height: 20em;
+		block-img: 100%;
+		.offsettab {
+			.button {
+				padding: 0;
+				height: auto;
+				padding: 0;
+				line-height: 1.8;
+			}
+		}
+
 	}
 
-	.owl-item {
-			.block-library-carousel-item__inline-menu {
-				display: inline-block;
-				float: right;
-
-				button {
-					float:right;
-				}
-				form {
+		.owl-item {
+				.block-library-carousel-item__inline-menu {
+					display: inline-block;
 					float: right;
-				}
+
 			}
 	}
+
 }

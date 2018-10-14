@@ -4,26 +4,6 @@
 	  height: auto;
 		margin-left: 0;
 
-		.block-img {
-			width: 100%;
-	    height: 80vh;
-			background-size: cover;
-
-			.offsetab {
-				padding: 10vw 36px;
-
-				.button {
-					min-width: 11em;
-			    width: auto;
-			    height: 3rem;
-			    background-color: $green;
-			    color: $white;
-			    border-color: $gray;
-				}
-
-			}
-		}
-
 		&.owl-result .owl-stage-outer {
 
 		}

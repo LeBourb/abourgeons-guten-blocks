@@ -10,6 +10,7 @@
  */
 
 //import 'classnames';
+import './image-cover/block.js'
 import './product-cover/block.js'
 import './template-18-fall/block-01.js'
 import './two-images/block.js'
