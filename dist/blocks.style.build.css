@@ -442,24 +442,25 @@
     }
     */ }
     .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
-.textcontainer section.offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer section.offsettab {
-      position: absolute;
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab {
+      position: relative;
       z-index: 2;
-      top: 0;
-      left: 0;
-      width: 100%;
       height: 100%;
       padding: 1.8rem;
-      display: -ms-flexbox;
-      display: flex;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+      -ms-flex-pack: center;
+          justify-content: center;
       -ms-flex-align: start;
-          align-items: flex-start; }
+          align-items: flex-start;
+      display: table;
+      text-align: left;
+      max-width: 33.333%;
+      white-space: normal;
+      display: -ms-flexbox;
+      display: flex; }
       .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
-.textcontainer section.offsettab div.button, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer section.offsettab div.button {
+.textcontainer .offsettab div.button, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab div.button {
         display: inline-block;
         line-height: normal;
         letter-spacing: 0.18em;
@@ -468,7 +469,7 @@
         -o-transition: all 0.7s ease-in-out;
         transition: all 0.7s ease-in-out;
         text-transform: uppercase;
-        margin-top: 5.5rem;
+        margin-top: 1rem;
         padding: 1.6rem 3.5rem;
         border-width: 1px;
         border-style: solid;
@@ -478,9 +479,19 @@
         background-color: #fff;
         color: #121212; }
       .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
-.textcontainer section.offsettab div.button:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer section.offsettab div.button:hover {
+.textcontainer .offsettab div.button:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab div.button:hover {
         background-color: transparent;
         color: #fff; }
+      .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+.textcontainer .offsettab h3.headline, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h3.headline {
+        margin-top: 10px;
+        margin-bottom: 10px; }
+      .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+.textcontainer .offsettab h4.subtitle, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h4.subtitle {
+        padding-left: 0; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.rightaligned
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.rightaligned .textcontainer .offsettab {
+    float: right; }
   @media (min-width: 1200px) {
     .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .block-img {

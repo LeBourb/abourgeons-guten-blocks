@@ -54,6 +54,16 @@ const blockAttributes = {
 	MultiMediaResponsive: {
 		type: 'boolean',
 		default: false
+	},
+	hasSubtitle: {
+		type: 'boolean'
+	},
+	subtitle: {
+		type: 'string'
+	},
+	rightaligned: {
+		type: 'boolean',
+		default: false,
 	}
 };
 

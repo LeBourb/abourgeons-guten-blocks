@@ -32,7 +32,7 @@ class imagecoverEdit extends Component {
 
 render()  {
   const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive } = attributes;
+  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, hasSubtitle, subtitle, rightaligned } = attributes;
 
 
   //const style = backgroundImageStyles( url );
@@ -44,6 +44,9 @@ render()  {
     setAttributes( { MultiMediaResponsive: MultiMediaResponsive } );
   };
 
+  const togglehasSubtitle = (hasSubtitle) => {
+    setAttributes( { hasSubtitle: hasSubtitle } );
+  };
 
   const controls = (
     <Fragment>
@@ -57,6 +60,11 @@ render()  {
             label={ __( 'Multi-Media Responsiveness' ) }
             checked={ !! MultiMediaResponsive }
             onChange={ toggleMultiMediaResponsive }
+          />
+          <ToggleControl
+            label={ __( 'has Subtitle' ) }
+            checked={ !! hasSubtitle }
+            onChange={ togglehasSubtitle }
           />
         </PanelBody>
         { MultiMediaResponsive ? <SelectControl
@@ -87,8 +95,11 @@ render()  {
                 onValidate={ () => { } }
                 setAttributes={ (attrs) => { setAttributes(attrs); } }
                 headline={ headline }
+                hasSubtitle={ hasSubtitle }
+                subtitle={ subtitle }
                 button={ button }
                 hlink={ hlink }
+								rightaligned= { rightaligned }
               /> : <FeaturingImage
                   media_url={ media_url }
                   media_id={ media_id }
@@ -97,8 +108,11 @@ render()  {
                   onValidate={ () => { } }
                   setAttributes={ (attrs) => { setAttributes(attrs); } }
                   headline={ headline }
+                  hasSubtitle={ hasSubtitle }
+                  subtitle={ subtitle }
                   button={ button }
                   hlink={ hlink }
+									rightaligned= { rightaligned }
                 />
             }
         </div>

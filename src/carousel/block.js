@@ -66,6 +66,10 @@ const blockAttributes = {
 		type: 'string',
 		default: 'none',
 	},
+	rightaligned: {
+		type: 'array',
+		default: [],
+	}
 };
 
 export const name = 'abourgeons-18-fall/carousel';

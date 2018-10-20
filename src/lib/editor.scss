@@ -12,7 +12,23 @@
   }
 }
 
-
-.abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
+.abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
     min-height: 43vh;
+    .block-img.textcontainer{
+      height: 88%;
+      bottom: 0;
+      top: auto;
+    }
+    .textcontainer{
+      .offsettab {
+        .button {
+          letter-spacing: normal;
+          padding: 5px;
+          font-size: 1em;
+          margin-top: 10px;
+        }
+      }
+    }
+
 }

@@ -39,8 +39,20 @@
   .block-library-item__inline-menu div {
     float: right; }
 
-.abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
+.abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
   min-height: 43vh; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+.block-img.textcontainer, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .block-img.textcontainer {
+    height: 88%;
+    bottom: 0;
+    top: auto; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+.textcontainer .offsettab .button, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .textcontainer .offsettab .button {
+    letter-spacing: normal;
+    padding: 5px;
+    font-size: 1em;
+    margin-top: 10px; }
 /**
  * #.# Editor Styles
  *

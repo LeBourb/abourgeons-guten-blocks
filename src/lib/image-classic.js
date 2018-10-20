@@ -42,6 +42,7 @@ export class ClassicImage extends React.Component {
 			imageSelected: false,
 			button: '',
 			headline: '',
+			subtltle: '',
 			hlink:null,
 			post:null
 		}
@@ -79,7 +80,9 @@ export class ClassicImage extends React.Component {
 		this.props.setAttributes({
 			button: this.state.button,
 			headline: this.state.headline,
-			hlink: this.HLinkRef.props.url
+			hlink: this.HLinkRef.props.url,
+			subtitle: this.state.subtitle,
+			rightaligned: this.state.rightaligned
 		});
 
 		this.props.onValidate();
@@ -96,14 +99,15 @@ export class ClassicImage extends React.Component {
 			imageSelected: false,
 			button: this.props.button,
 			headline: this.props.headline,
-			hlink: this.props.hlink
+			hlink: this.props.hlink,
+			rightaligned: this.props.rightaligned
 		});
 	}
 
 
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size} = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size, hasSubtitle, subtitle, rightaligned} = this.props;
 
 		let href, currenthlink;
 
@@ -124,7 +128,6 @@ export class ClassicImage extends React.Component {
 	    setAttributes( { media_url: url, media_id: id } );
 	  };
 
-
 		switch ( linkTo ) {
 			case 'media':
 				href = url;
@@ -137,17 +140,20 @@ export class ClassicImage extends React.Component {
 		// Disable reason: Image itself is not meant to be
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+//'is-transient': url && 0 === url.indexOf( 'blob:' ),
+		const className = classnames( {
+			'rightaligned': rightaligned,
+			'abourgeons_fall18abourgeons_fall18_render_responsivemultimedias':true,
+			'image_classic-editor': true
 
-		/*const className = classnames( {
-			'is-transient': url && 0 === url.indexOf( 'blob:' ),
-		} );*/
+		} );
 
 
 		return (
-			<div className="image-classic" tabIndex="-1" ref={ this.bindContainer }>
+			<div className="image-classic" tabIndex="-1">
 				{ <div className="block-library-item__inline-menu">
 						<IconButton
-							icon="no-alt"
+							icon="trash"
 							onClick={ onRemove }
 							className="blocks-carousel-item__remove"
 							label={ __( 'Remove Image' ) }
@@ -164,6 +170,17 @@ export class ClassicImage extends React.Component {
 									onClick={ open }
 								/>
 							) }
+						/>
+						<IconButton
+							icon="align-left"
+							onClick={ () => { this.state.rightaligned = false;  this.container.classList.remove('rightaligned'); } }
+							className="blocks-carousel-item__alignleft"
+							label={ __( 'Align Left' ) }
+						/> <IconButton
+							icon="align-right"
+							onClick={ () => { this.state.rightaligned = true;  this.container.classList.add('rightaligned') } }
+							className="blocks-carousel-item__alignright"
+							label={ __( 'Align Right' ) }
 						/>
 						<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
 					 	<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
@@ -185,7 +202,7 @@ export class ClassicImage extends React.Component {
 							accept="image/*"
 							type="image"
 						/> ) :
-							( <div className="abourgeons_fall18abourgeons_fall18_render_responsivemultimedias">
+							( <div className={ className } ref={ this.bindContainer }>
 									<div className="imagecontainer">
 										<section className="slide-data-container smallenablediv">
 											<picture>
@@ -195,15 +212,24 @@ export class ClassicImage extends React.Component {
 									</div>
 									<div className="textcontainer">
 
-										<section className="offsettab" >
+										<div className="offsettab" >
 												<RichText
 												tagName="h3"
 												placeholder={ __(  'Enter Headline…' ) }
 												value={ headline }
 												className= {'headline'}
-												onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
+												onChange={ ( HeadlineText ) => { this.setState( { headline: HeadlineText } ); }  }
 												inlineToolbar
 												/>
+												{ hasSubtitle ? <RichText
+												tagName="h4"
+												placeholder={ __(  'Enter Subtitle…' ) }
+												value={ subtitle }
+												className= {'subtitle'}
+												onChange={ ( text ) => { this.state.subtitle = text }  }
+												inlineToolbar
+												/>
+												: '' }
 												<RichText
 													tagName="div"
 													placeholder={ __(  'Enter Button Text…' ) }
@@ -212,7 +238,7 @@ export class ClassicImage extends React.Component {
 													onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
 													inlineToolbar
 												/>
-										</section>
+										</div>
 
 
 									</div>

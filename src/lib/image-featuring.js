@@ -11,7 +11,7 @@ const { IconButton, Spinner } = wp.components;
 const { __ } = wp.i18n;
 const { BACKSPACE, DELETE } = wp.keycodes;
 const { withSelect } = wp.data;
-const { RichText , URLInputButton, MediaUpload } = wp.editor;
+const { RichText , URLInputButton, MediaUpload, MediaPlaceholder } = wp.editor;
 //const { URLInputButton } = wp.button;
 
 //  Import CSS.
@@ -42,6 +42,7 @@ export class FeaturingImage extends React.Component {
 			imageSelected: false,
 			button: '',
 			headline: '',
+			subtitle: '',
 			hlink:null,
 			post:null
 		}
@@ -97,7 +98,9 @@ export class FeaturingImage extends React.Component {
 		this.props.setAttributes({
 			button: this.state.button,
 			headline: this.state.headline,
-			hlink: this.HLinkRef.props.url
+			hlink: this.HLinkRef.props.url,
+			subtitle: this.state.subtitle,
+			rightaligned: this.state.rightaligned
 		});
 
 		this.props.onValidate();
@@ -114,12 +117,14 @@ export class FeaturingImage extends React.Component {
 			imageSelected: false,
 			button: this.props.button,
 			headline: this.props.headline,
-			hlink: this.props.hlink
+			hlink: this.props.hlink,
+			subtitle: this.props.subtitle,
+			rightaligned: this.props.rightaligned
 		});
 	}
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink } = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, hasSubtitle, subtitle, rightaligned } = this.props;
 
 		let href, currenthlink;
 
@@ -161,6 +166,9 @@ export class FeaturingImage extends React.Component {
 		const className = classnames( {
 			'is-selected': isSelected,
 			'is-transient': url && 0 === url.indexOf( 'blob:' ),
+			'rightaligned': rightaligned,
+			'abourgeons_fall18abourgeons_fall18_render_imagefeaturing': true,
+		 	'image-featuring-editor':true
 		} );
 
 
@@ -175,45 +183,65 @@ export class FeaturingImage extends React.Component {
 				onChange={ ( url, post ) => setAttributes( { hlink: url } ) }
 
 
+
 		*/
+		const fctOnChange = ( url, post ) => { this.HLinkRef.props.url = url; this.HLinkRef.setState({url: url }); };
 		const editcmd = (
-			<div className="block-library-item__inline-menu">
-				<MediaUpload
-					onSelect={ onSelectImage }
-					type="image"
-					value={ id }
-					render={ ( { open } ) => (
-						<IconButton
-							className="components-toolbar__control"
-							label={ __( 'Edit image' ) }
-							icon="edit"
-							onClick={ open }
-						/>
-					) }
-				/>
+			<div>
+				<URLInputButton url={ currenthlink } onChange={ fctOnChange } 	ref={ this.setHLinkRef }  />
 				<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
-			 	<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
-			 	<URLInputButton
-				 	url={ currenthlink }
-					onChange={ ( url, post ) => { this.HLinkRef.props.url = url; this.HLinkRef.setState({url: url }) } }
-				 	ref={ this.setHLinkRef }
-				 />
-		 </div>) ;
+				<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
+				<IconButton
+						icon="align-left"
+						onClick={ () => { this.state.rightaligned = false;  this.container.classList.remove('rightaligned'); } }
+						className="blocks-carousel-item__alignleft"
+						label={ __( 'Align Left' ) }
+					/> <IconButton
+						icon="align-right"
+						onClick={ () => { this.state.rightaligned = true;  this.container.classList.add('rightaligned') } }
+						className="blocks-carousel-item__alignright"
+						label={ __( 'Align Right' ) }
+					/>
+		 	</div>
+		) ;
 		return (
-			<div className={ "abourgeons_fall18abourgeons_fall18_render_imagefeaturing image-featuring-editor" } tabIndex="-1" ref={ this.bindContainer }>
-						{ this.state.imageSelected ? editcmd : <div className="block-library-item__inline-menu"> <IconButton
-								icon="no-alt"
+			<div className={ className } tabIndex="-1" ref={ this.bindContainer }>
+						<div className="block-library-item__inline-menu">{ this.state.imageSelected ? editcmd : '' } {
+						<MediaUpload
+							onSelect={ onSelectImage }
+							type="image"
+							value={ id }
+							render={ ( { open } ) => (
+								<IconButton
+									className="components-toolbar__control"
+									label={ __( 'Edit image' ) }
+									icon="edit"
+									onClick={ open }
+								/>
+							) }
+						/>
+				}
+						<IconButton
+								icon="trash"
 								onClick={ onRemove }
 								className="blocks-carousel-item__remove"
 								label={ __( 'Remove Image' ) }
 							/>
-							</div>
-						}
 
+						</div>
+				{ ! url ? ( <MediaPlaceholder
+							icon= 'edit'
+							className={ 'mediaplaceholder' }
+							labels={ {
+								title: 'Select',
+								name: __( 'an image' ),
+							} }
+							onSelect={ onSelectImage }
+							accept="image/*"
+							type="image"
+						/> ) : ( <div src={ url } alt={ alt } className={ 'block-img textcontainer' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
 
-				{ <div src={ url } alt={ alt } className={ 'block-img textcontainer' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
-
-							<section className="offsettab" ref={ this.bindContainer }>
+							<div className="offsettab">
 									{ this.state.imageSelected ? <RichText
 									tagName="h3"
 									placeholder={ __(  'Enter Headline…' ) }
@@ -222,6 +250,16 @@ export class FeaturingImage extends React.Component {
 									onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
 									inlineToolbar
 								/>  : <h3 className={'headline'}>{ headline }</h3>
+								}
+								{ 	hasSubtitle ? ( this.state.imageSelected ? <RichText
+										tagName="h4"
+										placeholder={ __(  'Subtitle…' ) }
+										value={ subtitle }
+										className= {'subtitle'}
+										onChange={ ( text ) => { this.state.subtitle = text }  }
+										inlineToolbar
+										/>  : <h4 className={'subtitle'}>{ subtitle }</h4>
+									) : ''
 								}
 
 										{ this.state.imageSelected ? <RichText
@@ -234,8 +272,9 @@ export class FeaturingImage extends React.Component {
 									/>  : <div className={'button'}>{ button }</div>
 									}
 
-							</section>
+							</div>
 					</div>
+				)
 				}
 			</div>
 		);

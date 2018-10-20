@@ -18,6 +18,7 @@ const {
 	ToggleControl,
 	Toolbar,
 	withNotices,
+	Button
 } = wp.components;
 const {
 	BlockControls,
@@ -54,7 +55,6 @@ class carouselEdit extends Component {
 	constructor() {
 		super( ...arguments );
 
-		this.onSelectImages = this.onSelectImages.bind( this );
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.toggleMultiMediaResponsive = this.toggleMultiMediaResponsive.bind( this );
@@ -82,7 +82,7 @@ class carouselEdit extends Component {
 		return () => {
 			const images = filter( this.props.attributes.images, ( img, i ) => index !== i );
 			const { columns } = this.props.attributes;
-			this.setState( { selectedImage: null } );
+			this.state.selectedImage = index -1;
 			this.props.setAttributes( {
 				images,
 				columns: columns ? Math.min( images.length, columns ) : columns,
@@ -91,27 +91,9 @@ class carouselEdit extends Component {
 	}
 
 	onValidate( index ) {
-		return () => {
+		return () => {;
 			this.setState( { selectedImage: index } );
 		};
-	}
-
-	onSelectImages( image ) {
-		var imgs = [];
-		if (this.state.MultiMediaResponsive)
-		 	imgs[this.state.size] = image;
-		else
-			imgs[0] = image;
-
-
-		this.props.attributes.images.push(imgs);
-		this.setState({
-			selectedImage: this.props.attributes.images.length - 1
-		});
-		this.props.setAttributes( {
-			images:  this.props.attributes.images.slice()
-		} );
-
 	}
 
 	setLinkTo( value ) {
@@ -136,6 +118,7 @@ class carouselEdit extends Component {
 		if ( ! images[ index ] ) {
 			return;
 		}
+		this.state.selectedImage = index;
 		setAttributes( {
 			images: [
 				...images.slice( 0, index ),
@@ -228,54 +211,9 @@ class carouselEdit extends Component {
 			carousel.trigger('destroy.owl.carousel');
 		}
 
-		const controls =  (
-			<BlockControls>
-				{ !! images.length && (
-					<Toolbar>
-						<MediaUpload
-							onSelect={ this.onSelectImages }
-							type="image"
-							carousel
-							value={ images.map( ( img ) => img.media_id ) }
-							render={ ( { open } ) => (
-								<IconButton
-									className="components-toolbar__control"
-									label={ __( 'Edit carousel' ) }
-									icon="edit"
-									onClick={ open }
-								/>
-							) }
-						/>
-					</Toolbar>
-				) }
-
-			</BlockControls>
-		);
-
-		if ( images.length === 0 ) {
-			return (
-				<Fragment>
-					{ controls }
-					<MediaPlaceholder
-						icon="format-carousel"
-						className={ className }
-						labels={ {
-							title: __( 'carousel' ),
-							name: __( 'images' ),
-						} }
-						onSelect={ this.onSelectImages }
-						accept="image/*"
-						type="image"
-						notices={ noticeUI }
-						onError={ noticeOperations.createErrorNotice }
-					/>
-				</Fragment>
-			);
-		}
 
 		return (
 			<Fragment>
-				{ controls }
 				<InspectorControls>
 					<PanelBody title={ __( 'carousel Settings' ) }>
 						{ images.length > 1 && <RangeControl
@@ -328,6 +266,7 @@ class carouselEdit extends Component {
 									headline={ img.headline }
 									button={ img.button }
 									hlink={ img.hlink }
+									rightaligned= { img.rightaligned }
 								/> ) :	(
 								<FeaturingImage
 								media_url={ img.media_url ? img.media_url : [] }
@@ -339,24 +278,24 @@ class carouselEdit extends Component {
 								headline={ img.headline }
 								button={ img.button }
 								hlink={img.hlink}
+								rightaligned= { img.rightaligned }
 							/>
 						 )
 					) ) }
 
 						<div className="blocks-carousel-item has-add-item-button">
-							<MediaPlaceholder
-								icon="format-carousel"
-								className=''
-								labels={ {
-									title: __( 'carousel' ),
-									name: __( 'images' ),
-								} }
-								onSelect={ this.onSelectImages }
-								accept="image/*"
-								type="image"
-								notices={ noticeUI }
-								onError={ noticeOperations.createErrorNotice }
-							/>
+							<Button isDefault
+											onClick={ () => {
+												this.props.attributes.images.push([]);
+												this.setState({
+													selectedImage: this.props.attributes.images.length - 1
+												});
+												this.props.setAttributes( {
+													images:  this.props.attributes.images.slice()
+												} );
+											 } }>
+        				Click me!
+    					</Button>
 						</div>
 
 				</ul>
@@ -364,6 +303,20 @@ class carouselEdit extends Component {
 		);
 	}
 }
-
+/*
+<MediaPlaceholder
+	icon="format-carousel"
+	className=''
+	labels={ {
+		title: __( 'carousel' ),
+		name: __( 'images' ),
+	} }
+	onSelect={ this.onSelectImages }
+	accept="image/*"
+	type="image"
+	notices={ noticeUI }
+	onError={ noticeOperations.createErrorNotice }
+/>
+*/
 
 export default withNotices( carouselEdit );
