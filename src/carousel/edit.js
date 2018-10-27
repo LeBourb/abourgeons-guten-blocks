@@ -58,11 +58,9 @@ class carouselEdit extends Component {
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.toggleMultiMediaResponsive = this.toggleMultiMediaResponsive.bind( this );
-		this.onRemoveImage = this.onRemoveImage.bind( this );
-		this.onValidate = this.onValidate.bind( this );
+		this.onRemoveImage = this.onRemoveImage.bind( this );		
 		this.setImageAttributes = this.setImageAttributes.bind( this );
 		this.addFiles = this.addFiles.bind( this );
-		this.uploadFromFiles = this.uploadFromFiles.bind( this );
 
 		this.state = {
 			selectedImage: null,
@@ -72,7 +70,8 @@ class carouselEdit extends Component {
     		transitionStyle : "fade"
 			},
 			size: 0,
-			MultiMediaResponsive: false
+			MultiMediaResponsive: false,
+			edit: null
 		};
 
 		this.$carousel = React.createRef();
@@ -87,12 +86,6 @@ class carouselEdit extends Component {
 				images,
 				columns: columns ? Math.min( images.length, columns ) : columns,
 			} );
-		};
-	}
-
-	onValidate( index ) {
-		return () => {;
-			this.setState( { selectedImage: index } );
 		};
 	}
 
@@ -131,9 +124,6 @@ class carouselEdit extends Component {
 		} );
 	}
 
-	uploadFromFiles( event ) {
-		this.addFiles( event.target.files );
-	}
 
 	addFiles( files ) {
 		const currentImages = this.props.attributes.images || [];
@@ -248,37 +238,64 @@ class carouselEdit extends Component {
 		        }
 					</PanelBody>
 				</InspectorControls>
-
-
-				<ul
+				{ this.state.edit !== null ? (  this.state.MultiMediaResponsive  ? (	<ClassicImage
+					media_url={ images[this.state.edit].media_url ? images[this.state.edit].media_url : [] }
+					media_id={ images[this.state.edit].media_id ? images[this.state.edit].media_id : [] }
+					size={this.state.size}
+					onRemove={ '' }
+					onValidate={ () => this.setState( { selectedImage: this.state.edit, edit: null } )  }
+					onCancel={ () => this.setState({edit: null}) }
+					setAttributes={ ( attrs ) => this.setImageAttributes( this.state.edit, attrs ) }
+					headline={ images[this.state.edit].headline }
+					button={ images[this.state.edit].button }
+					hlink={ images[this.state.edit].hlink }
+					rightaligned= { images[this.state.edit].rightaligned }
+					edit={ null }
+				/> ) :	(
+				<FeaturingImage
+				media_url={ images[this.state.edit].media_url ? images[this.state.edit].media_url : [] }
+				alt={ images[this.state.edit].alt }
+				media_id={ images[this.state.edit].media_id ? images[this.state.edit].media_id : [] }
+				onRemove={ '' }
+				onValidate={ () => this.setState( { selectedImage: this.state.edit, edit: null } ) }
+				onCancel={ () => this.setState({edit: null}) }
+				setAttributes={ ( attrs ) => this.setImageAttributes( this.state.edit, attrs ) }
+				headline={ images[this.state.edit].headline }
+				button={ images[this.state.edit].button }
+				hlink={images[this.state.edit].hlink}
+				rightaligned= { images[this.state.edit].rightaligned }
+				edit={ null }
+			/> ) ) : (	<ul
 				    className={ ` ${className}  align owl-theme owl-carousel ` }
 						ref={this.$carousel}
-				>
-
-					{ images.map( ( img, index ) => (
+				>	{ images.map( ( img, index ) => (
 							  this.state.MultiMediaResponsive  ? (	<ClassicImage
 									media_url={ img.media_url ? img.media_url : [] }
 									media_id={ img.media_id ? img.media_id : [] }
 									size={this.state.size}
 									onRemove={ this.onRemoveImage( index ) }
-									onValidate={ this.onValidate( index ) }
+									onValidate={ null }
+									onCancel={ null }
 									setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
 									headline={ img.headline }
 									button={ img.button }
 									hlink={ img.hlink }
 									rightaligned= { img.rightaligned }
+									edit={ () => this.setState({edit: index}) }
 								/> ) :	(
 								<FeaturingImage
 								media_url={ img.media_url ? img.media_url : [] }
 								alt={ img.alt }
 								media_id={ img.media_id ? img.media_id : [] }
 								onRemove={ this.onRemoveImage( index ) }
-								onValidate={ this.onValidate( index ) }
+								onValidate={ null }
+								onCancel={ null }
 								setAttributes={ ( attrs ) => this.setImageAttributes( index, attrs ) }
 								headline={ img.headline }
 								button={ img.button }
 								hlink={img.hlink}
 								rightaligned= { img.rightaligned }
+								edit={ () => this.setState({edit: index}) }
 							/>
 						 )
 					) ) }
@@ -287,9 +304,7 @@ class carouselEdit extends Component {
 							<Button isDefault
 											onClick={ () => {
 												this.props.attributes.images.push([]);
-												this.setState({
-													selectedImage: this.props.attributes.images.length - 1
-												});
+												this.state.selectedImage= this.props.attributes.images.length - 1;
 												this.props.setAttributes( {
 													images:  this.props.attributes.images.slice()
 												} );
@@ -297,8 +312,7 @@ class carouselEdit extends Component {
         				Click me!
     					</Button>
 						</div>
-
-				</ul>
+				</ul> )	}
 			</Fragment>
 		);
 	}

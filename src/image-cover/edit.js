@@ -25,7 +25,8 @@ class imagecoverEdit extends Component {
 		super( ...arguments );
 
 		this.state = {
-			size: 0
+			size: 0,
+			edit: null
 		};
 
 	}
@@ -92,7 +93,8 @@ render()  {
                 media_id={ media_id }
                 size={this.state.size}
                 onRemove={ () => { } }
-                onValidate={ () => { } }
+                onValidate={ (attrs) => { this.state.edit = null; setAttributes(attrs); } }
+								onCancel={ () => { this.setState({edit:null}); } }
                 setAttributes={ (attrs) => { setAttributes(attrs); } }
                 headline={ headline }
                 hasSubtitle={ hasSubtitle }
@@ -100,12 +102,14 @@ render()  {
                 button={ button }
                 hlink={ hlink }
 								rightaligned= { rightaligned }
+								edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
               /> : <FeaturingImage
                   media_url={ media_url }
                   media_id={ media_id }
                   size={this.state.size}
                   onRemove={ () => { } }
-                  onValidate={ () => { } }
+                  onValidate={ (attrs) => { this.state.edit = null; setAttributes(attrs); } }
+									onCancel={ () => { this.setState({edit:null}); } }
                   setAttributes={ (attrs) => { setAttributes(attrs); } }
                   headline={ headline }
                   hasSubtitle={ hasSubtitle }
@@ -113,6 +117,7 @@ render()  {
                   button={ button }
                   hlink={ hlink }
 									rightaligned= { rightaligned }
+									edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
                 />
             }
         </div>

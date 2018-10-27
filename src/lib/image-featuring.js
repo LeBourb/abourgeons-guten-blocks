@@ -99,10 +99,8 @@ export class FeaturingImage extends React.Component {
 			button: this.state.button,
 			headline: this.state.headline,
 			hlink: this.HLinkRef.props.url,
-			subtitle: this.state.subtitle,
-			rightaligned: this.state.rightaligned
+			subtitle: this.state.subtitle
 		});
-
 		this.props.onValidate();
 
 		 /*
@@ -114,17 +112,17 @@ export class FeaturingImage extends React.Component {
 
 	onCancel () {
 		this.setState({
-			imageSelected: false,
 			button: this.props.button,
 			headline: this.props.headline,
 			hlink: this.props.hlink,
-			subtitle: this.props.subtitle,
-			rightaligned: this.props.rightaligned
+			subtitle: this.props.subtitle
 		});
+
+		this.props.onCancel();
 	}
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, hasSubtitle, subtitle, rightaligned } = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, hasSubtitle, subtitle, rightaligned, edit, onValidate, onCancel } = this.props;
 
 		let href, currenthlink;
 
@@ -140,6 +138,13 @@ export class FeaturingImage extends React.Component {
 			case 'attachment':
 				href = link;
 				break;
+		}
+
+		this.state = {
+			button: button,
+			headline: headline,
+			subtitle: subtitle,
+			hlink:hlink
 		}
 
 		const onSelectImage = ( media ) => {
@@ -186,27 +191,36 @@ export class FeaturingImage extends React.Component {
 
 		*/
 		const fctOnChange = ( url, post ) => { this.HLinkRef.props.url = url; this.HLinkRef.setState({url: url }); };
-		const editcmd = (
-			<div>
-				<URLInputButton url={ currenthlink } onChange={ fctOnChange } 	ref={ this.setHLinkRef }  />
+		var editcmd = null;
+		if(edit) {
+			editcmd = (<div> <IconButton
+					icon="edit"
+					onClick={ () => { edit();/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+					className="blocks-carousel-item__edit"
+					label={ __( 'Edit' ) }
+				/>
+			<IconButton
+					icon="align-left"
+					onClick={ () => { setAttributes({rightaligned:false});/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+					className="blocks-carousel-item__alignleft"
+					label={ __( 'Align Left' ) }
+				/> <IconButton
+					icon="align-right"
+					onClick={ () => { setAttributes({rightaligned:true});/*t this.state.rightaligned = true;  this.container.classList.add('rightaligned')*/ } }
+					className="blocks-carousel-item__alignright"
+					label={ __( 'Align Right' ) }
+				/></div>);
+		} else {
+			editcmd = (<div>
 				<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
 				<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
-				<IconButton
-						icon="align-left"
-						onClick={ () => { this.state.rightaligned = false;  this.container.classList.remove('rightaligned'); } }
-						className="blocks-carousel-item__alignleft"
-						label={ __( 'Align Left' ) }
-					/> <IconButton
-						icon="align-right"
-						onClick={ () => { this.state.rightaligned = true;  this.container.classList.add('rightaligned') } }
-						className="blocks-carousel-item__alignright"
-						label={ __( 'Align Right' ) }
-					/>
-		 	</div>
-		) ;
+				<URLInputButton url={ currenthlink } onChange={ fctOnChange } 	ref={ this.setHLinkRef }  />
+		 	</div>);
+		}
+
 		return (
 			<div className={ className } tabIndex="-1" ref={ this.bindContainer }>
-						<div className="block-library-item__inline-menu">{ this.state.imageSelected ? editcmd : '' } {
+						<div className="block-library-item__inline-menu">{ editcmd } {
 						<MediaUpload
 							onSelect={ onSelectImage }
 							type="image"
@@ -215,7 +229,7 @@ export class FeaturingImage extends React.Component {
 								<IconButton
 									className="components-toolbar__control"
 									label={ __( 'Edit image' ) }
-									icon="edit"
+									icon="format-image"
 									onClick={ open }
 								/>
 							) }
@@ -242,34 +256,32 @@ export class FeaturingImage extends React.Component {
 						/> ) : ( <div src={ url } alt={ alt } className={ 'block-img textcontainer' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
 
 							<div className="offsettab">
-									{ this.state.imageSelected ? <RichText
+									{ edit ?  <h3 className={'headline'}>{ headline }</h3>  : <RichText
 									tagName="h3"
 									placeholder={ __(  'Enter Headline…' ) }
 									value={ headline }
 									className= {'headline'}
 									onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
 									inlineToolbar
-								/>  : <h3 className={'headline'}>{ headline }</h3>
+								/>
 								}
-								{ 	hasSubtitle ? ( this.state.imageSelected ? <RichText
+								{ 	hasSubtitle ? ( edit ? <h4 className={'subtitle'}>{ subtitle }</h4> : <RichText
 										tagName="h4"
 										placeholder={ __(  'Subtitle…' ) }
 										value={ subtitle }
 										className= {'subtitle'}
 										onChange={ ( text ) => { this.state.subtitle = text }  }
 										inlineToolbar
-										/>  : <h4 className={'subtitle'}>{ subtitle }</h4>
+										/>
 									) : ''
-								}
-
-										{ this.state.imageSelected ? <RichText
+								}	{ edit ? <div className={'button'}>{ button }</div> : <RichText
 										tagName="div"
 										placeholder={ __(  'Enter Button Text…' ) }
 										value={ button }
 										className= {'button'}
 										onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
 										inlineToolbar
-									/>  : <div className={'button'}>{ button }</div>
+									/>
 									}
 
 							</div>

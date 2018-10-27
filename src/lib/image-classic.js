@@ -81,11 +81,10 @@ export class ClassicImage extends React.Component {
 			button: this.state.button,
 			headline: this.state.headline,
 			hlink: this.HLinkRef.props.url,
-			subtitle: this.state.subtitle,
-			rightaligned: this.state.rightaligned
+			subtitle: this.state.subtitle
 		});
-
 		this.props.onValidate();
+
 
 		 /*
 		this.props.setAttributes({
@@ -96,18 +95,19 @@ export class ClassicImage extends React.Component {
 
 	onCancel () {
 		this.setState({
-			imageSelected: false,
 			button: this.props.button,
 			headline: this.props.headline,
 			hlink: this.props.hlink,
-			rightaligned: this.props.rightaligned
+			subtitle: this.props.subtitle
 		});
+
+		this.props.onCancel();
 	}
 
 
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size, hasSubtitle, subtitle, rightaligned} = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size, hasSubtitle, subtitle, rightaligned, onValidate, onCancel, edit} = this.props;
 
 		let href, currenthlink;
 
@@ -137,6 +137,12 @@ export class ClassicImage extends React.Component {
 				break;
 		}
 
+		this.state = {
+			button: button,
+			headline: headline,
+			subtitle: subtitle,
+			hlink:hlink
+		}
 		// Disable reason: Image itself is not meant to be
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
@@ -152,7 +158,7 @@ export class ClassicImage extends React.Component {
 		return (
 			<div className="image-classic" tabIndex="-1">
 				{ <div className="block-library-item__inline-menu">
-						<IconButton
+					{ edit ? (	<div><IconButton
 							icon="trash"
 							onClick={ onRemove }
 							className="blocks-carousel-item__remove"
@@ -166,29 +172,36 @@ export class ClassicImage extends React.Component {
 								<IconButton
 									className="components-toolbar__control"
 									label={ __( 'Edit image' ) }
-									icon="edit"
+									icon="format-image"
 									onClick={ open }
 								/>
 							) }
 						/>
 						<IconButton
+							icon="edit"
+							onClick={ () => { edit();/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+							className="blocks-carousel-item__edit"
+							label={ __( 'Edit' ) }
+						/>
+						<IconButton
 							icon="align-left"
-							onClick={ () => { this.state.rightaligned = false;  this.container.classList.remove('rightaligned'); } }
+							onClick={ () => { setAttributes({rightaligned:false});/*this.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
 							className="blocks-carousel-item__alignleft"
 							label={ __( 'Align Left' ) }
 						/> <IconButton
 							icon="align-right"
-							onClick={ () => { this.state.rightaligned = true;  this.container.classList.add('rightaligned') } }
+							onClick={ () => { setAttributes({rightaligned:true});/*this.state.rightaligned = true;  this.container.classList.add('rightaligned')*/ } }
 							className="blocks-carousel-item__alignright"
 							label={ __( 'Align Right' ) }
-						/>
-						<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
+						/></div>  ) : ( <div>	<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>
 					 	<IconButton	icon="yes" 	onClick={ this.onValid } className="blocks-carousel-item__valid" label={ __( 'Valid Modif' ) } />
 						<URLInputButton
 						 	url={ currenthlink }
 							onChange={ ( url, post ) => { this.HLinkRef.props.url = url; this.HLinkRef.setState({url: url }) } }
 						 	ref={ this.setHLinkRef }
 					 	/>
+				</div>
+				) }
 					</div>
 				}
 				{ ! media_url[size] ?  ( <MediaPlaceholder
@@ -213,23 +226,25 @@ export class ClassicImage extends React.Component {
 									<div className="textcontainer">
 
 										<div className="offsettab" >
-												<RichText
+											{ edit ? <h3 className='headline'>{headline}</h3> :	<RichText
 												tagName="h3"
 												placeholder={ __(  'Enter Headline…' ) }
 												value={ headline }
 												className= {'headline'}
-												onChange={ ( HeadlineText ) => { this.setState( { headline: HeadlineText } ); }  }
+												onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
 												inlineToolbar
 												/>
-												{ hasSubtitle ? <RichText
+										 }
+												{ hasSubtitle ? ( edit ? <h4 className="text">{subtitle}</h4> : <RichText
 												tagName="h4"
 												placeholder={ __(  'Enter Subtitle…' ) }
 												value={ subtitle }
 												className= {'subtitle'}
 												onChange={ ( text ) => { this.state.subtitle = text }  }
 												inlineToolbar
-												/>
+												/> )
 												: '' }
+												{ edit ? <div className="button">{button}</div> :
 												<RichText
 													tagName="div"
 													placeholder={ __(  'Enter Button Text…' ) }
@@ -238,6 +253,7 @@ export class ClassicImage extends React.Component {
 													onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
 													inlineToolbar
 												/>
+										}
 										</div>
 
 

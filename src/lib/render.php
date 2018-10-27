@@ -20,7 +20,7 @@ function abourgeons_fall18_render_image_featuring( $image ) {
         wp_print_rich_text_editor($image['headline']);
         ?></h3>
       <?php } ?>
-      <?php if(isset($image['button']) && !empty($image['button']) && is_array($image['button'])) { ?>
+      <?php if(isset($image['button']) && !empty($image['button'])) { ?>
         <div class="button"><?php
           wp_print_rich_text_editor($image['button']);
         ?></div>
@@ -66,20 +66,20 @@ function abourgeons_fall18_render_responsivemultimedias( $attributes ) {
   <div class="textcontainer">
     <section class="offsettab" >
         <h3  class="headline"><?php
-          if(isset($attributes['headline']) && is_array($attributes['headline']) ) {
+          if(isset($attributes['headline'])) {
             wp_print_rich_text_editor($attributes['headline']);
           } ?></h3>
           <?php if(isset($attributes['hasSubtitle']) && $attributes['hasSubtitle'] ) {
             ?>
           <h4  class="subtitle"><?php
-            if(isset($attributes['subtitle']) && is_array($attributes['subtitle']) ) {
+            if(isset($attributes['subtitle']) ) {
               wp_print_rich_text_editor($attributes['subtitle']);
             } ?></h4>
           <?php }
           ?>
         <div class="button">
           <?php
-          if(isset($attributes['button']) && is_array($attributes['button']) ) {
+          if(isset($attributes['button']) ) {
             wp_print_rich_text_editor($attributes['button']);
           }
           ?>
@@ -163,12 +163,17 @@ function wp_get_attachment_source_media($attachment_id, $media_min_width , $size
 
 
 function wp_print_rich_text_editor($richtext) {
-  foreach($richtext as $text) {
-    if(is_array($text) )
-      wp_print_rich_text_markup($text);
-    else
-      echo $text;
+  if(is_array($richtext)) {
+    foreach($richtext as $text) {
+      if(is_array($text) )
+        wp_print_rich_text_markup($text);
+      else
+        echo $text;
+    }
   }
+  else
+    echo $richtext;
+
 }
 
 function wp_print_rich_text_markup($richtext) {
