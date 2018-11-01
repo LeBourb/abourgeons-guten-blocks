@@ -41,6 +41,8 @@ function my_block_cgb_block_assets() {
 	require_once ('template-18-fall/render.php');
 	require_once ('two-images/render.php');
 	require_once ('image-cover/render.php');
+	require_once ('product-cover/render.php');
+	require_once ('products-grid/render.php');
 } // End function my_block_cgb_block_assets().
 
 // Hook: Frontend assets.

@@ -1,5 +1,5 @@
 <?php
-
+require_once  __DIR__ . '/../lib/render.php';
 function abourgeons_18_fall_block_01( $attributes, $content ) {
   ob_start();
   $image = null;
@@ -12,9 +12,7 @@ function abourgeons_18_fall_block_01( $attributes, $content ) {
         <h3 class="title">
             <?php
             if(isset($attributes['title'])) {
-              foreach($attributes['title'] as $title) {
-                  echo $title;
-              }
+              wp_print_rich_text_editor($attributes['title']);
             }
             ?>
 
@@ -23,9 +21,7 @@ function abourgeons_18_fall_block_01( $attributes, $content ) {
         <p class="content-text">
             <?php
             if(isset($attributes['text'])) {
-              foreach($attributes['text'] as $text) {
-                  echo $text;
-              }
+              wp_get_attachment_image_src(($attributes['text']));
             }
             ?>
         </p>

@@ -99,3 +99,45 @@
   }
 
 }
+
+
+.abourgeons_fall18_woo_product_cover_block {
+  
+  .block-img {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
+
+  .product-over-details {
+    right: 2rem;
+    bottom: 2rem;
+    width: 20rem;
+    height: 35rem;
+    padding: 3.5rem 3rem 3rem;
+    background: #fff;
+    color: #000;
+    z-index: 1;
+    display:none;
+    position: absolute;
+    .product-variation {
+        display: flex;
+        justify-content: space-evenly;
+        text-transform: uppercase;
+    }
+  }
+
+  &:hover {
+    .product-over-details {
+      display: block;
+    }
+  }
+
+  .textcontainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}

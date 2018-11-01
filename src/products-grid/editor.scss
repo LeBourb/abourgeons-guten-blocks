@@ -1,0 +1,14 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+ @import "../common.scss";
+ @import "~bootstrap/scss/bootstrap";
+
+.abourgeons-guten-products-grid  {
+  display: flex;
+  flex-wrap: wrap;
+}

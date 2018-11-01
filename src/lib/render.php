@@ -184,26 +184,47 @@ function wp_print_rich_text_markup($richtext) {
   }
 }
 
-/*RichTextContainer.Content = ( { value, format, tagName: Tag, ...props } ) => {
-	let content;
-	switch ( format ) {
-		case 'string':
-			content = <RawHTML>{ value }</RawHTML>;
-			break;
 
-		case 'children':
-			content = <RawHTML>{ children.toHTML( value ) }</RawHTML>;
-			break;
-	}
+function wc_product_display_tile($product) {
+?>
+<a href="<?php echo get_permalink($product->get_id()); ?>">
+<div class="abourgeons_fall18_woo_product_cover_block">
+  <div class="imagecontainer" style="">
+      <?php
+      echo wp_get_attachment_image(get_post_thumbnail_id($product->get_id()), array('700', '1200'));
+            //echo wp_get_attachment_image( get_post_thumbnail_id($product->get_id()), array( 'woocommerce_thumbnail', 'single_product' ), 0);
+    ?>
+  </div>
+  <div style="" class="textcontainer" >
+    <div class="product-over-details" data-id="1">
+      <h3 class="title"><?php echo $product->get_title(); ?></h3>
+      <p class="price"><?php echo $product->get_price_html();?></p>
+      <?php
+        if(!is_a($product, 'WC_Product_Variation') && !is_a($product, 'WC_Product_Simple') && !empty($product->get_available_variations( ))) {
+            $variations = $product->get_available_variations( );
+            echo '<ul class="product-variation">';
+            foreach($variations as $variation) {
+                if ($variation['variation_is_active'] && $variation['variation_is_visible']) {
+                    //$variation->is_in_stock
+                    if(sizeof($variation['attributes']) == 1) {
+                        $attrs = $variation['attributes'];
+                        reset($attrs);
+                        $first_key = key($attrs);
+                        if(!$variation['is_in_stock']) {
+                            echo '<li class="item"><del>' . $attrs[$first_key] . '</del></li>';
+                        }else {
+                            echo '<li class="item">' . $attrs[$first_key] . '</li>';
+                        }
 
-	if ( Tag ) {
-		return <Tag { ...props }>{ content }</Tag>;
-	}
-
-	return content;
-};
-
-RichTextContainer.Content.defaultProps = {
-	format: 'children',
-};
-*/
+                    }
+                }
+            }
+            echo '</ul>';
+        }
+      ?>
+    </div>
+  </div>
+</div>
+</a>
+<?php
+}

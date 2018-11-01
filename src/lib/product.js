@@ -299,68 +299,70 @@ class ProductSpecificSearchResultsDropdownElement extends React.Component {
 }
 
 /**
- * List preview of selected products.
+ *
+ *
+ * @todo Add the functionality and everything.
+ */
+export class ProductTile extends React.Component {
 
-const ProductSpecificSelectedProducts  = (props) => {
-  return  apiFetch(  ( props ) => {
-		if ( ! props.productIds.length ) {
-			return {
-				products: []
-			};
-		}
+	/**
+	 * Constructor.
+	 */
+	constructor( props ) {
+		super( props );
+	}
 
-		return {
-			products: uncachedProducts.length ? '/wc/v2/products?include=' + uncachedProducts.join( ',' ) : []
-		};
-	} ).then( ( { productIds, products, columns, addOrRemoveProduct } ) => {
+/*  fetch( ) {
+    if(this.props.productId) {
+      apiFetch( {
+        path: '/wc/v2/products/' + this.props.productId
+      }).then( (product) => {
+          PRODUCT_DATA[ this.props.productId ] = product;
+          this.setState ( {
+            product: product
+          } );
 
-		// Add new products to cache.
-		if ( products.data ) {
-			for ( const product of products.data ) {
-				PRODUCT_DATA[ product.id ] = product;
-			}
-		}
+        }
+      );
+    }
+  }*/
 
-		const productElements = [];
+	/**
+	 * Render the product specific select screen.
+   <ProductSpecificSelectedProducts
+     columns={ this.props.attributes.columns }
+     productIds={ this.state.selectedProducts }
+     addOrRemoveProduct={ this.addOrRemoveProduct.bind( this ) }
+   />
+	 */
+	render() {
+    /*if(!this.state || !this.state.product) {
+      this.fetch();
+    }
+    console.log(product_cover);*/
+    var product = PRODUCT_DATA[ this.props.productId ];
+    if(!product) {
+      apiFetch( {
+        path: '/wc/v2/products/' + this.props.productId
+      }).then( (product) => {
 
-		for ( const productId of productIds ) {
 
-			// Skip products that aren't in the cache yet or failed to fetch.
-			if ( ! PRODUCT_DATA.hasOwnProperty( productId ) ) {
-				continue;
-			}
+          // Populate the cache.
 
-			const productData = PRODUCT_DATA[ productId ];
+          PRODUCT_DATA[ product.id ] = product;
 
-			productElements.push(
-				<li className="wc-products-list-card__item" key={ productData.id + '-specific-select-edit' } >
-					<div className="wc-products-list-card__content">
-						<img src={ productData.images[0].src } />
-						<span className="wc-products-list-card__content-item-name">{ productData.name }</span>
-						<button
-							type="button"
-							id={ 'product-' + productData.id }
-							onClick={ function() { addOrRemoveProduct( productData.id ) } } >
-								<Dashicon icon="no-alt" />
-						</button>
-					</div>
-				</li>
-			);
-		}
+          this.setState ( {
+            product: product
+          } );
 
+        }
+      );
+    }
 		return (
-			<div className={ 'wc-products-list-card__results-wrapper wc-products-list-card__results-wrapper--cols-' + columns }>
-				<div role="menu" className="wc-products-list-card__results" aria-orientation="vertical" aria-label={ __( 'Selected products' ) }>
-
-					{ productElements.length > 0 && <h3>{ __( 'Selected products' ) }</h3> }
-
-					<ul>
-						{ productElements }
-					</ul>
-				</div>
+			<div className="wc-products-list-card wc-products-list-card--specific">
+        { product ? <img src={ product.images[0].src } /> : (<h3>Loading...</h3>)
+        }
 			</div>
 		);
 	}
-);
 }
-*/

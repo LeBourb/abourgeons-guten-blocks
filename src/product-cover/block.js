@@ -15,7 +15,7 @@ const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.b
 const { withNotices } = wp.components;
 const { apiFetch } = wp;
 
-import { ProductsSpecificSelect } from './searchproduct.js';
+import { ProductsSpecificSelect, ProductTile } from './../lib/product.js';
 
 const PRODUCT_DATA = {};
 
@@ -41,7 +41,7 @@ var product = null;
  * @return {?WPBlock}          The block, if it has been successfully
  *                             registered; otherwise `undefined`.
  */
-var product_cover = registerBlockType( 'abourgeons-18-fall/product-cover', {
+var product_cover = registerBlockType( 'abourgeons-guten/product-cover-block', {
 	// Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( '18 fall Product Cover' ), // Block title.
 	icon: 'shield', // Block icon from Dashicons → https://developer.wordpress.org/resource/dashicons/.
@@ -51,6 +51,8 @@ var product_cover = registerBlockType( 'abourgeons-18-fall/product-cover', {
 		__( 'CGB Example' ),
 		__( 'create-guten-block' ),
 	],
+
+	attributes: blockAttributes,
 
 	/**
 	 * The edit function describes the structure of your block in the context of the editor.
@@ -91,67 +93,7 @@ var product_cover = registerBlockType( 'abourgeons-18-fall/product-cover', {
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
 	save: function(  { attributes, className } ) {
-    const { productId } = attributes;
-		return (
-			<div className={ className }>
-        { productId && (
-          <ProductTile productId={ productId }
-             />
-      ) }
-			</div>
-		);
+		return null;
 	}
 }
  );
-
-/**
- *
- *
- * @todo Add the functionality and everything.
- */
-export class ProductTile extends React.Component {
-
-	/**
-	 * Constructor.
-	 */
-	constructor( props ) {
-		super( props );
-	}
-
-/*  fetch( ) {
-    if(this.props.productId) {
-      apiFetch( {
-        path: '/wc/v2/products/' + this.props.productId
-      }).then( (product) => {
-          PRODUCT_DATA[ this.props.productId ] = product;
-          this.setState ( {
-            product: product
-          } );
-
-        }
-      );
-    }
-  }*/
-
-	/**
-	 * Render the product specific select screen.
-   <ProductSpecificSelectedProducts
-     columns={ this.props.attributes.columns }
-     productIds={ this.state.selectedProducts }
-     addOrRemoveProduct={ this.addOrRemoveProduct.bind( this ) }
-   />
-	 */
-	render() {
-    /*if(!this.state || !this.state.product) {
-      this.fetch();
-    }
-    console.log(product_cover);*/
-    var product = PRODUCT_DATA[ this.props.productId ];
-		return (
-			<div className="wc-products-list-card wc-products-list-card--specific">
-        { product && (  <img src={ product.images[0].src } />
-        )}
-			</div>
-		);
-	}
-}
