@@ -39,3 +39,19 @@
 		}
 
 }
+
+@media only screen and (max-width: $break-small) {
+	.wp-block-abourgeons-18-fall-carousel.NoMobile {
+		.owl-stage {
+			transform: none!important;
+			width: 100%!important;
+			transition: none!important;
+		}
+		.owl-nav {
+			display: none;
+		}
+		.owl-dots {
+			display: none;
+		}		
+	}
+}

@@ -1,10 +1,12 @@
 <?php
 require_once  __DIR__ . '/../lib/render.php';
 function abourgeons_18_fall_products_grid( $attributes, $content ) {
-  ob_start();
+  if(!isset($attributes['productIds']) || !is_array($attributes['productIds']))
+    return;
   $image = null;
   if(isset($attributes['id']))
     $image = wp_get_attachment_image_src( $attributes['id'] , 'woocommerce_single');
+  ob_start();    
 ?>
   <div class="abourgeons-guten-products-grid" >
     <?php

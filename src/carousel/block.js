@@ -62,13 +62,17 @@ const blockAttributes = {
 		type: 'boolean',
 		default: true,
 	},
+	MobileNoCarousel: {
+		type: 'boolean',
+		default: false,
+	},
 	linkTo: {
 		type: 'string',
 		default: 'none',
 	},
-	rightaligned: {
-		type: 'array',
-		default: [],
+	aligned: {
+		type: 'string',
+		default: 'center',
 	}
 };
 

@@ -43,7 +43,11 @@
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
   min-height: 43vh; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+.block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .block-img {
+    position: relative; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 .block-img.textcontainer, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .block-img.textcontainer {
+    position: relative;
     height: 88%;
     bottom: 0;
     top: auto; }

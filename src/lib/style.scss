@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+.abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring {
   min-height: 80vh;
 }
 
@@ -43,6 +43,8 @@
       display: flex;
 
 
+
+
       div.button {
         display: inline-block;
         line-height: normal;
@@ -59,6 +61,12 @@
         border-color: #fff;
         background-color: #fff;
         color: #121212;
+      }
+
+      @media only screen and (max-width: $break-small) {
+        div.button {
+          display:none;
+        }
       }
 
       div.button:hover {
@@ -86,10 +94,12 @@
       height: 100vh;
     }
   }
-  .block-img {
+  &.is-featuring .block-img {
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
   }
+
 
 
   .imagecontainer {
@@ -98,11 +108,36 @@
     }
   }
 
+  &.is-center .textcontainer {
+      .offsettab {
+          margin-left: auto;
+          margin-right: auto;
+      }
+  }
+
+  &.is-right .textcontainer {
+      .offsettab {
+        float: right;
+      }
+  }
+
+  &.is-left .textcontainer {
+      .offsettab {
+        float: left;
+      }
+  }
+
 }
 
-
 .abourgeons_fall18_woo_product_cover_block {
-  
+
+  position: relative;
+  max-width: 20em;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+
   .block-img {
     background-repeat: no-repeat;
     background-size: cover;
@@ -113,7 +148,6 @@
     right: 2rem;
     bottom: 2rem;
     width: 20rem;
-    height: 35rem;
     padding: 3.5rem 3rem 3rem;
     background: #fff;
     color: #000;
@@ -128,6 +162,12 @@
   }
 
   &:hover {
+    .product-over-details {
+      display: block;
+    }
+  }
+  @media (hover:none), (hover:on-demand) {
+  /* custom css for "touch targets" */
     .product-over-details {
       display: block;
     }

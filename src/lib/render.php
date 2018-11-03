@@ -1,31 +1,56 @@
 <?php
 
-function abourgeons_fall18_render_image_featuring( $image ) {
+function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaResponsive) {
   if(isset($image['hlink']) )
       echo '<a href="' . $image['hlink'] . '">';
-  $image_woo_single = null;
-  if(isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
-      $image_woo_single = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single');
+  $backgroundImageURL = null;
+  $className =  array_key_exists('aligned',$image) && $image['aligned'] ? $image['aligned'] : '';
+  if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
+      $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
+      $className .= 'is-featuring';
   }
-  else
-    return;
-  $className =  array_key_exists('rightaligned',$image) && $image['rightaligned'] ? 'rightaligned' : '';
+
+
 ?>
 <div class="abourgeons_fall18abourgeons_fall18_render_imagefeaturing <?php echo $className; ?>">
-  <div style="background-image: url('<?php echo $image_woo_single[0] ?>');" class="block-img textcontainer" >
-    <section class="offsettab">
-      <?php if( isset($image['headline']) && !empty($image['headline']) )  {
-        ?>
-        <h3 class="headline"><?php
-        wp_print_rich_text_editor($image['headline']);
-        ?></h3>
-      <?php } ?>
-      <?php if(isset($image['button']) && !empty($image['button'])) { ?>
-        <div class="button"><?php
-          wp_print_rich_text_editor($image['button']);
-        ?></div>
-      <?php } ?>
-    </section>
+  <div style="background-image: url('<?php echo $backgroundImageURL;  ?>');" class="block-img" >
+    <?php
+      if($isMultiMediaResponsive) {
+    ?>
+      <div class="imagecontainer" style="">
+        <section class="slide-data-container smallenablediv">
+        <picture>
+          <?php
+            if( array_key_exists('media_id', $image) ) {
+              $media_id = $image['media_id'];
+              if(array_key_exists(0, $media_id) ) {
+                echo wp_get_attachment_source_media( $media_id[0], 1442 , apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
+                echo wp_get_attachment_source_media( array_key_exists(1, $media_id) ? $media_id[1] : $media_id[0], 900 , apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
+                echo wp_get_attachment_image( array_key_exists(2, $media_id) ? $media_id[2] : $media_id[0], apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
+              }
+            }
+          ?>
+        </picture>
+        </section>
+      </div>
+    <?php
+      }
+    ?>
+    <div class="textcontainer" style="">
+      <section class="offsettab">
+        <?php if( isset($image['headline']) && !empty($image['headline']) )  {
+          ?>
+          <h3 class="headline"><?php
+          wp_print_rich_text_editor($image['headline']);
+          ?></h3>
+        <?php } ?>
+        <?php if(isset($image['button']) && !empty($image['button'])) { ?>
+          <div class="button"><?php
+            wp_print_rich_text_editor($image['button']);
+          ?></div>
+        <?php } ?>
+      </section>
+    </div>
   </div>
 </div>
 <?php
@@ -188,7 +213,7 @@ function wp_print_rich_text_markup($richtext) {
 function wc_product_display_tile($product) {
 ?>
 <a href="<?php echo get_permalink($product->get_id()); ?>">
-<div class="abourgeons_fall18_woo_product_cover_block">
+<div class="abourgeons_fall18_woo_product_cover_block full-overlay">
   <div class="imagecontainer" style="">
       <?php
       echo wp_get_attachment_image(get_post_thumbnail_id($product->get_id()), array('700', '1200'));

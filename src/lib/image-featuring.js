@@ -34,7 +34,7 @@ export class FeaturingImage extends React.Component {
 		*/
 		///this.onKeyDown = this.onKeyDown.bind( this );
 		this.bindContainer = this.bindContainer.bind( this );
-		this.onImageClick = this.onImageClick.bind( this );
+	//	this.onImageClick = this.onImageClick.bind( this );
 		this.setHLinkRef = this.setHLinkRef.bind( this );
 		this.onValid = this.onValid.bind( this );
 		this.onCancel = this.onCancel.bind( this );
@@ -79,10 +79,7 @@ export class FeaturingImage extends React.Component {
 		this.HLinkRef = node;
 	}
 
-	onImageClick() {
-		/*if ( ! this.props.isSelected ) {
-			this.props.onSelect();
-		}*/
+	/*onImageClick() {
 
 		if(!this.state.imageSelected) {
 			this.setState( {
@@ -90,7 +87,7 @@ export class FeaturingImage extends React.Component {
 
 			} );
 		}
-	}
+	}*/
 
 	onValid () {
 		this.state.imageSelected = false;
@@ -122,13 +119,13 @@ export class FeaturingImage extends React.Component {
 	}
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, hasSubtitle, subtitle, rightaligned, edit, onValidate, onCancel } = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, hasSubtitle, subtitle, aligned, edit, onValidate, onCancel, MultiMediaResponsive, size } = this.props;
 
 		let href, currenthlink;
 
 		currenthlink = hlink;
-		const url = media_url[0] ? media_url[0]  : null ;
-		const id = media_id[0] ? media_id[0] : null ;
+		const url = media_url[size] ? media_url[size]  : null ;
+		const id = media_id[size] ? media_id[size] : null ;
 
 
 		switch ( linkTo ) {
@@ -144,26 +141,28 @@ export class FeaturingImage extends React.Component {
 			button: button,
 			headline: headline,
 			subtitle: subtitle,
-			hlink:hlink
+			hlink:hlink,
+			size:( MultiMediaResponsive ? size : 0 )
 		}
+
 
 		const onSelectImage = ( media ) => {
 			var url = this.props.media_url.slice(0);
 			var id = this.props.media_id.slice(0);
 			if ( ! media || ! media.url ) {
-				url[0] = null;
-				id[0] = null;
+				url[size] = null;
+				id[size] = null;
 				setAttributes( { media_url: url, media_id: id } );
 				return;
 			}
-			url[0] = media.url;
-			id[0] = media.id;
+			url[size] = media.url;
+			id[size] = media.id;
 			setAttributes( { media_url: url, media_id: id } );
 
 		};
 
 
-		const style = backgroundImageStyles( url );
+		const style = !MultiMediaResponsive ? backgroundImageStyles( url ) : null;
 		// Disable reason: Image itself is not meant to be
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
@@ -171,7 +170,10 @@ export class FeaturingImage extends React.Component {
 		const className = classnames( {
 			'is-selected': isSelected,
 			'is-transient': url && 0 === url.indexOf( 'blob:' ),
-			'rightaligned': rightaligned,
+			'is-center': aligned == 'center' ? true : false,
+			'is-left': aligned == 'left' ? true : false,
+			'is-right': aligned == 'right' ? true : false,
+			'is-featuring': !MultiMediaResponsive,
 			'abourgeons_fall18abourgeons_fall18_render_imagefeaturing': true,
 		 	'image-featuring-editor':true
 		} );
@@ -195,18 +197,23 @@ export class FeaturingImage extends React.Component {
 		if(edit) {
 			editcmd = (<div> <IconButton
 					icon="edit"
-					onClick={ () => { edit();/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+					onClick={ () => { edit();} }
 					className="blocks-carousel-item__edit"
 					label={ __( 'Edit' ) }
 				/>
 			<IconButton
 					icon="align-left"
-					onClick={ () => { setAttributes({rightaligned:false});/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+					onClick={ () => { setAttributes({aligned:'left'}); } }
 					className="blocks-carousel-item__alignleft"
 					label={ __( 'Align Left' ) }
 				/> <IconButton
+					icon="align-center"
+					onClick={ () => { setAttributes({aligned:'center'}); } }
+					className="blocks-carousel-item__aligncenter"
+					label={ __( 'Align Center' ) }
+				/><IconButton
 					icon="align-right"
-					onClick={ () => { setAttributes({rightaligned:true});/*t this.state.rightaligned = true;  this.container.classList.add('rightaligned')*/ } }
+					onClick={ () => { setAttributes({aligned:'right'}); } }
 					className="blocks-carousel-item__alignright"
 					label={ __( 'Align Right' ) }
 				/></div>);
@@ -218,8 +225,42 @@ export class FeaturingImage extends React.Component {
 		 	</div>);
 		}
 
+		const offset = (<div className="textcontainer"><div className="offsettab">
+					{ edit ?  <h3 className={'headline'}>{ headline }</h3>  : <RichText
+					tagName="h3"
+					placeholder={ __(  'Enter Headline…' ) }
+					value={ headline }
+					className= {'headline'}
+					onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
+					inlineToolbar
+				/>
+				}
+				{ 	hasSubtitle ? ( edit ? <h4 className={'subtitle'}>{ subtitle }</h4> : <RichText
+						tagName="h4"
+						placeholder={ __(  'Subtitle…' ) }
+						value={ subtitle }
+						className= {'subtitle'}
+						onChange={ ( text ) => { this.state.subtitle = text }  }
+						inlineToolbar
+						/>
+					) : ''
+				}	{ edit ? <div className={'button'}>{ button }</div> : <RichText
+						tagName="div"
+						placeholder={ __(  'Enter Button Text…' ) }
+						value={ button }
+						className= {'button'}
+						onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
+						inlineToolbar
+					/>
+					}
+			</div></div>);
+
+		/*	if(MultiMediaResponsive)
+				return '';
+*/
+
 		return (
-			<div className={ className } tabIndex="-1" ref={ this.bindContainer }>
+			<div className={ className } tabIndex="-1" ref={ this.bindContainer } >
 						<div className="block-library-item__inline-menu">{ editcmd } {
 						<MediaUpload
 							onSelect={ onSelectImage }
@@ -253,44 +294,23 @@ export class FeaturingImage extends React.Component {
 							onSelect={ onSelectImage }
 							accept="image/*"
 							type="image"
-						/> ) : ( <div src={ url } alt={ alt } className={ 'block-img textcontainer' } data-id={ id } style={ style }  onClick={ this.onImageClick } >
-
-							<div className="offsettab">
-									{ edit ?  <h3 className={'headline'}>{ headline }</h3>  : <RichText
-									tagName="h3"
-									placeholder={ __(  'Enter Headline…' ) }
-									value={ headline }
-									className= {'headline'}
-									onChange={ ( HeadlineText ) => { this.state.headline = HeadlineText }  }
-									inlineToolbar
-								/>
-								}
-								{ 	hasSubtitle ? ( edit ? <h4 className={'subtitle'}>{ subtitle }</h4> : <RichText
-										tagName="h4"
-										placeholder={ __(  'Subtitle…' ) }
-										value={ subtitle }
-										className= {'subtitle'}
-										onChange={ ( text ) => { this.state.subtitle = text }  }
-										inlineToolbar
-										/>
-									) : ''
-								}	{ edit ? <div className={'button'}>{ button }</div> : <RichText
-										tagName="div"
-										placeholder={ __(  'Enter Button Text…' ) }
-										value={ button }
-										className= {'button'}
-										onChange={ ( ButtonText ) => { this.state.button = ButtonText }  }
-										inlineToolbar
-									/>
-									}
-
-							</div>
-					</div>
-				)
-				}
-			</div>
+						/> ) : (  <div className={ 'block-img' } data-id={ id } style={ style }  >
+											{ MultiMediaResponsive ? ( <div className="imagecontainer">
+										<section className="slide-data-container smallenablediv">
+											<picture>
+												<img src={ media_url[size] } data-id={ media_id[size] } />
+											</picture>
+										</section>
+									</div> ) : ('') }
+									{ offset }
+								</div>
+							)
+						}
+				</div>
 		);
-		/* eslint-enable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events */
+		/* eslint-enable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events
+
+			 */
 	}
 }
 

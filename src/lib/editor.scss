@@ -15,7 +15,11 @@
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
     min-height: 43vh;
+    .block-img {
+      position: relative;
+    }
     .block-img.textcontainer{
+      position: relative;
       height: 88%;
       bottom: 0;
       top: auto;

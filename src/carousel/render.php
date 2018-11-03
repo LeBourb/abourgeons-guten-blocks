@@ -7,8 +7,11 @@ function abourgeons_18_fall_carousel_post( $attributes, $content ) {
     ob_start();
     if(!isset($attributes['images']))
       return;
+      $className = '';
+    if(isset($attributes['MobileNoCarousel']) && $attributes['MobileNoCarousel'])
+      $className='NoMobile';
       ?>
-			<ul class="wp-block-abourgeons-18-fall-carousel  owl-theme owl-carousel owl-result">
+			<ul class="wp-block-abourgeons-18-fall-carousel  owl-theme owl-carousel owl-result <?php echo $className;?>">
 
       <?php
       foreach ($attributes['images'] as $image) {
@@ -18,9 +21,9 @@ function abourgeons_18_fall_carousel_post( $attributes, $content ) {
                 <?php
                 //print_r($attributes);
                   if(array_key_exists('MultiMediaResponsive', $attributes) && $attributes['MultiMediaResponsive']) {
-                    abourgeons_fall18_render_responsivemultimedias( $image );
+                    abourgeons_fall18_render_image_featuring( $image , true );
                   }else {
-                    abourgeons_fall18_render_image_featuring( $image );
+                    abourgeons_fall18_render_image_featuring( $image, false );
                   }
                 ?>
   						</div>
