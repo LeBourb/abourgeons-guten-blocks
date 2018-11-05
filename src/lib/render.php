@@ -4,13 +4,11 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
   if(isset($image['hlink']) )
       echo '<a href="' . $image['hlink'] . '">';
   $backgroundImageURL = null;
-  $className =  array_key_exists('aligned',$image) && $image['aligned'] ? $image['aligned'] : '';
+  $className = ( array_key_exists('aligned',$image) && isset($image['aligned']) ) ? 'is-' . $image['aligned'] : '';
   if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
       $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
-      $className .= 'is-featuring';
+      $className .= ' is-featuring';
   }
-
-
 ?>
 <div class="abourgeons_fall18abourgeons_fall18_render_imagefeaturing <?php echo $className; ?>">
   <div style="background-image: url('<?php echo $backgroundImageURL;  ?>');" class="block-img" >
@@ -222,7 +220,7 @@ function wc_product_display_tile($product) {
   </div>
   <div style="" class="textcontainer" >
     <div class="product-over-details" data-id="1">
-      <h3 class="title"><?php echo $product->get_title(); ?></h3>
+      <h4 class="title"><?php echo $product->get_title(); ?></h4>
       <p class="price"><?php echo $product->get_price_html();?></p>
       <?php
         if(!is_a($product, 'WC_Product_Variation') && !is_a($product, 'WC_Product_Simple') && !empty($product->get_available_variations( ))) {

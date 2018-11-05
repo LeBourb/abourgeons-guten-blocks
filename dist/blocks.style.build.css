@@ -133,10 +133,17 @@
       .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer .offsettab h3.headline, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h3.headline {
         margin-top: 10px;
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: unset; }
       .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer .offsettab h4.subtitle, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h4.subtitle {
         padding-left: 0; }
+      @media (max-width: 992px) {
+        .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab {
+          max-width: 100%; } }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.rightaligned
 .textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.rightaligned .textcontainer .offsettab {
     float: right; }
@@ -178,7 +185,7 @@
     right: 2rem;
     bottom: 2rem;
     width: 20rem;
-    padding: 3.5rem 3rem 3rem;
+    padding: 2rem 2rem 2rem;
     background: #fff;
     color: #000;
     z-index: 1;
@@ -197,6 +204,10 @@
       /* custom css for "touch targets" */ }
       .abourgeons_fall18_woo_product_cover_block .product-over-details {
         display: block; } }
+  @media (max-width: 992px) {
+    .abourgeons_fall18_woo_product_cover_block .product-over-details {
+      right: -4rem;
+      bottom: -2em; } }
   .abourgeons_fall18_woo_product_cover_block .textcontainer {
     position: absolute;
     top: 0;

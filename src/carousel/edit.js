@@ -58,6 +58,7 @@ class carouselEdit extends Component {
 		this.setLinkTo = this.setLinkTo.bind( this );
 		this.setColumnsNumber = this.setColumnsNumber.bind( this );
 		this.toggleMultiMediaResponsive = this.toggleMultiMediaResponsive.bind( this );
+		this.toggleAutoplay = this.toggleAutoplay.bind( this );
 		this.toggleMobileNoCarousel = this.toggleMobileNoCarousel.bind( this );
 		this.onRemoveImage = this.onRemoveImage.bind( this );
 		this.setImageAttributes = this.setImageAttributes.bind( this );
@@ -71,7 +72,6 @@ class carouselEdit extends Component {
     		transitionStyle : "fade"
 			},
 			size: 0,
-			MultiMediaResponsive: false,
 			edit: null
 		};
 
@@ -99,15 +99,23 @@ class carouselEdit extends Component {
 	}
 
 	toggleMultiMediaResponsive() {
-		this.props.setAttributes( { MultiMediaResponsive: (this.state.MultiMediaResponsive ? 'false' : 'true') } );
+		this.props.setAttributes( { MultiMediaResponsive: (this.props.MultiMediaResponsive ? 'false' : 'true') } );
 	}
 
 	toggleMobileNoCarousel() {
 		this.props.setAttributes( { MobileNoCarousel: ( this.props.MobileNoCarousel ? 'false' : 'true') } );
 	}
 
+	toggleAutoplay() {
+		this.props.setAttributes( { Autoplay: ( this.props.Autoplay ? 'false' : 'true') } );
+	}
+
 	getMultiMediaResponsiveHelp( checked ) {
 		return checked ? __( 'Thumbnails are cropped to align and accepts button text and hyberlinks !' ) : __( 'Classic carousel of images.' );
+	}
+
+	getAutoplayHelp( checked ) {
+		return checked ? __( 'Autoplay is active !' ) : __( 'Autoplay.' );
 	}
 
 	getMobileNoCarouselHelp( checked ) {
@@ -178,12 +186,8 @@ class carouselEdit extends Component {
 
 	render() {
 		const { attributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-		const { images, columns = defaultColumnsNumber( attributes ), align, MultiMediaResponsive, MobileNoCarousel, linkTo } = attributes;
-		if( !!MultiMediaResponsive && MultiMediaResponsive === 'true') {
-			this.state.MultiMediaResponsive = true;
-		} else {
-			this.state.MultiMediaResponsive = false;
-		}
+		const { images, columns = defaultColumnsNumber( attributes ), align, MultiMediaResponsive, MobileNoCarousel, linkTo, Autoplay } = attributes;
+
 		const dropZone = (
 			<DropZone
 				onFilesDrop={ this.addFiles }
@@ -223,9 +227,15 @@ class carouselEdit extends Component {
 						/> }
 						<ToggleControl
 							label={ __( 'Responsive Multi-Medias' ) }
-							checked={ !! this.state.MultiMediaResponsive }
+							checked={ !! MultiMediaResponsive }
 							onChange={ this.toggleMultiMediaResponsive }
 							help={ this.getMultiMediaResponsiveHelp }
+						/>
+						<ToggleControl
+							label={ __( 'Autoplay' ) }
+							checked={ !! Autoplay }
+							onChange={ this.toggleAutoplay }
+							help={ this.getAutoplayHelp }
 						/>
 						<ToggleControl
 							label={ __( 'Carousel with Mobile devises' ) }
@@ -239,7 +249,7 @@ class carouselEdit extends Component {
 							onChange={ this.setLinkTo }
 							options={ linkOptions }
 						/>
-					{ !!this.state.MultiMediaResponsive ? <SelectControl
+					{ !!MultiMediaResponsive ? <SelectControl
 		          label="Size"
 		          value={ this.state.size }
 		          options={ [
@@ -252,7 +262,7 @@ class carouselEdit extends Component {
 		        }
 					</PanelBody>
 				</InspectorControls>
-				{ this.state.edit !== null ? (  this.state.MultiMediaResponsive  ? (	<ClassicImage
+				{ this.state.edit !== null ? (  MultiMediaResponsive  ? (	<ClassicImage
 					media_url={ images[this.state.edit].media_url ? images[this.state.edit].media_url : [] }
 					media_id={ images[this.state.edit].media_id ? images[this.state.edit].media_id : [] }
 					size={this.state.size}
@@ -280,7 +290,7 @@ class carouselEdit extends Component {
 				aligned= { images[this.state.edit].aligned }
 				edit={ null }
 				size={this.state.size}
-				MultiMediaResponsive={this.state.MultiMediaResponsive}
+				MultiMediaResponsive={MultiMediaResponsive}
 			/> ) ) : (	<ul
 				    className={ ` ${className}  align owl-theme owl-carousel ` }
 						ref={this.$carousel}
@@ -299,7 +309,7 @@ class carouselEdit extends Component {
 								hlink={img.hlink}
 								aligned= { img.aligned ? img.aligned : 'center'  }
 								edit={ () => this.setState({edit: index}) }
-								MultiMediaResponsive={this.state.MultiMediaResponsive}
+								MultiMediaResponsive={MultiMediaResponsive}
 							/>
 					) ) }
 						<div className="blocks-carousel-item has-add-item-button">

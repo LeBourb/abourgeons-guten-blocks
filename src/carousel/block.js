@@ -66,6 +66,10 @@ const blockAttributes = {
 		type: 'boolean',
 		default: false,
 	},
+	Autoplay: {
+		type: 'boolean',
+		default: false,
+	},
 	linkTo: {
 		type: 'string',
 		default: 'none',

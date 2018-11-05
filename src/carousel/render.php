@@ -10,6 +10,8 @@ function abourgeons_18_fall_carousel_post( $attributes, $content ) {
       $className = '';
     if(isset($attributes['MobileNoCarousel']) && $attributes['MobileNoCarousel'])
       $className='NoMobile';
+    if(isset($attributes['Autoplay']) && $attributes['Autoplay'])
+        $className .=' autoplay';
       ?>
 			<ul class="wp-block-abourgeons-18-fall-carousel  owl-theme owl-carousel owl-result <?php echo $className;?>">
 

@@ -17,14 +17,14 @@
     //slideBy: 'page'
     animateIn: 'fadeIn',
     animateOut: 'fadeOut',
-
     };
     if($('.owl-carousel.owl-result')) {
       $('.owl-carousel.owl-result').owlCarousel({
-        items: $('.owl-carousel').data('items') ? $('.owl-carousel').data('items') : 1, 
+        items: $('.owl-carousel').data('items') ? $('.owl-carousel').data('items') : 1,
         slideBy: 'page',
         animateIn: 'fadeIn',
         animateOut: 'fadeOut',
+        autoplay: $('.owl-carousel.owl-result').hasClass('autoplay'),
         nav: true
       });
     }
