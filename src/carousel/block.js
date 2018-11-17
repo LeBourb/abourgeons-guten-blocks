@@ -60,7 +60,7 @@ const blockAttributes = {
 	},
 	MultiMediaResponsive: {
 		type: 'boolean',
-		default: true,
+		default: false,
 	},
 	MobileNoCarousel: {
 		type: 'boolean',

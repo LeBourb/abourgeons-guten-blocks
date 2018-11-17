@@ -99,15 +99,15 @@ class carouselEdit extends Component {
 	}
 
 	toggleMultiMediaResponsive() {
-		this.props.setAttributes( { MultiMediaResponsive: (this.props.MultiMediaResponsive ? 'false' : 'true') } );
+		this.props.setAttributes( { MultiMediaResponsive: (this.props.attributes.MultiMediaResponsive ? false : true) } );
 	}
 
 	toggleMobileNoCarousel() {
-		this.props.setAttributes( { MobileNoCarousel: ( this.props.MobileNoCarousel ? 'false' : 'true') } );
+		this.props.setAttributes( { MobileNoCarousel: ( this.props.attributes.MobileNoCarousel ? false : true) } );
 	}
 
 	toggleAutoplay() {
-		this.props.setAttributes( { Autoplay: ( this.props.Autoplay ? 'false' : 'true') } );
+		this.props.setAttributes( { Autoplay: ( this.props.attributes.Autoplay ? false : true) } );
 	}
 
 	getMultiMediaResponsiveHelp( checked ) {

@@ -121,7 +121,12 @@
         text-align: center;
         border-color: #fff;
         background-color: #fff;
-        color: #121212; }
+        color: #121212;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: unset; }
       @media only screen and (max-width: 600px) {
         .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer .offsettab div.button, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab div.button {
@@ -155,7 +160,8 @@
 .block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring .block-img {
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative; }
+    position: relative;
+    min-height: 100%; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .imagecontainer img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .imagecontainer img {
     width: 100%; }
@@ -214,6 +220,23 @@
     bottom: 0;
     left: 0;
     right: 0; }
+
+.abourgeons-guten-products-grid {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.img-lazy-load-rest:not(.img-loaded) {
+  background: url("../images/camera.svg") no-repeat;
+  background-color: #d8d8d8;
+  background-position: center;
+  background-size: auto !important; }
+
+.parallax-section {
+  background-attachment: fixed !important;
+  background-size: cover !important;
+  position: relative; }
 /**
  * #.# Styles
  *
@@ -284,7 +307,6 @@
         z-index: 1;
         padding: 2rem; } }
   .wp-block-abourgeons-guten-t18fall-block01 .block-img {
-    height: 80vh;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat; }
@@ -355,9 +377,20 @@
     -o-transition: none !important;
     transition: none !important; }
   .wp-block-abourgeons-18-fall-carousel.NoMobile .owl-nav {
-    display: none; }
+    display: none !important; }
   .wp-block-abourgeons-18-fall-carousel.NoMobile .owl-dots {
-    display: none; } }
+    display: none !important; }
+  .wp-block-abourgeons-18-fall-carousel.NoMobile .owl-item {
+    -webkit-animation-duration: unset !important;
+            animation-duration: unset !important;
+    -ms-touch-action: none !important;
+        touch-action: none !important;
+    -webkit-animation-fill-mode: unset !important;
+            animation-fill-mode: unset !important;
+    -webkit-animation-name: unset !important;
+            animation-name: unset !important;
+    width: 100% !important;
+    left: 0 !important; } }
 /*
  *  Owl Carousel - Core
  */

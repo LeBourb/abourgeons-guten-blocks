@@ -7,11 +7,14 @@ function abourgeons_18_fall_carousel_post( $attributes, $content ) {
     ob_start();
     if(!isset($attributes['images']))
       return;
-      $className = '';
+    $className = '';
+    $MultiMediaResponsive = false;
     if(isset($attributes['MobileNoCarousel']) && $attributes['MobileNoCarousel'])
       $className='NoMobile';
     if(isset($attributes['Autoplay']) && $attributes['Autoplay'])
         $className .=' autoplay';
+    if(array_key_exists('MultiMediaResponsive', $attributes) && $attributes['MultiMediaResponsive'])
+      $MultiMediaResponsive = true;
       ?>
 			<ul class="wp-block-abourgeons-18-fall-carousel  owl-theme owl-carousel owl-result <?php echo $className;?>">
 
@@ -22,11 +25,7 @@ function abourgeons_18_fall_carousel_post( $attributes, $content ) {
              <div class="blocks-carousel-item">
                 <?php
                 //print_r($attributes);
-                  if(array_key_exists('MultiMediaResponsive', $attributes) && $attributes['MultiMediaResponsive']) {
-                    abourgeons_fall18_render_image_featuring( $image , true );
-                  }else {
-                    abourgeons_fall18_render_image_featuring( $image, false );
-                  }
+                  abourgeons_fall18_render_image_featuring( $image , $MultiMediaResponsive );
                 ?>
   						</div>
 				<?php

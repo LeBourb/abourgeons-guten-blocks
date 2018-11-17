@@ -4,14 +4,16 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
   if(isset($image['hlink']) )
       echo '<a href="' . $image['hlink'] . '">';
   $backgroundImageURL = null;
+  $backgroundlowImageURL = null;
   $className = ( array_key_exists('aligned',$image) && isset($image['aligned']) ) ? 'is-' . $image['aligned'] : '';
   if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
-      $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
+      $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'single_product')[0];
+      $backgroundlowImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
       $className .= ' is-featuring';
   }
 ?>
 <div class="abourgeons_fall18abourgeons_fall18_render_imagefeaturing <?php echo $className; ?>">
-  <div style="background-image: url('<?php echo $backgroundImageURL;  ?>');" class="block-img" >
+  <div style="background-image: url('<?php echo $backgroundlowImageURL;  ?>');" class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load parallax-section'?>" data-full-src="<?php echo $backgroundImageURL ?>">
     <?php
       if($isMultiMediaResponsive) {
     ?>

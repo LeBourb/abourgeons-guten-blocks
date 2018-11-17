@@ -2,3 +2,4 @@
 
 //require('jquery');
 import './carousel/result.js'
+import './lib/result.js'

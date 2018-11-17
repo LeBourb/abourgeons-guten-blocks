@@ -5,10 +5,13 @@ require_once __DIR__ . '/../lib/render.php';
 function abourgeons_18_image_cover( $attributes, $content ) {
   //return null;
   ob_start();
+  $MultiMediaResponsive = false;
+  if(array_key_exists('MultiMediaResponsive', $attributes) && $attributes['MultiMediaResponsive'])
+    $MultiMediaResponsive = true;
   ?>
     <div class="wp-block-abourgeons-guten-image-cover" >
   <?php  // abourgeons_fall18_render_image_featuring( $attributes );
-        abourgeons_fall18_render_responsivemultimedias($attributes);
+        abourgeons_fall18_render_image_featuring( $attributes , $MultiMediaResponsive );
   ?>
     </div>
   <?php

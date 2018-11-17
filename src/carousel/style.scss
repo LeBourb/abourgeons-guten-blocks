@@ -48,10 +48,19 @@
 			transition: none!important;
 		}
 		.owl-nav {
-			display: none;
+			display: none!important;
 		}
 		.owl-dots {
-			display: none;
-		}		
+			display: none!important;
+		}
+		.owl-item {
+			animation-duration: unset!important;
+			touch-action: none!important;
+			animation-fill-mode: unset!important;
+			animation-name: unset!important;
+			width: 100%!important;
+    	left: 0!important;
+		}
+
 	}
 }
