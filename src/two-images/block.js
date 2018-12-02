@@ -2,7 +2,7 @@
 //  Import CSS.
 import './style.scss';
 import './editor.scss?editor';
-
+import { FeaturingImage } from './../lib/image-featuring';
 /**
  * External dependencies
  */
@@ -12,7 +12,7 @@ import * as classnames from 'classnames'
 /**
  * WordPress dependencies
  */
-const { IconButton, PanelBody, RangeControl, ToggleControl, Toolbar, withNotices } = wp.components;
+const { IconButton, PanelBody, RangeControl, ToggleControl, Toolbar, withNotices, SelectControl, TextControl } = wp.components;
 const { Fragment } = wp.element;
 //import { __ } from '@wordpress/i18n';
 const { __ } = wp.i18n;
@@ -31,16 +31,44 @@ const { Button } = wp.components;
 
 const blockAttributes = {
 	left_url: {
-		type: 'string',
+		type: 'array',
+		default: []
 	},
 	right_url: {
-		type: 'string',
+		type: 'array',
+		default: []
 	},
 	left_id: {
-		type: 'string',
+		type: 'array',
+		default: []
 	},
 	right_id: {
-		type: 'string',
+		type: 'array',
+		default: []
+	},
+	left_text: {
+		type: 'array',
+		default: []
+	},
+	right_text: {
+		type: 'array',
+		default: []
+	},
+	MultiMediaResponsive: {
+		type: 'boolean',
+		default: false
+	},
+	hasSubtitle: {
+		type: 'boolean'
+	},
+	subtitle: {
+		type: 'string'
+	},
+	left_fontAwesome: {
+		type: 'string'
+	},
+	right_fontAwesome: {
+		type: 'string'
 	}
 };
 
@@ -66,7 +94,7 @@ registerBlockType( name, {
 	},*/
 
 	edit: withNotices( ( { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } ) => {
-		const { left_url, right_url, left_id, right_id } = attributes;
+		const { left_url, right_url, left_id, right_id, right_text, left_text, MultiMediaResponsive, hasSubtitle, subtitle, left_fontAwesome, right_fontAwesome} = attributes;
 		const onSelectLeftImage = ( media ) => {
 			if ( ! media || ! media.url ) {
 				setAttributes( { left_url: undefined, left_id: undefined } );
@@ -84,6 +112,13 @@ registerBlockType( name, {
     const classes = classnames(
 			className
 		);
+		const toggleMultiMediaResponsive = (MultiMediaResponsive) => {
+			setAttributes( { MultiMediaResponsive: MultiMediaResponsive } );
+		};
+
+		const togglehasSubtitle = (hasSubtitle) => {
+			setAttributes( { hasSubtitle: hasSubtitle } );
+		};
 
 		const left_style = backgroundImageStyles( left_url );
     const right_style = backgroundImageStyles( right_url );
@@ -120,9 +155,41 @@ registerBlockType( name, {
             />
 					</Toolbar>
 				</BlockControls>
+				<InspectorControls>
+					<PanelBody title={ __( 'Responsiveness Multi-Medias' ) }>
+						<ToggleControl
+							label={ __( 'Multi-Media Responsiveness' ) }
+							checked={ !! MultiMediaResponsive }
+							onChange={ toggleMultiMediaResponsive }
+						/>
+						<ToggleControl
+							label={ __( 'has Subtitle' ) }
+							checked={ !! hasSubtitle }
+							onChange={ togglehasSubtitle }
+						/>
+					</PanelBody>
+					{ MultiMediaResponsive ? <SelectControl
+						label="Size"
+						value={ 0 }
+						options={ [
+							{ label: 'Big', value: 0 },
+							{ label: 'Medium', value: 1 },
+							{ label: 'Small', value: 2 },
+						] }
+						onChange={ ( size ) => { this.setState( { size } ) } }
+					/> : ''
+					}
+				</InspectorControls>
 			</Fragment>
 		);
-
+/*<RichText
+		tagName="h4"
+		placeholder={ __(  'Subtitle…' ) }
+		value={ subtitle }
+		className= {'subtitle'}
+		onChange={ ( text ) => { this.state.subtitle = text }  }
+		inlineToolbar
+		/>*/
 		return (
 			<Fragment>
 				{ controls }
@@ -141,11 +208,31 @@ registerBlockType( name, {
                   notices={ noticeUI }
                   onError={ noticeOperations.createErrorNotice }
                 /> ) :
-              (	<div
-                  data-url={ left_url }
-                  style={ left_style }
-                  className={ 'block-img'}
-                /> )
+              (	<FeaturingImage
+	                  media_url={ left_url }
+	                  media_id={ left_id }
+	                  size={0}
+	                  onRemove={ () => { } }
+	                  onValidate={ (attrs) => { setAttributes(attrs); } }
+										onCancel={ () => {  } }
+	                  setAttributes={ (attrs) => { setAttributes({left_url:attrs['media_url'],left_id:attrs['media_id']}); } }
+	                  headline={ left_text }
+	                  hasSubtitle={ null }
+	                  subtitle={ null }
+	                  button={ null }
+	                  hlink={ null }
+										rightaligned= { null }
+										edit={ true }
+	               >
+								 <RichText
+				 					tagName="h3"
+				 					placeholder={ __(  'Enter Headline…' ) }
+				 					value={ left_text }
+				 					className= {'headline'}
+				 					onChange={ ( HeadlineText ) => { setAttributes({left_text:HeadlineText}); }  }
+				 					inlineToolbar
+				 				/>
+							 	</FeaturingImage>)
               }
 
 						</div>
@@ -163,11 +250,32 @@ registerBlockType( name, {
 												notices={ noticeUI }
 												onError={ noticeOperations.createErrorNotice }
 											/> ) :
-					          (	<div
-						  					data-url={ right_url }
-						  					style={ right_style }
-						            className={ 'block-img'}
-					  					/> )
+					          (	<FeaturingImage
+				                  media_url={ right_url }
+				                  media_id={ right_id }
+				                  size={0}
+				                  onRemove={ () => { } }
+				                  onValidate={ (attrs) => { setAttributes(attrs); } }
+													onCancel={ () => {  } }
+				                  setAttributes={ (attrs) => { setAttributes({right_url:attrs['media_url'],right_id:attrs['media_id']}); } }
+				                  headline={ right_text }
+				                  hasSubtitle={ null }
+				                  subtitle={ null }
+
+				                  button={ null }
+				                  hlink={ null }
+													rightaligned= { null }
+													edit={ true }
+				                >
+												<RichText
+			 				 					tagName="h3"
+			 				 					placeholder={ __(  'Enter Headline…' ) }
+			 				 					value={ right_text }
+			 				 					className= {'headline'}
+			 				 					onChange={ ( HeadlineText ) => { setAttributes({right_text:HeadlineText}); }  }
+			 				 					inlineToolbar
+			 				 				/>
+									</FeaturingImage> )
 									}
               </div>
           </div>

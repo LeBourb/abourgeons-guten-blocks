@@ -1,6 +1,7 @@
 /**
  * #.# Styles
- *
+
+
  * CSS for both Frontend+Backend.
  */
  @import "../common.scss";
@@ -12,4 +13,70 @@
   margin: 0 auto;
   max-width: 740px;
   padding: 2rem;
+}
+
+
+.wp-block-abourgeons-guten-product-cover-block {
+  .block-img {
+      height: 80rem;
+  }
+
+  @media only screen and (max-width: $break-small) {
+    .block-img {
+      height: 40rem;
+    }
+  }
+  .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+    .textcontainer {
+
+      .offsettab {
+        width: 100%;
+        max-width: unset;
+        text-align: right;
+
+        ul.products_list {
+          vertical-align: bottom;
+          flex-direction: column;
+          width: 100%;
+          justify-content: flex-end;
+          align-items: flex-end;
+          height: 100%;
+          display: flex;
+
+          li {
+            position: relative;
+            width: 100%;
+            display: block;
+              .product-over-details {
+                right: 2rem;
+                bottom: 2rem;
+                width: 20rem;
+                padding: 2rem 2rem 2rem;
+                background: #fff;
+                color: #000;
+                z-index: 1;
+                display:none;
+                position: absolute;
+                .product-variation {
+                    display: flex;
+                    justify-content: space-evenly;
+                    text-transform: uppercase;
+                }
+              }
+
+              &:hover {
+                .product-over-details {
+                  display: block;
+                }
+              }
+
+          }
+        }
+
+
+    }
+    }
+  }
+
+
 }

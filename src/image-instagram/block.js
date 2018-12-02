@@ -32,11 +32,10 @@ const { Button } = wp.components;
 
 const blockAttributes = {
 	headline: {
-		type: 'string'		
+		type: 'array',
 	},
 	text: {
 		type: 'array',
-		default: []
 	},
 	media_url: {
 		type: 'array',
@@ -63,15 +62,12 @@ const blockAttributes = {
 	hasSubtitle: {
 		type: 'boolean'
 	},
-	hasButton: {
-		type: 'boolean'
-	},
 	subtitle: {
 		type: 'string'
 	},
-	aligned: {
-		type: 'string',
-		default: 'center',
+	rightaligned: {
+		type: 'boolean',
+		default: false,
 	},
 	backgroundColor: {
 		type: 'string',
@@ -84,18 +80,14 @@ const blockAttributes = {
 	dimRatio: {
 		type: 'number',
 		default: 50,
-	},
-	fontSize : {
-		type: 'number',
-		default: 50
 	}
 };
 
-export const name = 'abourgeons-guten/image-cover';
+export const name = 'abourgeons-guten/image-instagram';
 
 registerBlockType( name, {
 //export const settings = {
-	title: __( 'Image Cover 2018 FALL Block 01' ),
+	title: __( 'Image Instagram 2018 FALL Block 01' ),
 
 	description: __( 'Cover image and text.' ),
 

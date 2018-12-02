@@ -1,9 +1,9 @@
 
-import { FeaturingImage } from './../lib/image-featuring';
+import { FeaturingImage, FeaturingImageToolbar, FeaturingImagePanel } from './../lib/image-featuring';
 import { ClassicImage } from './../lib/image-classic';
 import * as classnames from 'classnames';
 
-const { IconButton, PanelBody, RangeControl, ToggleControl, Toolbar, withNotices,SelectControl } = wp.components;
+const { IconButton, PanelBody, RangeControl, ToggleControl, Toolbar, withNotices,SelectControl, FontSizePicker  } = wp.components;
 const { Fragment , Component } = wp.element;
 //import { __ } from '@wordpress/i18n';
 const { __ } = wp.i18n;
@@ -33,7 +33,7 @@ class imagecoverEdit extends Component {
 
 render()  {
   const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, hasSubtitle, subtitle, rightaligned } = attributes;
+  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, hasSubtitle, hasButton, subtitle, aligned, backgroundColor, textColor, dimRatio, fontSize, isBackgroundFixed } = attributes;
 
 
   //const style = backgroundImageStyles( url );
@@ -49,38 +49,55 @@ render()  {
     setAttributes( { hasSubtitle: hasSubtitle } );
   };
 
+	const fontSizes = [
+		{
+			name: __( 'Small' ),
+			slug: 'small',
+			size: 12,
+		},
+		{
+			name: __( 'Big' ),
+			slug: 'big',
+			size: 26,
+		},
+	];
+	const fallbackFontSize = 16;
+
   const controls = (
     <Fragment>
       <BlockControls>
         <Toolbar>
+					<FeaturingImagePanel
+						setAttributes={setAttributes}
+						size={this.state.size}
+						media_url={ media_url }
+						media_id={ media_id }
+						hlink={hlink}
+						/>
         </Toolbar>
       </BlockControls>
       <InspectorControls>
-        <PanelBody title={ __( 'Responsiveness Multi-Medias' ) }>
-          <ToggleControl
-            label={ __( 'Multi-Media Responsiveness' ) }
-            checked={ !! MultiMediaResponsive }
-            onChange={ toggleMultiMediaResponsive }
-          />
-          <ToggleControl
-            label={ __( 'has Subtitle' ) }
-            checked={ !! hasSubtitle }
-            onChange={ togglehasSubtitle }
-          />
-        </PanelBody>
-        { MultiMediaResponsive ? <SelectControl
-          label="Size"
-          value={ this.state.size }
-          options={ [
-            { label: 'Big', value: 0 },
-            { label: 'Medium', value: 1 },
-            { label: 'Small', value: 2 },
-          ] }
-          onChange={ ( size ) => { this.setState( { size } ) } }
-        /> : ''
-        }
+				<FeaturingImageToolbar
+						setAttributes={setAttributes}
+						MultiMediaResponsive={MultiMediaResponsive}
+						isBackgroundFixed={isBackgroundFixed}
+						hasSubtitle={hasSubtitle}
+						hasButton={hasButton}
+						size={this.state.size}
+						setState={this.setState}
+						backgroundColor= {backgroundColor}
+						textColor={textColor}
+						dimRatio={dimRatio}
+					/>
+					<FontSizePicker
+							fontSizes={ fontSizes }
+							value={ fontSize }
+							fallbackFontSize={ fallbackFontSize }
+							onChange={ ( newFontSize ) => {
+								setState( { fontSize: newFontSize } );
+							} }
+					/>
       </InspectorControls>
-
     </Fragment>
   );
 
@@ -88,38 +105,51 @@ render()  {
     <Fragment>
         { controls }
         <div className = { classes }>
-            { MultiMediaResponsive ? <ClassicImage
-                media_url={ media_url }
-                media_id={ media_id }
-                size={this.state.size}
-                onRemove={ () => { } }
-                onValidate={ (attrs) => { this.state.edit = null; setAttributes(attrs); } }
-								onCancel={ () => { this.setState({edit:null}); } }
-                setAttributes={ (attrs) => { setAttributes(attrs); } }
-                headline={ headline }
-                hasSubtitle={ hasSubtitle }
-                subtitle={ subtitle }
-                button={ button }
-                hlink={ hlink }
-								rightaligned= { rightaligned }
-								edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
-              /> : <FeaturingImage
-                  media_url={ media_url }
-                  media_id={ media_id }
-                  size={this.state.size}
-                  onRemove={ () => { } }
-                  onValidate={ (attrs) => { this.state.edit = null; setAttributes(attrs); } }
-									onCancel={ () => { this.setState({edit:null}); } }
-                  setAttributes={ (attrs) => { setAttributes(attrs); } }
-                  headline={ headline }
-                  hasSubtitle={ hasSubtitle }
-                  subtitle={ subtitle }
-                  button={ button }
-                  hlink={ hlink }
-									rightaligned= { rightaligned }
-									edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
-                />
-            }
+          <FeaturingImage
+            media_url={ media_url }
+            media_id={ media_id }
+            size={this.state.size}
+            onRemove={ () => { } }
+            onValidate={ () => { } }
+						onCancel={ () => { } }
+            setAttributes={ (attrs) => { setAttributes(attrs); } }
+            hlink={ hlink }
+						aligned= { aligned }
+						edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
+						MultiMediaResponsive={MultiMediaResponsive}
+						isBackgroundFixed={isBackgroundFixed}
+						backgroundColor= {backgroundColor}
+						textColor={textColor}
+						dimRatio = {dimRatio}
+          >
+					<RichText
+					tagName="h3"
+					placeholder={ __(  'Enter Headline…' ) }
+					value={ headline }
+					className= {'headline'}
+					onChange={ ( headline ) => { setAttributes({ headline: headline}) }  }
+					inlineToolbar
+				/>
+				{ 	hasSubtitle ? <RichText
+						tagName="h4"
+						placeholder={ __(  'Subtitle…' ) }
+						value={ subtitle }
+						className= {'subtitle'}
+						onChange={ ( subtitle ) => { setAttributes({ subtitle: subtitle}) }  }
+						inlineToolbar
+						/>
+					 : ''
+				}	{ hasButton ? <RichText
+						tagName="div"
+						placeholder={ __(  'Enter Button Text…' ) }
+						value={ button }
+						className= {'button'}
+						onChange={ ( button ) => { setAttributes({ button: button}) }  }
+						inlineToolbar
+					/>
+					: ''
+					}
+				</FeaturingImage>
         </div>
     </Fragment>
   );
@@ -127,16 +157,5 @@ render()  {
 
 }
 
-function dimRatioToClass( ratio ) {
-	return ( ratio === 0 || ratio === 50 ) ?
-		null :
-		'has-background-dim-' + ( 10 * Math.round( ratio / 10 ) );
-}
-
-function backgroundImageStyles( url ) {
-	return url ?
-		{ backgroundImage: `url(${ url })` } :
-		undefined;
-}
 
 export default withNotices( imagecoverEdit );

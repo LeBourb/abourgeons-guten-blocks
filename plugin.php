@@ -1,6 +1,7 @@
 <?php
 /**
  * Plugin Name: Atelier Bourgeons Gutenber BLOKCS
+ * Depends: Gutenberg, WooCommerce
  * Plugin URI: https://github.com/ahmadawais/create-guten-block/
  * Description: blocks designed for atelier bourgeons web site !
  * Author: LeBourbon

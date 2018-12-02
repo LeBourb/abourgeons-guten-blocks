@@ -261,6 +261,9 @@ class ProductSpecificSearchResultsDropdown extends React.Component {
 	}
 }
 
+
+
+
 /**
  * One search result.
  */
@@ -365,4 +368,55 @@ export class ProductTile extends React.Component {
 			</div>
 		);
 	}
+}
+
+
+export class ProductNamePrice extends   React.Component {
+
+	/**
+	 * Constructor.
+	 */
+	constructor( props ) {
+		super( props );
+	}
+
+	/**
+	 * Render the product specific select screen.
+   <ProductSpecificSelectedProducts
+     columns={ this.props.attributes.columns }
+     productIds={ this.state.selectedProducts }
+     addOrRemoveProduct={ this.addOrRemoveProduct.bind( this ) }
+   />
+	 */
+	render() {
+    /*if(!this.state || !this.state.product) {
+      this.fetch();
+    }
+    console.log(product_cover);*/
+    var product = PRODUCT_DATA[ this.props.productId ];
+    if(!product) {
+      apiFetch( {
+        path: '/wc/v2/products/' + this.props.productId
+      }).then( (product) => {
+
+
+          // Populate the cache.
+
+          PRODUCT_DATA[ product.id ] = product;
+
+          this.setState ( {
+            product: product
+          } );
+
+        }
+      );
+    }
+		return (
+			<div className="wc-products-list-card wc-products-list-card--specific">
+        { product ? (<a>{product.name} - {product.price}</a>) : (<p>Loading...</p>)
+        }
+			</div>
+		);
+	}
+
 }

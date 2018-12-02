@@ -30,10 +30,11 @@ function abourgeons_18_fall_block_01( $attributes, $content ) {
       >
       <picture>
         <?php
+          if(array_key_exists('id', $attributes)) {
               echo wp_get_attachment_source_media( $attributes['id'], 1442 , apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
               echo wp_get_attachment_source_media(  $attributes['id'], 900 , apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
               echo wp_get_attachment_image(  $attributes['id'], apply_filters( 'single_product_small_thumbnail_size', 'single_product' ), 0);
-
+          }
         ?>
       </picture>
     </div>

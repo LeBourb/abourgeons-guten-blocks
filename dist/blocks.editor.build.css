@@ -41,10 +41,16 @@
 
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
-  min-height: 43vh; }
+  min-height: 43vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 .block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .block-img {
-    position: relative; }
+    position: relative;
+    -ms-flex-positive: 1;
+        flex-grow: 1; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 .block-img.textcontainer, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .block-img.textcontainer {
     position: relative;
@@ -52,11 +58,17 @@
     bottom: 0;
     top: auto; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+.textcontainer, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .textcontainer {
+    padding: 0; }
+    .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .textcontainer .offsettab {
+      padding: 0; }
+      .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 .textcontainer .offsettab .button, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor .textcontainer .offsettab .button {
-    letter-spacing: normal;
-    padding: 5px;
-    font-size: 1em;
-    margin-top: 10px; }
+        letter-spacing: normal;
+        padding: 5px;
+        font-size: 1em;
+        margin-top: 10px; }
 
 /**
  * List Card
@@ -232,6 +244,38 @@
     .wc-products-list-card__search-results .wc-products-list-card__content .dashicon {
       color: #0073aa;
       margin-left: auto; }
+.wp-block-abourgeons-guten-image-instagram {
+  margin: 0; }
+  .wp-block-abourgeons-guten-image-instagram .editor-rich-text__tinymce[data-is-empty="true"]::before {
+    position: inherit; }
+  .wp-block-abourgeons-guten-image-instagram .editor-rich-text__tinymce:focus a[data-mce-selected] {
+    padding: 0 2px;
+    margin: 0 -2px;
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    background: rgba(255, 255, 255, 0.3); }
+  .wp-block-abourgeons-guten-image-instagram .editor-rich-text strong {
+    font-weight: 300; }
+  .wp-block-abourgeons-guten-image-instagram .editor-rich-text {
+    display: inline-block;
+    width: 100%; }
+  .wp-block-abourgeons-guten-image-instagram .block-inside {
+    width: 20rem; }
+    .wp-block-abourgeons-guten-image-instagram .block-inside hr {
+      margin: 6px 0; }
+  .wp-block-abourgeons-guten-image-instagram .block-img {
+    width: 100%; }
+  .wp-block-abourgeons-guten-image-instagram .block-text {
+    width: 40%; }
+  .wp-block-abourgeons-guten-image-instagram.components-placeholder h2 {
+    color: inherit; }
+  .wp-block-abourgeons-guten-image-instagram.has-left-content .editor-rich-text__inline-toolbar {
+    -ms-flex-pack: start;
+        justify-content: flex-start; }
+  .wp-block-abourgeons-guten-image-instagram.has-right-content .editor-rich-text__inline-toolbar {
+    -ms-flex-pack: end;
+        justify-content: flex-end; }
 /**
  * #.# Editor Styles
  *

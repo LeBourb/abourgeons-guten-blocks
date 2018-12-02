@@ -15,8 +15,12 @@
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
     min-height: 43vh;
+    display: flex;
+    flex-direction: column;
+
     .block-img {
       position: relative;
+      flex-grow: 1;
     }
     .block-img.textcontainer{
       position: relative;
@@ -25,7 +29,9 @@
       top: auto;
     }
     .textcontainer{
+      padding: 0;
       .offsettab {
+        padding: 0;
         .button {
           letter-spacing: normal;
           padding: 5px;

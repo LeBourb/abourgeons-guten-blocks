@@ -8,14 +8,23 @@
 //  Import CSS.
 import './style.scss';
 import './editor.scss?editor';
+import { default as edit } from './edit';
 //import './searchproduct.scss';
 //R14 dze
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
-const { withNotices } = wp.components;
 const { apiFetch } = wp;
+const { IconButton, PanelBody, RangeControl, ToggleControl, Toolbar, withNotices,SelectControl } = wp.components;
+const { Fragment , Component } = wp.element;
+const {
+	BlockControls,
+	MediaUpload,
+	MediaPlaceholder,
+	InspectorControls,
+	mediaUpload,
+} = wp.editor;
 
-import { ProductsSpecificSelect, ProductTile } from './../lib/product.js';
+import { ProductsSpecificSelect, ProductVisual } from './../lib/product.js';
 
 const PRODUCT_DATA = {};
 
@@ -23,7 +32,28 @@ const blockAttributes = {
 	productId: {
 		type: 'number',
     default: 0
+	},
+	isMultiProducts: {
+		type: 'boolean',
+		default: false
+	},
+	MultiMediaResponsive: {
+		type: 'boolean',
+		default: false
+	},
+	productIds: {
+		type: 'array',
+		default: []
+	},
+	media_id: {
+		type: 'array',
+		default: []
+	},
+	media_url: {
+		type: 'array',
+		default: []
 	}
+
 };
 
 var product = null;
@@ -62,27 +92,7 @@ var product_cover = registerBlockType( 'abourgeons-guten/product-cover-block', {
 	 *
 	 * @link https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 	 */
-	edit: withNotices( ( { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } ) => {
-		// Creates a <p class='wp-block-cgb-block-my-block'></p>.
-    const onSelectProduct = ( product ) => {
-      if ( product ) {
-        PRODUCT_DATA[product.id]= product;
-        setAttributes( { productId: product.id } );
-        return;
-      }
-    };
-
-		return (
-			<div className={ className }>
-        { !attributes.productId && (
-        <ProductsSpecificSelect onSelectProduct= { onSelectProduct } />
-        ) }
-        { attributes.productId && (
-          <ProductTile productId={ attributes.productId }/>
-      ) }
-			</div>
-		);
-	}),
+	edit: edit,
 
 	/**
 	 * The save function defines the way in which the different attributes should be combined

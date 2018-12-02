@@ -5,7 +5,7 @@
 }
 
 .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring {
-  min-height: 80vh;
+  min-height: 40vh;
 }
 
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
@@ -13,6 +13,26 @@
  {
   position: relative;
   width: 100%;
+
+  .has-background-dim::before {
+      background-color: inherit;
+      bottom: 0;
+      content: "";
+      left: 0;
+      opacity: .5;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1;
+  }
+
+  @for $i from 1 through 10 {
+    .has-background-dim-#{ $i * 10 }::before {
+      opacity: $i * 0.1;
+    }
+  }
+
+
   .textcontainer {
     position: absolute;
     width: 100%;
@@ -32,13 +52,12 @@
       position: relative;
       z-index: 2;
       height: 100%;
-      padding: 1.8rem;
       flex-flow: column nowrap;
       justify-content: center;
       align-items: flex-start;
       display: table;
       text-align: left;
-      max-width: 33.333%;
+      max-width: 50%;
       white-space: normal;
       display: flex;
 
@@ -83,16 +102,22 @@
         margin-left: auto;
         margin-right: auto;
         line-height: unset;
+        width: 100%;
       }
 
       h4.subtitle {
         padding-left: 0;
+        color: inherit;
+        width: 100%;
       }
 
       @media (max-width: #{ ($break-medium) }) {
     		max-width: 100%;
     	}
     }
+
+
+
   }
 
 
@@ -113,6 +138,10 @@
     min-height: 100%;
   }
 
+  &.background-image-fixed .block-img {
+      background-attachment: fixed;
+  }
+
   .imagecontainer {
     img {
       width: 100%;
@@ -123,18 +152,21 @@
       .offsettab {
           margin-left: auto;
           margin-right: auto;
+          text-align: center;
       }
   }
 
   &.is-right .textcontainer {
       .offsettab {
         float: right;
+        text-align: right;
       }
   }
 
   &.is-left .textcontainer {
       .offsettab {
         float: left;
+        text-align: left;
       }
   }
 
@@ -197,6 +229,8 @@
     bottom: 0;
     left: 0;
     right: 0;
+
+
   }
 }
 
@@ -213,7 +247,13 @@
 }
 
 .parallax-section {
-    background-attachment: fixed!important;
+
     background-size: cover!important;
     position: relative;
+}
+
+// CLASS
+.margin-off .wp-block-column {
+  margin-left: 0;
+  margin-right: 0;
 }

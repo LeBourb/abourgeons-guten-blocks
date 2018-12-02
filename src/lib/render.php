@@ -1,19 +1,26 @@
 <?php
 
-function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaResponsive) {
-  if(isset($image['hlink']) )
-      echo '<a href="' . $image['hlink'] . '">';
+function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaResponsive, $funcContent = null) {
+
   $backgroundImageURL = null;
   $backgroundlowImageURL = null;
-  $className = ( array_key_exists('aligned',$image) && isset($image['aligned']) ) ? 'is-' . $image['aligned'] : '';
+  $className = ( array_key_exists('aligned',$image) && isset($image['aligned']) ) ? 'is-' . $image['aligned'] : 'is-center';
   if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
       $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'single_product')[0];
       $backgroundlowImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
       $className .= ' is-featuring';
   }
+  if( array_key_exists('isBackgroundFixed',$image) && $image['isBackgroundFixed'] ) {
+    $className .= ' background-image-fixed';
+  }
+
 ?>
 <div class="abourgeons_fall18abourgeons_fall18_render_imagefeaturing <?php echo $className; ?>">
-  <div style="background-image: url('<?php echo $backgroundlowImageURL;  ?>');" class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load parallax-section'?>" data-full-src="<?php echo $backgroundImageURL ?>">
+  <?php
+    if(isset($image['hlink']) )
+      echo '<a href="' . $image['hlink'] . '">';
+  ?>
+  <div style="background-image: url('<?php echo $backgroundlowImageURL;  ?>');" class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load'?>" data-full-src="<?php echo $backgroundImageURL ?>">
     <?php
       if($isMultiMediaResponsive) {
     ?>
@@ -36,8 +43,15 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
     <?php
       }
     ?>
-    <div class="textcontainer" style="">
+    <div style="<?php if(array_key_exists('backgroundColor', $image)) { ?> background-color:<?php echo $image['backgroundColor'];?>; <?php } ?>" class="has-background-dim <?php  if(array_key_exists('backgroundColor', $image)) { echo abourgeons_fall18_dimRatioToClass( $image['dimRatio'] ); } ?>;">
+    </div>
+    <div class="textcontainer" style="<?php if(array_key_exists('textColor', $image)) { echo 'color: ' . $image['textColor'] . ';'; } ?>">
       <section class="offsettab">
+        <?php
+          if(function_exists($funcContent)) {
+            $funcContent($image);
+          }else {
+        ?>
         <?php if( isset($image['headline']) && !empty($image['headline']) )  {
           ?>
           <h3 class="headline"><?php
@@ -49,13 +63,26 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
             wp_print_rich_text_editor($image['button']);
           ?></div>
         <?php } ?>
+        <?php
+          }
+        ?>
       </section>
     </div>
   </div>
-</div>
-<?php
+  <?php
   if(isset($image['hlink']) )
     echo '</a>';
+  ?>
+</div>
+<?php
+
+}
+
+
+function abourgeons_fall18_dimRatioToClass( $ratio ) {
+	return ( $ratio === 0 || $ratio === 50 ) ?
+		null :
+		'has-background-dim-' . strval( 10 * round( $ratio / 10 ) );
 }
 
 function abourgeons_fall18_render_image_classic( $image ) {
@@ -221,35 +248,45 @@ function wc_product_display_tile($product) {
     ?>
   </div>
   <div style="" class="textcontainer" >
-    <div class="product-over-details" data-id="1">
-      <h4 class="title"><?php echo $product->get_title(); ?></h4>
-      <p class="price"><?php echo $product->get_price_html();?></p>
-      <?php
-        if(!is_a($product, 'WC_Product_Variation') && !is_a($product, 'WC_Product_Simple') && !empty($product->get_available_variations( ))) {
-            $variations = $product->get_available_variations( );
-            echo '<ul class="product-variation">';
-            foreach($variations as $variation) {
-                if ($variation['variation_is_active'] && $variation['variation_is_visible']) {
-                    //$variation->is_in_stock
-                    if(sizeof($variation['attributes']) == 1) {
-                        $attrs = $variation['attributes'];
-                        reset($attrs);
-                        $first_key = key($attrs);
-                        if(!$variation['is_in_stock']) {
-                            echo '<li class="item"><del>' . $attrs[$first_key] . '</del></li>';
-                        }else {
-                            echo '<li class="item">' . $attrs[$first_key] . '</li>';
-                        }
-
-                    }
-                }
-            }
-            echo '</ul>';
-        }
-      ?>
-    </div>
+    <?php wc_product_display_info($product); ?>
   </div>
 </div>
 </a>
+<?php
+}
+
+function wc_product_display_info($product) {
+?>
+  <div class="product-over-details" data-id="1">
+    <h4 class="title"><?php echo $product->get_title(); ?></h4>
+    <p class="price"><?php echo $product->get_price_html();?></p>
+    <?php
+      if(!is_a($product, 'WC_Product_Variation') && !is_a($product, 'WC_Product_Simple') && !empty($product->get_available_variations( ))) {
+          $variations = $product->get_available_variations( );
+          ?>
+          <ul class="product-variation">
+          <?php
+          foreach($variations as $variation) {
+              if ($variation['variation_is_active'] && $variation['variation_is_visible']) {
+                  //$variation->is_in_stock
+                  if(sizeof($variation['attributes']) == 1) {
+                      $attrs = $variation['attributes'];
+                      reset($attrs);
+                      $first_key = key($attrs);
+                      if(!$variation['is_in_stock']) {
+                          echo '<li class="item"><del>' . $attrs[$first_key] . '</del></li>';
+                      }else {
+                          echo '<li class="item">' . $attrs[$first_key] . '</li>';
+                      }
+
+                  }
+              }
+          }
+          ?>
+          </ul>
+          <?php
+      }
+    ?>
+  </div>
 <?php
 }
