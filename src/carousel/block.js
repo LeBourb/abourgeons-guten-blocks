@@ -74,7 +74,7 @@ const blockAttributes = {
 		type: 'string',
 		default: 'none',
 	},
-	aligned: {
+	textAligned: {
 		type: 'string',
 		default: 'center',
 	}

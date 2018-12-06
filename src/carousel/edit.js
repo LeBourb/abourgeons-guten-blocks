@@ -273,7 +273,7 @@ class carouselEdit extends Component {
 					headline={ images[this.state.edit].headline }
 					button={ images[this.state.edit].button }
 					hlink={ images[this.state.edit].hlink }
-					aligned= { images[this.state.edit].aligned }
+					textAligned= { images[this.state.edit].textAligned }
 					edit={ null }
 				/> ) :	(
 				<FeaturingImage
@@ -287,7 +287,7 @@ class carouselEdit extends Component {
 				headline={ images[this.state.edit].headline }
 				button={ images[this.state.edit].button }
 				hlink={images[this.state.edit].hlink}
-				aligned= { images[this.state.edit].aligned }
+				textAligned= { images[this.state.edit].textAligned }
 				edit={ null }
 				size={this.state.size}
 				MultiMediaResponsive={MultiMediaResponsive}
@@ -307,7 +307,7 @@ class carouselEdit extends Component {
 								size={this.state.size}
 								button={ img.button }
 								hlink={img.hlink}
-								aligned= { img.aligned ? img.aligned : 'center'  }
+								textAligned= { img.textAligned ? img.textAligned : 'center'  }
 								edit={ () => this.setState({edit: index}) }
 								MultiMediaResponsive={MultiMediaResponsive}
 							/>

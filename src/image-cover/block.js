@@ -32,7 +32,7 @@ const { Button } = wp.components;
 
 const blockAttributes = {
 	headline: {
-		type: 'string'		
+		type: 'string'
 	},
 	text: {
 		type: 'array',
@@ -69,7 +69,7 @@ const blockAttributes = {
 	subtitle: {
 		type: 'string'
 	},
-	aligned: {
+	textAligned: {
 		type: 'string',
 		default: 'center',
 	},

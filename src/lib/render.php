@@ -4,7 +4,8 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
 
   $backgroundImageURL = null;
   $backgroundlowImageURL = null;
-  $className = ( array_key_exists('aligned',$image) && isset($image['aligned']) ) ? 'is-' . $image['aligned'] : 'is-center';
+  $className = ( array_key_exists('textAligned',$image) && isset($image['textAligned']) ) ? 'text-aligned-' . $image['textAligned'] : ' text-aligned-center';
+  $className .= ( array_key_exists('imageAligned',$image) && isset($image['imageAligned']) ) ? ' image-aligned-' . $image['imageAligned'] : ' image-aligned-center';
   if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
       $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'single_product')[0];
       $backgroundlowImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
@@ -13,6 +14,10 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
   if( array_key_exists('isBackgroundFixed',$image) && $image['isBackgroundFixed'] ) {
     $className .= ' background-image-fixed';
   }
+  if( array_key_exists('widthRatio',$image) ) {
+    $className .=  ' ' . abourgeons_fall18_widthRatioToClass($image['widthRatio']);
+  }
+
 
 ?>
 <div class="abourgeons_fall18abourgeons_fall18_render_imagefeaturing <?php echo $className; ?>">
@@ -43,7 +48,7 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
     <?php
       }
     ?>
-    <div style="<?php if(array_key_exists('backgroundColor', $image)) { ?> background-color:<?php echo $image['backgroundColor'];?>; <?php } ?>" class="has-background-dim <?php  if(array_key_exists('backgroundColor', $image)) { echo abourgeons_fall18_dimRatioToClass( $image['dimRatio'] ); } ?>;">
+    <div style="<?php if(array_key_exists('backgroundColor', $image)) { ?> background-color:<?php echo $image['backgroundColor'];?>; <?php } ?>" class="has-background-dim <?php  if(array_key_exists('backgroundColor', $image)) { echo abourgeons_fall18_dimRatioToClass( $image['dimRatio'] ); } ?>">
     </div>
     <div class="textcontainer" style="<?php if(array_key_exists('textColor', $image)) { echo 'color: ' . $image['textColor'] . ';'; } ?>">
       <section class="offsettab">
@@ -85,6 +90,12 @@ function abourgeons_fall18_dimRatioToClass( $ratio ) {
 		'has-background-dim-' . strval( 10 * round( $ratio / 10 ) );
 }
 
+function abourgeons_fall18_widthRatioToClass( $ratio ) {
+	return ( $ratio === 100 ) ?
+		null :
+		'has-width-ratio-' . strval( 10 * round( $ratio / 10 ) );
+}
+
 function abourgeons_fall18_render_image_classic( $image ) {
   //$image_woo_single = wp_get_attachment_image_src( $image['id'] , 'woocommerce_single');
   $props       = null;
@@ -92,7 +103,7 @@ function abourgeons_fall18_render_image_classic( $image ) {
 }
 
 function abourgeons_fall18_render_responsivemultimedias( $attributes ) {
-  $className = array_key_exists('rightaligned',$attributes) && $attributes['rightaligned'] ? 'rightaligned' : '';
+  $className = array_key_exists('textAligned',$attributes) && $attributes['textAligned'] ? 'textAligned' : '';
   ?>
   <div class="abourgeons_fall18abourgeons_fall18_render_responsivemultimedias <?php echo $className; ?>" style="">
     <?php

@@ -107,7 +107,7 @@ export class ClassicImage extends React.Component {
 
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size, hasSubtitle, subtitle, rightaligned, onValidate, onCancel, edit} = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, headline, button , onRemove, setAttributes , post, hlink, size, hasSubtitle, subtitle, textAligned, onValidate, onCancel, edit} = this.props;
 
 		let href, currenthlink;
 
@@ -148,7 +148,7 @@ export class ClassicImage extends React.Component {
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
 //'is-transient': url && 0 === url.indexOf( 'blob:' ),
 		const className = classnames( {
-			'rightaligned': rightaligned,
+			'textAligned': textAligned,
 			'abourgeons_fall18abourgeons_fall18_render_responsivemultimedias':true,
 			'image_classic-editor': true
 
@@ -179,18 +179,18 @@ export class ClassicImage extends React.Component {
 						/>
 						<IconButton
 							icon="edit"
-							onClick={ () => { edit();/*tthis.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+							onClick={ () => { edit();/*tthis.state.textAligned = false;  this.container.classList.remove('textAligned');*/ } }
 							className="blocks-carousel-item__edit"
 							label={ __( 'Edit' ) }
 						/>
 						<IconButton
 							icon="align-left"
-							onClick={ () => { setAttributes({rightaligned:false});/*this.state.rightaligned = false;  this.container.classList.remove('rightaligned');*/ } }
+							onClick={ () => { setAttributes({textAligned:false});/*this.state.textAligned = false;  this.container.classList.remove('textAligned');*/ } }
 							className="blocks-carousel-item__alignleft"
 							label={ __( 'Align Left' ) }
 						/> <IconButton
 							icon="align-right"
-							onClick={ () => { setAttributes({rightaligned:true});/*this.state.rightaligned = true;  this.container.classList.add('rightaligned')*/ } }
+							onClick={ () => { setAttributes({textAligned:true});/*this.state.textAligned = true;  this.container.classList.add('textAligned')*/ } }
 							className="blocks-carousel-item__alignright"
 							label={ __( 'Align Right' ) }
 						/></div>  ) : ( <div>	<IconButton icon="no-alt"	onClick={ this.onCancel } className="blocks-carousel-item__cancel" label={ __( 'Cancel' ) } 	/>

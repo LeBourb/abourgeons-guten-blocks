@@ -18,7 +18,7 @@
 
 .wp-block-abourgeons-guten-product-cover-block {
   .block-img {
-      height: 80rem;
+    /*  height: 80rem; */
   }
 
   @media only screen and (max-width: $break-small) {
@@ -26,6 +26,13 @@
       height: 40rem;
     }
   }
+
+
+  &.is-selected .components-resizable-box__handle {
+    display: block;
+    z-index: 1;
+  }
+  
   .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
     .textcontainer {
 

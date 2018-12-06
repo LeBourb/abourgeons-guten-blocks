@@ -8,7 +8,7 @@ import React, { Fragment } from 'react';
  * WordPress Dependencies
  */
 const { Component } = wp.element;
-const { IconButton, Spinner, PanelBody, ToggleControl, SelectControl, withFallbackStyles, RangeControl  } = wp.components;
+const { IconButton, Spinner, PanelBody, ToggleControl, SelectControl, withFallbackStyles, RangeControl, BlockAlignmentToolbar, ResizableBox  } = wp.components;
 const { __ } = wp.i18n;
 const { BACKSPACE, DELETE } = wp.keycodes;
 const { withSelect } = wp.data;
@@ -111,7 +111,7 @@ export class FeaturingImage extends React.Component {
 	}
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, onRemove, setAttributes , children , post, hlink, aligned, onValidate, onCancel, edit, MultiMediaResponsive, size , backgroundColor, isBackgroundFixed, textColor, dimRatio} = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, onRemove, setAttributes , children , post, hlink, onValidate, onCancel, edit, MultiMediaResponsive, size , backgroundColor, isBackgroundFixed, textColor, dimRatio, widthRatio, textAligned, imageAligned, width, height } = this.props;
 
 		let href, currenthlink;
 
@@ -158,17 +158,15 @@ export class FeaturingImage extends React.Component {
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
 
-		const className = classnames( {
+		const className = classnames( /*widthRatioToClass( widthRatio ),*/ 'text-aligned-' + textAligned , 'image-aligned-' + imageAligned, {
 			'is-selected': isSelected,
 			'is-transient': url && 0 === url.indexOf( 'blob:' ),
-			'is-center': aligned == 'center' ? true : false,
-			'is-left': aligned == 'left' ? true : false,
-			'is-right': aligned == 'right' ? true : false,
 			'is-featuring': !MultiMediaResponsive,
 			'abourgeons_fall18abourgeons_fall18_render_imagefeaturing': true,
 		 	'image-featuring-editor':true,
 			'background-image-fixed': isBackgroundFixed
-		} );
+		});
+
 
 
 		const classNameBack = classnames(
@@ -200,17 +198,17 @@ export class FeaturingImage extends React.Component {
 				/>
 			<IconButton
 					icon="align-left"
-					onClick={ () => { setAttributes({aligned:'left'}); } }
+					onClick={ () => { setAttributes({textAligned:'left'}); } }
 					className="blocks-carousel-item__alignleft"
 					label={ __( 'Align Left' ) }
 				/> <IconButton
 					icon="align-center"
-					onClick={ () => { setAttributes({aligned:'center'}); } }
+					onClick={ () => { setAttributes({textAligned:'center'}); } }
 					className="blocks-carousel-item__aligncenter"
 					label={ __( 'Align Center' ) }
 				/><IconButton
 					icon="align-right"
-					onClick={ () => { setAttributes({aligned:'right'}); } }
+					onClick={ () => { setAttributes({textAligned:'right'}); } }
 					className="blocks-carousel-item__alignright"
 					label={ __( 'Align Right' ) }
 				/></div>);
@@ -283,6 +281,34 @@ export class FeaturingImage extends React.Component {
 */
 
 		return (
+			<ResizableBox
+			size={
+				width && height ? {
+					width,
+					height,
+				} : undefined
+			}
+			minHeight="50"
+			minWidth="50"
+			lockAspectRatio
+			enable={ {
+				top: false,
+				right: true,
+				bottom: true,
+				left: false,
+			} }
+			onResizeStop={ ( event, direction, elt, delta ) => {
+					setAttributes( {
+							height: parseInt( height + delta.height, 10 ),
+							width: parseInt( width + delta.width, 10 ),
+					} );
+					//toggleSelection( true );
+			} }
+			onResizeStart={ () => {
+					//toggleSelection( false );
+			} }
+			className={ className } 
+	>
 			<div className={ className } tabIndex="-1" ref={ this.bindContainer } style={style} >
 				{ ! url ? ( <MediaPlaceholder
 							icon= 'edit'
@@ -313,6 +339,7 @@ export class FeaturingImage extends React.Component {
 							)
 						}
 				</div>
+				</ResizableBox>
 		);
 		/* eslint-enable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events
 
@@ -331,6 +358,12 @@ function dimRatioToClass( ratio ) {
 	return ( ratio === 0 || ratio === 50 ) ?
 		null :
 		'has-background-dim-' + ( 10 * Math.round( ratio / 10 ) );
+}
+
+function widthRatioToClass( ratio ) {
+	return ( ratio === 100 ) ?
+		null :
+		'has-width-ratio-' + ( 10 * Math.round( ratio / 10 ) );
 }
 
 
@@ -372,7 +405,7 @@ export class FeaturingImageToolbar extends Component {
 	}
 
 	render() {
-		const { setAttributes, MultiMediaResponsive, hasSubtitle, hasButton, size, setState, backgroundColor, isBackgroundFixed, textColor, dimRatio} = this.props;
+		const { setAttributes, MultiMediaResponsive, hasSubtitle, hasButton, size, setState, backgroundColor, isBackgroundFixed, textColor, dimRatio, widthRatio, textAligned} = this.props;
 		const toggleMultiMediaResponsive = (MultiMediaResponsive) => {
 			setAttributes( { MultiMediaResponsive: MultiMediaResponsive } );
 		};
@@ -424,16 +457,24 @@ export class FeaturingImageToolbar extends Component {
 						onChange={ (isBackgroundFixed) => {	setAttributes( { isBackgroundFixed: isBackgroundFixed } ); }  }
 					/>
 					}
-					<ToggleControl
+					<RangeControl
+						label={ __( 'Width Ratio' ) }
+						value={ widthRatio }
+						onChange={ ( ratio ) => setAttributes( { widthRatio: ratio } ) }
+						min={ 10 }
+						max={ 100 }
+						step={ 10 }
+					/>
+					{ hasSubtitle !== null ? <ToggleControl
 						label={ __( 'has Subtitle' ) }
 						checked={ !! hasSubtitle }
 						onChange={ togglehasSubtitle }
-					/>
-					<ToggleControl
+					/> : '' }
+					{ hasButton !== null ?  <ToggleControl
 						label={ __( 'has Button' ) }
 						checked={ !! hasButton }
 						onChange={ togglehasButton }
-					/>
+					/>  : '' }
 				</PanelBody>
 			 <PanelColorSettings
 			 		title={ __( 'Color Settings' ) }
@@ -480,7 +521,7 @@ export class FeaturingImagePanel extends Component {
 	}
 
 	render() {
-		const { setAttributes, size, media_url, media_id, hlink } = this.props;
+		const { setAttributes, size, media_url, media_id, hlink, textAligned, imageAligned } = this.props;
 
 		const url = media_url[size] ? media_url[size]  : null ;
 		const id = media_id[size] ? media_id[size] : null ;
@@ -497,7 +538,15 @@ export class FeaturingImagePanel extends Component {
 			id[size] = media.id;
 			setAttributes( { media_url: url, media_id: id } );
 		};
-
+/*
+<BlockAlignmentToolbar
+	value={ textAligned }
+	onChange={ ( nextAlign ) => {
+		setAttributes( { textAligned: nextAlign } );
+	} }
+	controls={ [ 'left', 'center', 'right' ] }
+/>
+*/
 		return (
 		<Fragment>
 			<MediaUpload
@@ -515,20 +564,37 @@ export class FeaturingImagePanel extends Component {
 			/>
 			<IconButton
 					icon="align-left"
-					onClick={ () => { setAttributes({aligned:'left'}); } }
+					onClick={ () => { setAttributes({imageAligned:'left'}); } }
 					className="blocks-carousel-item__alignleft"
 					label={ __( 'Align Left' ) }
 				/> <IconButton
 					icon="align-center"
-					onClick={ () => { setAttributes({aligned:'center'}); } }
+					onClick={ () => { setAttributes({imageAligned:'center'}); } }
 					className="blocks-carousel-item__aligncenter"
 					label={ __( 'Align Center' ) }
 				/><IconButton
 					icon="align-right"
-					onClick={ () => { setAttributes({aligned:'right'}); } }
+					onClick={ () => { setAttributes({imageAligned:'right'}); } }
 					className="blocks-carousel-item__alignright"
 					label={ __( 'Align Right' ) }
 				/>
+				<IconButton
+						icon="editor-alignleft"
+						onClick={ () => { setAttributes({textAligned:'left'}); } }
+						className="components-button components-icon-button components-toolbar__control"
+						label={ __( 'Align Left' ) }
+					/> <IconButton
+						icon="editor-aligncenter"
+						onClick={ () => { setAttributes({textAligned:'center'}); } }
+						className="components-button components-icon-button components-toolbar__control"
+						label={ __( 'Align Center' ) }
+					/><IconButton
+						icon="editor-alignright"
+						onClick={ () => { setAttributes({textAligned:'right'}); } }
+						className="components-button components-icon-button components-toolbar__control"
+						label={ __( 'Align Right' ) }
+					/>
+
 			<URLInputButton url={ hlink } onChange={ (hlink) => { setAttributes({hlink:hlink}); } } 	 />
 			</Fragment>
 		);

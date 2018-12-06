@@ -28,8 +28,21 @@
 
   @for $i from 1 through 10 {
     .has-background-dim-#{ $i * 10 }::before {
-      opacity: $i * 0.1;
+      opacity: $i * 0.1
     }
+  }
+
+
+
+  @for $i from 1 through 10 {
+    &.has-width-ratio-#{ $i * 10 } {
+      width: $i * 10%;
+    }
+  }
+
+  &.is-selected .components-resizable-box__handle {
+    display: block;
+    z-index: 1;
   }
 
 
@@ -111,6 +124,10 @@
         width: 100%;
       }
 
+      a {
+        color: inherit;
+      }
+
       @media (max-width: #{ ($break-medium) }) {
     		max-width: 100%;
     	}
@@ -122,12 +139,12 @@
 
 
 
-  &.rightaligned .textcontainer .offsettab {
+  &.textAligned .textcontainer .offsettab {
     float: right;
   }
 
   @include break-large() {
-    .block-img {
+    &.is-featuring .block-img {
       height: 100vh;
     }
   }
@@ -148,7 +165,7 @@
     }
   }
 
-  &.is-center .textcontainer {
+  &.text-aligned-center .textcontainer {
       .offsettab {
           margin-left: auto;
           margin-right: auto;
@@ -156,18 +173,31 @@
       }
   }
 
-  &.is-right .textcontainer {
+  &.text-aligned-right .textcontainer {
       .offsettab {
         float: right;
         text-align: right;
       }
   }
 
-  &.is-left .textcontainer {
+  &.text-aligned-left .textcontainer {
       .offsettab {
         float: left;
         text-align: left;
       }
+  }
+
+  &.image-aligned-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.image-aligned-left {
+    margin-right: auto;
+  }
+
+  &.image-aligned-right {
+    margin-left: auto;
   }
 
 }

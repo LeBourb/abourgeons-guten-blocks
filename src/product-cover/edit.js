@@ -12,9 +12,9 @@ const {
 	mediaUpload,
 } = wp.editor;
 
-import { FeaturingImage } from './../lib/image-featuring';
+import { FeaturingImage, FeaturingImageToolbar, FeaturingImagePanel  } from './../lib/image-featuring';
 import { ProductNamePrice, ProductsSpecificSelect } from './../lib/product';
-
+import classnames from 'classnames';
 
 
 class productCoverEdit extends Component {
@@ -31,7 +31,7 @@ class productCoverEdit extends Component {
 
   render() {
     const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-    const { media_url, media_id, MultiMediaResponsive, productId, isMultiProducts, productIds } = attributes;
+    const { media_url, media_id, MultiMediaResponsive, productId, isMultiProducts, productIds, backgroundColor, textColor, dimRatio, isBackgroundFixed, hlink, widthRatio, textAligned, imageAligned, height, width } = attributes;
     const onSelectProduct = ( product ) => {
       if ( product ) {
 				productIds.push(product.id);
@@ -63,25 +63,41 @@ class productCoverEdit extends Component {
 
     };
 
+		const mainClassName = classnames( className, {
+			'is-selected': isSelected
+		});
+
+
+		this.setState = this.setState.bind( this );
+
     const controls = (
     <Fragment>
       <BlockControls>
         <Toolbar>
+					<FeaturingImagePanel
+						setAttributes={setAttributes}
+						size={this.state.size}
+						media_url={ media_url }
+						media_id={ media_id }
+						hlink={hlink}
+						/>
         </Toolbar>
       </BlockControls>
       <InspectorControls>
-        <PanelBody title={ __( 'Product Setting' ) }>
-          <ToggleControl
-            label={ __( 'Multi-Products Tile' ) }
-            checked={ !! attributes.isMultiProducts }
-            onChange={ toggleMultiProducts }
-          />
-          <ToggleControl
-            label={ __( 'Multi-Media Responsiveness' ) }
-            checked={ !! MultiMediaResponsive }
-            onChange={ toggleMultiMediaResponsive }
-          />
-      </PanelBody>
+				<FeaturingImageToolbar
+						setAttributes={setAttributes}
+						MultiMediaResponsive={MultiMediaResponsive}
+						hasSubtitle={null}
+						hasButton={null}
+						size={this.state.size}
+						setState={this.setState}
+						backgroundColor= {backgroundColor}
+						textColor={textColor}
+						textAligned={textAligned}
+						dimRatio={dimRatio}
+						widthRatio={widthRatio}
+						isBackgroundFixed = {isBackgroundFixed}
+					/>
     </InspectorControls>
   </Fragment>
   );
@@ -94,7 +110,7 @@ class productCoverEdit extends Component {
     return (
       <Fragment>
 		    { controls }
-        <div className={ className }>
+        <div className={ mainClassName }>
             <FeaturingImage
             media_url={ media_url }
             media_id={ media_id }
@@ -103,11 +119,19 @@ class productCoverEdit extends Component {
             onCancel={ null }
             setAttributes={ setAttributes }
             headline={ null }
+						isSelected= {isSelected}
             size={this.state.size}
+						backgroundColor= {backgroundColor}
+						textColor={textColor}
+						dimRatio={dimRatio}
+						widthRatio={widthRatio}
+						isBackgroundFixed={isBackgroundFixed}
             button={ null }
-            hlink={ null }
-            aligned= { null  }
+            textAligned= { textAligned  }
+						imageAligned={ imageAligned }
             edit={ null }
+						width={ width}
+						height={ height}
             MultiMediaResponsive={ MultiMediaResponsive }
           >
             <ul className="products_list">

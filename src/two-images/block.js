@@ -221,7 +221,7 @@ registerBlockType( name, {
 	                  subtitle={ null }
 	                  button={ null }
 	                  hlink={ null }
-										rightaligned= { null }
+										textAligned= { null }
 										edit={ true }
 	               >
 								 <RichText
@@ -264,7 +264,7 @@ registerBlockType( name, {
 
 				                  button={ null }
 				                  hlink={ null }
-													rightaligned= { null }
+													textAligned= { null }
 													edit={ true }
 				                >
 												<RichText

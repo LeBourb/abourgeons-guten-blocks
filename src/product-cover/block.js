@@ -52,8 +52,44 @@ const blockAttributes = {
 	media_url: {
 		type: 'array',
 		default: []
+	},
+	backgroundColor: {
+		type: 'string',
+		default:'111E'
+	},
+	textColor: {
+		type: 'string',
+		default:'111E'
+	},
+	dimRatio: {
+		type: 'number',
+		default: 50,
+	},
+	isBackgroundFixed: {
+		type: 'boolean',
+		default: false
+	},
+	hlink: {
+		type: 'string'
+	},
+	widthRatio: {
+		type: 'number',
+		default: 100,
+	},
+	textAligned: {
+		type: 'string',
+		default: 'center'
+	},
+	imageAligned: {
+		type: 'string',
+		default: 'center'
+	},
+	width: {
+		type: 'number',
+	},
+	height: {
+		type: 'number',
 	}
-
 };
 
 var product = null;

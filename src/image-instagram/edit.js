@@ -35,7 +35,7 @@ class imagecoverEdit extends Component {
 
 render()  {
   const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, isBackgroundFixed, hasSubtitle, subtitle, rightaligned, backgroundColor, textColor, dimRatio  } = attributes;
+  const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, isBackgroundFixed, hasSubtitle, subtitle, textAligned, backgroundColor, textColor, dimRatio  } = attributes;
 
 
   //const style = backgroundImageStyles( url );
@@ -102,12 +102,12 @@ render()  {
 								onRemove={ () => { } }
 								onValidate={ (attrs) => { this.state.edit = null; setAttributes(attrs); } }
 								onCancel={ () => { this.setState({edit:null}); } }
-								setAttributes={ (attrs) => { setAttributes(attrs); } }								
+								setAttributes={ (attrs) => { setAttributes(attrs); } }
 								hasSubtitle={ hasSubtitle }
 								subtitle={ subtitle }
 								button={ button }
 								hlink={ hlink }
-								rightaligned= { rightaligned }
+								textAligned= { textAligned }
 								edit={ this.state.edit ? null : () => { this.setState({edit:true}); } }
 			          MultiMediaResponsive={ MultiMediaResponsive }
 								isBackgroundFixed = {isBackgroundFixed}
