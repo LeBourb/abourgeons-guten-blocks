@@ -39,9 +39,9 @@ function abourgeons_fall18_woo_product_cover_block(  $attributes, $content ) {
   ?>
   <div class="wp-block-abourgeons-guten-product-cover-block">
   <?php
-    $MultiMediaResponsive = false;
+    $MultiMediaResponsive = true;
     if(isset( $attributes['MultiMediaResponsive']) &&   $attributes['MultiMediaResponsive'])
-      $MultiMediaResponsive = true;
+      $MultiMediaResponsive =  $attributes['MultiMediaResponsive'];
     abourgeons_fall18_render_image_featuring( $attributes , $MultiMediaResponsive , 'abourgeons_fall18_woo_product_cover_block_display_content');
   ?>
   </div>

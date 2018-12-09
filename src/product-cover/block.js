@@ -39,7 +39,7 @@ const blockAttributes = {
 	},
 	MultiMediaResponsive: {
 		type: 'boolean',
-		default: false
+		default: true
 	},
 	productIds: {
 		type: 'array',
@@ -72,10 +72,6 @@ const blockAttributes = {
 	hlink: {
 		type: 'string'
 	},
-	widthRatio: {
-		type: 'number',
-		default: 100,
-	},
 	textAligned: {
 		type: 'string',
 		default: 'center'
@@ -84,11 +80,13 @@ const blockAttributes = {
 		type: 'string',
 		default: 'center'
 	},
-	width: {
+	widthPrct: {
 		type: 'number',
+		default: 100
 	},
-	height: {
+	heightPrct: {
 		type: 'number',
+		default: 100
 	}
 };
 

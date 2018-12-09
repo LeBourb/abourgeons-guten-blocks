@@ -20,17 +20,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0.0
  */
-function my_block_cgb_block_assets() {
+function abourgeons_cgb_block_assets() {
 	// Styles.
 	wp_enqueue_style(
-		'my_block-cgb-style-css', // Handle.
-		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ), // Block style CSS.
-		array( 'wp-blocks' ) // Dependency to include the CSS after it.
+		'abourgeons-cgb-style-css', // Handle.
+		plugins_url( 'dist/blocks.style.build.css', dirname( __FILE__ ) ) // Block style CSS.
+		//array( 'wp-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 
 	wp_enqueue_script(
-		'my_block-cgb-result-build-js', // Handle.
+		'abourgeons-cgb-result-build-js', // Handle.
 		plugins_url( 'dist/result.build.js', dirname( __FILE__ ) ), // Block style CSS.
 		array( 'wp-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
@@ -44,10 +44,10 @@ function my_block_cgb_block_assets() {
 	require_once ('image-instagram/render.php');
 	require_once ('product-cover/render.php');
 	require_once ('products-grid/render.php');
-} // End function my_block_cgb_block_assets().
+} // End function abourgeons_cgb_block_assets().
 
 // Hook: Frontend assets.
-add_action( 'enqueue_block_assets', 'my_block_cgb_block_assets' );
+add_action( 'enqueue_block_assets', 'abourgeons_cgb_block_assets' );
 
 /**
  * Enqueue Gutenberg block assets for backend editor.
@@ -58,10 +58,10 @@ add_action( 'enqueue_block_assets', 'my_block_cgb_block_assets' );
  *
  * @since 1.0.0
  */
-function my_block_cgb_editor_assets() {
+function abourgeons_cgb_editor_assets() {
 	// Scripts.
 	wp_enqueue_script(
-		'my_block-cgb-block-js', // Handle.
+		'abourgeons-cgb-block-js', // Handle.
 		plugins_url( '/dist/blocks.build.js', dirname( __FILE__ ) ), // Block.build.js: We register the block here. Built with Webpack.
 		array( 'wp-blocks', 'wp-i18n', 'wp-element' , 'wp-components' , 'wp-editor'), // Dependencies, defined above.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' ), // Version: filemtime — Gets file modification time.
@@ -70,12 +70,12 @@ function my_block_cgb_editor_assets() {
 
 	// Styles.
 	wp_enqueue_style(
-		'my_block-cgb-block-editor-css', // Handle.
+		'abourgeons-cgb-block-editor-css', // Handle.
 		plugins_url( 'dist/blocks.editor.build.css', dirname( __FILE__ ) ), // Block editor CSS.
 		array( 'wp-edit-blocks' ) // Dependency to include the CSS after it.
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
 	);
-} // End function my_block_cgb_editor_assets().
+} // End function abourgeons_cgb_editor_assets().
 
 // Hook: Editor assets.
-add_action( 'enqueue_block_editor_assets', 'my_block_cgb_editor_assets' );
+add_action( 'enqueue_block_editor_assets', 'abourgeons_cgb_editor_assets' );

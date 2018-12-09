@@ -12,9 +12,21 @@
   }
 }
 
+
+.components-resizable-box__container {
+  .components-resizable-box__handle {
+      display: block;
+      z-index: 1;
+  }
+}
+
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image_classic-editor
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-featuring-editor {
-    min-height: 43vh;
+
+    &.is-featuring {
+      min-height: 43vh;
+    }
+
     display: flex;
     flex-direction: column;
 

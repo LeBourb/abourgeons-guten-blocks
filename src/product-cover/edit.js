@@ -30,8 +30,8 @@ class productCoverEdit extends Component {
 	}
 
   render() {
-    const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
-    const { media_url, media_id, MultiMediaResponsive, productId, isMultiProducts, productIds, backgroundColor, textColor, dimRatio, isBackgroundFixed, hlink, widthRatio, textAligned, imageAligned, height, width } = attributes;
+    const { attributes, setAttributes, toggleSelection, isSelected, className, noticeOperations, noticeUI } = this.props;
+    const { media_url, media_id, MultiMediaResponsive, productId, isMultiProducts, productIds, backgroundColor, textColor, dimRatio, isBackgroundFixed, hlink, textAligned, imageAligned, widthPrct, heightPrct } = attributes;
     const onSelectProduct = ( product ) => {
       if ( product ) {
 				productIds.push(product.id);
@@ -95,7 +95,6 @@ class productCoverEdit extends Component {
 						textColor={textColor}
 						textAligned={textAligned}
 						dimRatio={dimRatio}
-						widthRatio={widthRatio}
 						isBackgroundFixed = {isBackgroundFixed}
 					/>
     </InspectorControls>
@@ -118,20 +117,20 @@ class productCoverEdit extends Component {
             onValidate={ null }
             onCancel={ null }
             setAttributes={ setAttributes }
+						toggleSelection = {toggleSelection}
             headline={ null }
 						isSelected= {isSelected}
             size={this.state.size}
 						backgroundColor= {backgroundColor}
 						textColor={textColor}
 						dimRatio={dimRatio}
-						widthRatio={widthRatio}
 						isBackgroundFixed={isBackgroundFixed}
             button={ null }
             textAligned= { textAligned  }
 						imageAligned={ imageAligned }
             edit={ null }
-						width={ width}
-						height={ height}
+						heightPrct = {heightPrct}
+						widthPrct = {widthPrct}
             MultiMediaResponsive={ MultiMediaResponsive }
           >
             <ul className="products_list">

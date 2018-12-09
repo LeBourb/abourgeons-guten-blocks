@@ -4,19 +4,23 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
 
   $backgroundImageURL = null;
   $backgroundlowImageURL = null;
+  $style = '';
   $className = ( array_key_exists('textAligned',$image) && isset($image['textAligned']) ) ? 'text-aligned-' . $image['textAligned'] : ' text-aligned-center';
   $className .= ( array_key_exists('imageAligned',$image) && isset($image['imageAligned']) ) ? ' image-aligned-' . $image['imageAligned'] : ' image-aligned-center';
   if(!$isMultiMediaResponsive && isset( $image['media_id'] ) && isset( $image['media_id'][0] )) {
       $backgroundImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'single_product')[0];
       $backgroundlowImageURL = wp_get_attachment_image_src( $image['media_id'][0] , 'woocommerce_single')[0];
+      $style .= ' background-image: url(\'' . $backgroundlowImageURL . '\');';
       $className .= ' is-featuring';
   }
   if( array_key_exists('isBackgroundFixed',$image) && $image['isBackgroundFixed'] ) {
     $className .= ' background-image-fixed';
   }
-  if( array_key_exists('widthRatio',$image) ) {
-    $className .=  ' ' . abourgeons_fall18_widthRatioToClass($image['widthRatio']);
-  }
+//print_r($image);
+
+if( array_key_exists('widthPrct',$image) && $image['widthPrct'] ) {
+  $style .= ' width:' . $image['widthPrct'] . '%;';
+}
 
 
 ?>
@@ -25,7 +29,7 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
     if(isset($image['hlink']) )
       echo '<a href="' . $image['hlink'] . '">';
   ?>
-  <div style="background-image: url('<?php echo $backgroundlowImageURL;  ?>');" class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load'?>" data-full-src="<?php echo $backgroundImageURL ?>">
+  <div style=<?php echo $style; ?> class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load'?>" data-full-src="<?php echo $backgroundImageURL ?>">
     <?php
       if($isMultiMediaResponsive) {
     ?>
@@ -48,7 +52,7 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
     <?php
       }
     ?>
-    <div style="<?php if(array_key_exists('backgroundColor', $image)) { ?> background-color:<?php echo $image['backgroundColor'];?>; <?php } ?>" class="has-background-dim <?php  if(array_key_exists('backgroundColor', $image)) { echo abourgeons_fall18_dimRatioToClass( $image['dimRatio'] ); } ?>">
+    <div style="<?php if(array_key_exists('backgroundColor', $image)) { ?> background-color:<?php echo $image['backgroundColor'];?>; <?php } ?>" class="has-background-dim">
     </div>
     <div class="textcontainer" style="<?php if(array_key_exists('textColor', $image)) { echo 'color: ' . $image['textColor'] . ';'; } ?>">
       <section class="offsettab">
@@ -81,13 +85,6 @@ function abourgeons_fall18_render_image_featuring( $image , $isMultiMediaRespons
 </div>
 <?php
 
-}
-
-
-function abourgeons_fall18_dimRatioToClass( $ratio ) {
-	return ( $ratio === 0 || $ratio === 50 ) ?
-		null :
-		'has-background-dim-' . strval( 10 * round( $ratio / 10 ) );
 }
 
 function abourgeons_fall18_widthRatioToClass( $ratio ) {

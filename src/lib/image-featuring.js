@@ -44,12 +44,22 @@ export class FeaturingImage extends React.Component {
 			imageSelected: false,
 			hlink:null,
 			post:null,
-			size: 0
+			size: 0,
+			width: 0,
+			height: 0,
+			refwidth: 0,
+			refheight: 0
 		}
 	}
 
 	bindContainer( ref ) {
-		this.container = ref;
+		if(ref) {
+			this.container = ref;
+			this.state.width = ref.offsetWidth;
+			this.state.height = ref.offsetHeight;
+			this.state.refwidth = ref.parentElement.offsetWidth;
+			this.state.refheight = ref.parentElement.offsetHeight;
+		}
 	}
 
 	componentDidUpdate( prevProps ) {
@@ -111,7 +121,7 @@ export class FeaturingImage extends React.Component {
 	}
 
 	render() {
-		const { media_url, alt, media_id, linkTo, link, isSelected, onRemove, setAttributes , children , post, hlink, onValidate, onCancel, edit, MultiMediaResponsive, size , backgroundColor, isBackgroundFixed, textColor, dimRatio, widthRatio, textAligned, imageAligned, width, height } = this.props;
+		const { media_url, alt, media_id, linkTo, link, isSelected, onRemove, setAttributes , toggleSelection,  children , post, hlink, onValidate, onCancel, edit, MultiMediaResponsive, size , backgroundColor, isBackgroundFixed, textColor, textAligned, imageAligned, widthPrct, heightPrct } = this.props;
 
 		let href, currenthlink;
 
@@ -129,10 +139,7 @@ export class FeaturingImage extends React.Component {
 				break;
 		}
 
-		this.state = {
-			hlink:hlink,
-			size:( MultiMediaResponsive ? size : 0 )
-		}
+		this.state.size = ( MultiMediaResponsive ? size : 0 );
 
 		const onSelectImage = ( media ) => {
 			var url = this.props.media_url.slice(0);
@@ -150,7 +157,14 @@ export class FeaturingImage extends React.Component {
 		};
 
 
-		const style = !MultiMediaResponsive ? backgroundImageStyles( url ) : null;
+		const style = {
+			width: ( !isSelected && widthPrct ) ? widthPrct + '%' : ''
+		};
+
+		const styleBackgroupdImage = {
+			backgroundImage: !MultiMediaResponsive ?  `url(${ url })`  : '',
+		};
+
 		const styleBackgroupdColor = { backgroundColor: backgroundColor };
 		const textstyle = { color: textColor ? textColor : 'black' };
 
@@ -158,7 +172,7 @@ export class FeaturingImage extends React.Component {
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
 
-		const className = classnames( /*widthRatioToClass( widthRatio ),*/ 'text-aligned-' + textAligned , 'image-aligned-' + imageAligned, {
+		const className = classnames( 'text-aligned-' + textAligned , 'image-aligned-' + imageAligned, {
 			'is-selected': isSelected,
 			'is-transient': url && 0 === url.indexOf( 'blob:' ),
 			'is-featuring': !MultiMediaResponsive,
@@ -170,8 +184,7 @@ export class FeaturingImage extends React.Component {
 
 
 		const classNameBack = classnames(
-			'has-background-dim',
-			dimRatioToClass( dimRatio )
+			'has-background-dim'
 		);
 
 		//{ href ? <a href={ href }>{ img }</a> : img }
@@ -279,68 +292,86 @@ export class FeaturingImage extends React.Component {
 
 				</div>
 */
+		//var widthCpt = width ?  (width * widthPrct)/100 : 1;
+		//var heightCpt = height ? (height * heightPrct)/100 : 1;
+		var width = isSelected ? this.state.width : undefined;
+		var height = isSelected ? this.state.height : undefined;
+		const featureImage = (<div className={ className } tabIndex="-1" ref={ !isSelected ? this.bindContainer : null } style={style} >
+			{ ! url ? ( <MediaPlaceholder
+						icon= 'edit'
+						className={ 'mediaplaceholder' }
+						labels={ {
+							title: 'Select',
+							name: __( 'an image' ),
+						} }
+						onSelect={ onSelectImage }
+						accept="image/*"
+						type="image"
+					/> ) : (  <div className={ 'block-img' } data-id={ id } style={styleBackgroupdImage}  >
+										{ MultiMediaResponsive ? ( <div className="imagecontainer">
+									<section className="slide-data-container smallenablediv">
+										<picture>
+											<img src={ media_url[size] } data-id={ media_id[size] } />
+										</picture>
+									</section>
+								</div> ) : ('') }
+								<div style={ styleBackgroupdColor } className={classNameBack}>
+								</div>
+								<div className="textcontainer" style={ textstyle } >
+									<section className="offsettab">
+										{ children ?  children : '' }
+									</section>
+								</div>
+							</div>
+						)
+					}
+			</div>);
 
-		return (
-			<ResizableBox
+		return isSelected ? ( <ResizableBox
 			size={
 				width && height ? {
-					width,
-					height,
+					 width ,
+					 height ,
 				} : undefined
 			}
 			minHeight="50"
 			minWidth="50"
 			lockAspectRatio
+			ref={ isSelected ? this.bindContainer : null }
 			enable={ {
 				top: false,
 				right: true,
 				bottom: true,
 				left: false,
 			} }
+			className={ classnames('image-aligned-' + imageAligned) }
 			onResizeStop={ ( event, direction, elt, delta ) => {
-					setAttributes( {
-							height: parseInt( height + delta.height, 10 ),
-							width: parseInt( width + delta.width, 10 ),
-					} );
-					//toggleSelection( true );
-			} }
-			onResizeStart={ () => {
+					var refwidth = this.state.refwidth;
+					var refheight = this.state.refheight;
+					var width = this.state.width;
+					var height = this.state.height;
+					var widthPrctN = ( width + delta.width ) / refwidth;
+					var heightPrctN = ( height + delta.height ) / refheight;
+					this.state.width +=  delta.width ;
+					this.state.height += delta.height ;
 					//toggleSelection( false );
+					setAttributes( {
+							widthPrct: parseInt(widthPrctN * 100 , 10),
+							heightPrct: parseInt(heightPrctN * 100 , 10),
+					} );
 			} }
-			className={ className } 
+			onResizeStart={ (evt) => {
+				/*if(!this.state.refwidth || !this.state.refheight) {
+					this.state.refwidth = this.state.width * ( widthPrct / 100 );
+					this.state.refheight = this.state.height * ( heightPrct / 100 );
+				}
+				this.state.width = evt.screenX;
+				this.state.height = evt.screenY;
+				*/
+			} }
 	>
-			<div className={ className } tabIndex="-1" ref={ this.bindContainer } style={style} >
-				{ ! url ? ( <MediaPlaceholder
-							icon= 'edit'
-							className={ 'mediaplaceholder' }
-							labels={ {
-								title: 'Select',
-								name: __( 'an image' ),
-							} }
-							onSelect={ onSelectImage }
-							accept="image/*"
-							type="image"
-						/> ) : (  <div className={ 'block-img' } data-id={ id } style={ style }  >
-											{ MultiMediaResponsive ? ( <div className="imagecontainer">
-										<section className="slide-data-container smallenablediv">
-											<picture>
-												<img src={ media_url[size] } data-id={ media_id[size] } />
-											</picture>
-										</section>
-									</div> ) : ('') }
-									<div style={ styleBackgroupdColor } className={classNameBack}>
-									</div>
-									<div className="textcontainer" style={ textstyle } >
-										<section className="offsettab">
-											{ children ?  children : '' }
-										</section>
-									</div>
-								</div>
-							)
-						}
-				</div>
-				</ResizableBox>
-		);
+				{featureImage}
+			</ResizableBox> ) : featureImage;
 		/* eslint-enable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events
 
 			 */
@@ -351,19 +382,6 @@ function backgroundImageStyles( url ) {
 	return url ?
 		{ backgroundImage: `url(${ url })` } :
 		undefined;
-}
-
-
-function dimRatioToClass( ratio ) {
-	return ( ratio === 0 || ratio === 50 ) ?
-		null :
-		'has-background-dim-' + ( 10 * Math.round( ratio / 10 ) );
-}
-
-function widthRatioToClass( ratio ) {
-	return ( ratio === 100 ) ?
-		null :
-		'has-width-ratio-' + ( 10 * Math.round( ratio / 10 ) );
 }
 
 
@@ -405,7 +423,7 @@ export class FeaturingImageToolbar extends Component {
 	}
 
 	render() {
-		const { setAttributes, MultiMediaResponsive, hasSubtitle, hasButton, size, setState, backgroundColor, isBackgroundFixed, textColor, dimRatio, widthRatio, textAligned} = this.props;
+		const { setAttributes, MultiMediaResponsive, hasSubtitle, hasButton, size, setState, backgroundColor, isBackgroundFixed, textColor, textAligned} = this.props;
 		const toggleMultiMediaResponsive = (MultiMediaResponsive) => {
 			setAttributes( { MultiMediaResponsive: MultiMediaResponsive } );
 		};
@@ -417,8 +435,6 @@ export class FeaturingImageToolbar extends Component {
 		const togglehasButton = (hasButton) => {
 			setAttributes( { hasButton: hasButton } );
 		};
-
-		const setDimRatio = ( ratio ) => setAttributes( { dimRatio: ratio } );
 
 
 
@@ -457,14 +473,6 @@ export class FeaturingImageToolbar extends Component {
 						onChange={ (isBackgroundFixed) => {	setAttributes( { isBackgroundFixed: isBackgroundFixed } ); }  }
 					/>
 					}
-					<RangeControl
-						label={ __( 'Width Ratio' ) }
-						value={ widthRatio }
-						onChange={ ( ratio ) => setAttributes( { widthRatio: ratio } ) }
-						min={ 10 }
-						max={ 100 }
-						step={ 10 }
-					/>
 					{ hasSubtitle !== null ? <ToggleControl
 						label={ __( 'has Subtitle' ) }
 						checked={ !! hasSubtitle }
@@ -492,14 +500,6 @@ export class FeaturingImageToolbar extends Component {
 			 			},
 			 		] }
 			 	>
-					<RangeControl
-						label={ __( 'Background Opacity' ) }
-						value={ dimRatio }
-						onChange={ setDimRatio }
-						min={ 0 }
-						max={ 100 }
-						step={ 10 }
-					/>
 			 	</PanelColorSettings>
 			</Fragment>
 		);
