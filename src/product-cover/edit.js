@@ -145,6 +145,19 @@ class productCoverEdit extends Component {
 						<h3>Add a new product to the list</h3>
 						<ProductsSpecificSelect onSelectProduct= { onSelectProduct } />
 					</div>
+					<ul className="products_list_bottom">
+						{ productIds.map( ( productId, index ) => (
+								<li>
+									<ProductNamePrice productId= { productId } />
+									<IconButton
+											icon="trash"
+											onClick={ () => { productIds.splice(index,1); setAttributes({productIds:productIds}); } }
+											className="components-trash components-icon-trash components-toolbar__control"
+											label={ __( 'Remove Product' ) }
+										/>
+								</li>
+						))}
+					</ul>
         </div>
       </Fragment>
     );

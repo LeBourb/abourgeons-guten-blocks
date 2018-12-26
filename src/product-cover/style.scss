@@ -22,9 +22,12 @@
   }
 
   @media only screen and (max-width: $break-small) {
+    margin-bottom: 2rem;
+
     .block-img {
-      height: 40rem;
+    /*  height: 40rem; */
     }
+
   }
 
   .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
@@ -38,11 +41,12 @@
         ul.products_list {
           vertical-align: bottom;
           flex-direction: column;
-          width: 100%;
           justify-content: flex-end;
           align-items: flex-end;
           height: 100%;
           display: flex;
+          width: 100%;
+          margin: 0;
 
           li {
             position: relative;
@@ -56,7 +60,9 @@
                 background: #fff;
                 color: #000;
                 z-index: 1;
-                display:none;
+                display: block;
+                opacity: 0;
+                transition: visibility 0s, opacity 0.1s linear;
                 position: absolute;
                 .product-variation {
                     display: flex;
@@ -65,12 +71,35 @@
                 }
               }
 
+              h3 {
+                font-size: 1.8rem;
+                line-height: 2rem;
+              }
+
               &:hover {
                 .product-over-details {
-                  display: block;
+                  visibility: visible;
+                  opacity: 1;
                 }
               }
 
+              button {
+                background: none;
+              }
+
+          }
+
+          @media (hover:none), (hover:on-demand) {
+            li {
+              background-color: white;
+              opacity: 0.8;
+              padding-right: 12px;
+              margin-top: 4px;
+
+              .product-over-details {
+                display:none;
+              }
+            }
           }
         }
 
@@ -78,6 +107,12 @@
     }
     }
   }
+}
 
-
+.products_list_footer {
+  display: none;
+  margin: 0;
+  li {
+    display: block;
+  }
 }

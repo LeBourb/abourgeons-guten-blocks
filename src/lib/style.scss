@@ -5,7 +5,7 @@
 }
 
 .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring {
-  min-height: 40vh;
+  min-height: 75vh;
 }
 
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
@@ -13,6 +13,10 @@
  {
   position: relative;
   width: 100%;
+
+  a, a:hover {
+    color: inherit;
+  }
 
   .has-background-dim::before {
       background-color: inherit;
@@ -40,10 +44,6 @@
     }
   }
 
-  &.is-selected .components-resizable-box__handle {
-    display: block;
-    z-index: 1;
-  }
 
 
   .textcontainer {
@@ -68,7 +68,7 @@
       flex-flow: column nowrap;
       justify-content: center;
       align-items: flex-start;
-      display: table;
+      display: block;
       text-align: left;
       max-width: 50%;
       white-space: normal;
@@ -116,6 +116,7 @@
         margin-right: auto;
         line-height: unset;
         width: 100%;
+        color: inherit;
       }
 
       h4.subtitle {

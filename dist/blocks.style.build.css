@@ -64,12 +64,16 @@
   width: 100%; }
 
 .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring {
-  min-height: 40vh; }
+  min-height: 75vh; }
 
 .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 , .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
   position: relative;
   width: 100%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+a, .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a:hover {
+    color: inherit; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .has-background-dim::before, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .has-background-dim::before {
     background-color: inherit;
@@ -111,6 +115,36 @@
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .has-background-dim-100::before, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .has-background-dim-100::before {
     opacity: 1; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-10
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-10 {
+    width: 10%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-20
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-20 {
+    width: 20%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-30
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-30 {
+    width: 30%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-40
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-40 {
+    width: 40%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-50
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-50 {
+    width: 50%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-60
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-60 {
+    width: 60%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-70
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-70 {
+    width: 70%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-80
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-80 {
+    width: 80%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-90
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-90 {
+    width: 90%; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.has-width-ratio-100
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.has-width-ratio-100 {
+    width: 100%; }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer {
     position: absolute;
@@ -137,7 +171,7 @@
           justify-content: center;
       -ms-flex-align: start;
           align-items: flex-start;
-      display: table;
+      display: block;
       text-align: left;
       max-width: 50%;
       white-space: normal;
@@ -182,22 +216,26 @@
         margin-left: auto;
         margin-right: auto;
         line-height: unset;
-        width: 100%; }
+        width: 100%;
+        color: inherit; }
       .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer .offsettab h4.subtitle, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h4.subtitle {
         padding-left: 0;
         color: inherit;
         width: 100%; }
+      .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+.textcontainer .offsettab a, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab a {
+        color: inherit; }
       @media (max-width: 992px) {
         .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab {
           max-width: 100%; } }
-  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.rightaligned
-.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.rightaligned .textcontainer .offsettab {
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.textAligned
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.textAligned .textcontainer .offsettab {
     float: right; }
   @media (min-width: 1200px) {
-    .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
-.block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .block-img {
+    .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.is-featuring
+.block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring .block-img {
       height: 100vh; } }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.is-featuring
 .block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-featuring .block-img {
@@ -211,19 +249,29 @@
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
 .imagecontainer img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .imagecontainer img {
     width: 100%; }
-  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.is-center
-.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-center .textcontainer .offsettab {
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.text-aligned-center
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.text-aligned-center .textcontainer .offsettab {
     margin-left: auto;
     margin-right: auto;
     text-align: center; }
-  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.is-right
-.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-right .textcontainer .offsettab {
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.text-aligned-right
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.text-aligned-right .textcontainer .offsettab {
     float: right;
     text-align: right; }
-  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.is-left
-.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.is-left .textcontainer .offsettab {
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.text-aligned-left
+.textcontainer .offsettab, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.text-aligned-left .textcontainer .offsettab {
     float: left;
     text-align: left; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image-aligned-center
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-aligned-center {
+    margin-left: auto;
+    margin-right: auto; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image-aligned-left
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-aligned-left {
+    margin-right: auto; }
+  .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.image-aligned-right
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.image-aligned-right {
+    margin-left: auto; }
 
 .abourgeons_fall18_woo_product_cover_block {
   position: relative;
@@ -375,11 +423,13 @@
   padding: 2rem; }
 
 .wp-block-abourgeons-guten-product-cover-block .block-img {
-  height: 80rem; }
+  /*  height: 80rem; */ }
 
 @media only screen and (max-width: 600px) {
-  .wp-block-abourgeons-guten-product-cover-block .block-img {
-    height: 40rem; } }
+  .wp-block-abourgeons-guten-product-cover-block {
+    margin-bottom: 2rem; }
+    .wp-block-abourgeons-guten-product-cover-block .block-img {
+      /*  height: 40rem; */ } }
 
 .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab {
   width: 100%;
@@ -389,14 +439,15 @@
     vertical-align: bottom;
     -ms-flex-direction: column;
         flex-direction: column;
-    width: 100%;
     -ms-flex-pack: end;
         justify-content: flex-end;
     -ms-flex-align: end;
         align-items: flex-end;
     height: 100%;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    width: 100%;
+    margin: 0; }
     .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li {
       position: relative;
       width: 100%;
@@ -409,7 +460,11 @@
         background: #fff;
         color: #000;
         z-index: 1;
-        display: none;
+        display: block;
+        opacity: 0;
+        -webkit-transition: visibility 0s, opacity 0.1s linear;
+        -o-transition: visibility 0s, opacity 0.1s linear;
+        transition: visibility 0s, opacity 0.1s linear;
         position: absolute; }
         .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li .product-over-details .product-variation {
           display: -ms-flexbox;
@@ -417,8 +472,28 @@
           -ms-flex-pack: space-evenly;
               justify-content: space-evenly;
           text-transform: uppercase; }
+      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li h3 {
+        font-size: 1.8rem;
+        line-height: 2rem; }
       .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li:hover .product-over-details {
-        display: block; }
+        visibility: visible;
+        opacity: 1; }
+      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li button {
+        background: none; }
+    @media (hover: none), (hover: on-demand) {
+      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li {
+        background-color: white;
+        opacity: 0.8;
+        padding-right: 12px;
+        margin-top: 4px; }
+        .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li .product-over-details {
+          display: none; } }
+
+.products_list_footer {
+  display: none;
+  margin: 0; }
+  .products_list_footer li {
+    display: block; }
 /**
  * #.# Common SCSS
  *
@@ -798,20 +873,3 @@
       border-radius: 30px; }
     .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
       background: #869791; }
-/**
- * #.# Styles
- *
- * CSS for both Frontend+Backend.
- */
-/**
- * #.# Common SCSS
- *
- * Can include things like variables and mixins
- * that are used across the project.
-*/
-/**
- * Breakpoints & Media Queries
- */
-/**
- * Breakpoint mixins
- */

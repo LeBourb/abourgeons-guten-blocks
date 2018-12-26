@@ -29,7 +29,7 @@ if( array_key_exists('widthPrct',$image) && $image['widthPrct'] ) {
     if(isset($image['hlink']) )
       echo '<a href="' . $image['hlink'] . '">';
   ?>
-  <div style=<?php echo $style; ?> class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load'?>" data-full-src="<?php echo $backgroundImageURL ?>">
+  <div style="<?php echo $style; ?>" class="block-img <?php if(!$isMultiMediaResponsive) echo 'img-lazy-load'?>" data-full-src="<?php echo $backgroundImageURL ?>">
     <?php
       if($isMultiMediaResponsive) {
     ?>
@@ -256,7 +256,9 @@ function wc_product_display_tile($product) {
     ?>
   </div>
   <div style="" class="textcontainer" >
-    <?php wc_product_display_info($product); ?>
+    <div class="product-over-details" data-id="1">
+      <?php wc_product_display_info($product); ?>
+    </div>
   </div>
 </div>
 </a>
@@ -265,7 +267,7 @@ function wc_product_display_tile($product) {
 
 function wc_product_display_info($product) {
 ?>
-  <div class="product-over-details" data-id="1">
+
     <h4 class="title"><?php echo $product->get_title(); ?></h4>
     <p class="price"><?php echo $product->get_price_html();?></p>
     <?php
@@ -294,7 +296,5 @@ function wc_product_display_info($product) {
           </ul>
           <?php
       }
-    ?>
-  </div>
-<?php
+
 }

@@ -16,14 +16,17 @@ function abourgeons_fall18_woo_product_cover_block_display_content($attributes) 
       $product = wc_get_product($productId);
     ?>
       <li>
-        <a href="<?php echo get_permalink($product->get_id());?>">
+        <button data-href="<?php echo get_permalink($product->get_id());?>">
           <h3>
       <?php
-        echo $product->get_title();
-        wc_product_display_info($product);
+        echo $product->get_title() . ' - ' .  wc_price($product->get_price());
       ?>
+          <div class="product-over-details" data-id="1">
+            <?php wc_product_display_info($product);
+            ?>
+          </div>
           </h3>
-        </a>
+        </button>
       </li>
     <?php
     }
@@ -45,6 +48,7 @@ function abourgeons_fall18_woo_product_cover_block(  $attributes, $content ) {
     abourgeons_fall18_render_image_featuring( $attributes , $MultiMediaResponsive , 'abourgeons_fall18_woo_product_cover_block_display_content');
   ?>
   </div>
+
   <?php
   return ob_get_clean();
 }

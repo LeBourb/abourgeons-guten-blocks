@@ -94,7 +94,7 @@ render()  {
 							value={ fontSize }
 							fallbackFontSize={ fallbackFontSize }
 							onChange={ ( newFontSize ) => {
-								setState( { fontSize: newFontSize } );
+								setAttributes( { fontSize: newFontSize } );
 							} }
 					/>
       </InspectorControls>
@@ -127,6 +127,7 @@ render()  {
 					placeholder={ __(  'Enter Headline…' ) }
 					value={ headline }
 					className= {'headline'}
+					style={ { 'font-size': fontSize} }
 					onChange={ ( headline ) => { setAttributes({ headline: headline}) }  }
 					inlineToolbar
 				/>
