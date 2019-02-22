@@ -13,7 +13,7 @@ const {
 } = wp.editor;
 
 import { FeaturingImage, FeaturingImageToolbar, FeaturingImagePanel  } from './../lib/image-featuring';
-import { ProductNamePrice, ProductsSpecificSelect } from './../lib/product';
+import { ProductNamePrice, ProductsSpecificSelect, ProductTileVariations } from './../lib/product';
 import classnames from 'classnames';
 
 
@@ -38,29 +38,6 @@ class productCoverEdit extends Component {
         setAttributes( { productIds: productIds.slice() } );
         return;
       }
-    };
-
-    const toggleMultiProducts = (isMultiProducts) => {
-      setAttributes( { isMultiProducts: isMultiProducts } );
-    };
-
-    const toggleMultiMediaResponsive = (MultiMediaResponsive) => {
-      setAttributes( { MultiMediaResponsive: MultiMediaResponsive } );
-    };
-
-    const onSelectImage = ( media ) => {
-      var url = this.props.media_url.slice(0);
-      var id = this.props.media_id.slice(0);
-      if ( ! media || ! media.url ) {
-        url[size] = null;
-        id[size] = null;
-        setAttributes( { media_url: url, media_id: id } );
-        return;
-      }
-      url[size] = media.url;
-      id[size] = media.id;
-      setAttributes( { media_url: url, media_id: id } );
-
     };
 
 		const mainClassName = classnames( className, {
@@ -97,6 +74,9 @@ class productCoverEdit extends Component {
 						dimRatio={dimRatio}
 						isBackgroundFixed = {isBackgroundFixed}
 					/>
+				<PanelBody title={ __( 'Add New Product' ) }>
+					<ProductsSpecificSelect onSelectProduct= { onSelectProduct } />
+				</PanelBody>
     </InspectorControls>
   </Fragment>
   );
@@ -133,32 +113,28 @@ class productCoverEdit extends Component {
 						widthPrct = {widthPrct}
             MultiMediaResponsive={ MultiMediaResponsive }
           >
-            <ul className="products_list">
+					<ul className="products_list">
 							{ productIds.map( ( productId, index ) => (
-									<li>
-										{ productId ? <ProductNamePrice productId= { productId } /> : '' }
-									</li>
-							))}
-						</ul>
+									<div class="product-over-details" data-id={index}>
+										<ProductTileVariations  productId= { productId } />
+									</div>
+						)) }
+					</ul>
           </FeaturingImage>
-					<div>
-						<h3>Add a new product to the list</h3>
-						<ProductsSpecificSelect onSelectProduct= { onSelectProduct } />
-					</div>
-					<ul className="products_list_bottom">
+					<div className="products_list_footer">
 						{ productIds.map( ( productId, index ) => (
-								<li>
+								<strong>
 									<ProductNamePrice productId= { productId } />
 									<IconButton
 											icon="trash"
-											onClick={ () => { productIds.splice(index,1); setAttributes({productIds:productIds}); } }
+											onClick={ () => { productIds.splice(index,1); setAttributes({productIds:productIds.slice()}); } }
 											className="components-trash components-icon-trash components-toolbar__control"
 											label={ __( 'Remove Product' ) }
 										/>
-								</li>
+								</strong>
 						))}
-					</ul>
-        </div>
+					</div>
+				</div>
       </Fragment>
     );
   }

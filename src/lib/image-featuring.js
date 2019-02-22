@@ -42,6 +42,7 @@ export class FeaturingImage extends React.Component {
 		this.onCancel = this.onCancel.bind( this );
 		this.state = {
 			imageSelected: false,
+			imageLoaded: false,
 			hlink:null,
 			post:null,
 			size: 0,
@@ -153,6 +154,18 @@ export class FeaturingImage extends React.Component {
 			url[size] = media.url;
 			id[size] = media.id;
 			setAttributes( { media_url: url, media_id: id } );
+
+		};
+
+		const handleImageLoaded = ( media ) => {
+			if(this.container) {
+				this.state.width = this.container.offsetWidth;
+				this.state.height = this.container.offsetHeight;
+				if(this.container.parentElement) {
+					this.state.refwidth = this.container.parentElement.offsetWidth;
+					this.state.refheight = this.container.parentElement.offsetHeight;
+				}				
+			}
 
 		};
 
@@ -311,7 +324,7 @@ export class FeaturingImage extends React.Component {
 										{ MultiMediaResponsive ? ( <div className="imagecontainer">
 									<section className="slide-data-container smallenablediv">
 										<picture>
-											<img src={ media_url[size] } data-id={ media_id[size] } />
+											<img src={ media_url[size] } data-id={ media_id[size] } onLoad={!this.state.imageLoaded ? handleImageLoaded : null} />
 										</picture>
 									</section>
 								</div> ) : ('') }

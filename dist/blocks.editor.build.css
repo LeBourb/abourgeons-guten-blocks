@@ -308,8 +308,11 @@
   max-width: 740px;
   padding: 2rem; }
 
-.wp-block-abourgeons-guten-product-cover-block .products_list_bottom li .wc-products-list-card {
-  display: inline-block; }
+.products_list_bottom li {
+  display: -ms-flexbox;
+  display: flex; }
+  .products_list_bottom li .wc-products-list-card {
+    display: inline-block; }
 .wp-block-abourgeons-guten-t18fall-block01 {
   margin: 0; }
   .wp-block-abourgeons-guten-t18fall-block01 .editor-rich-text__tinymce[data-is-empty="true"]::before {

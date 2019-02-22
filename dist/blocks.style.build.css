@@ -243,6 +243,14 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
     background-size: cover;
     position: relative;
     min-height: 100%; }
+  @media (hover: none), (hover: on-demand) {
+    .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+      /* custom css for "touch targets" */ }
+      .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias
+.block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .block-img {
+        background-size: cover;
+        background-attachment: scroll !important; } }
   .abourgeons_fall18abourgeons_fall18_render_responsivemultimedias.background-image-fixed
 .block-img, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing.background-image-fixed .block-img {
     background-attachment: fixed; }
@@ -299,7 +307,8 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
       display: flex;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      list-style: none; }
   .abourgeons_fall18_woo_product_cover_block:hover .product-over-details {
     display: block; }
   @media (hover: none), (hover: on-demand) {
@@ -435,65 +444,51 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
   width: 100%;
   max-width: unset;
   text-align: right; }
-  .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list {
-    vertical-align: bottom;
-    -ms-flex-direction: column;
-        flex-direction: column;
-    -ms-flex-pack: end;
-        justify-content: flex-end;
-    -ms-flex-align: end;
-        align-items: flex-end;
-    height: 100%;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-    margin: 0; }
-    .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li {
-      position: relative;
-      width: 100%;
-      display: block; }
-      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li .product-over-details {
-        right: 2rem;
-        bottom: 2rem;
-        width: 20rem;
-        padding: 2rem 2rem 2rem;
-        background: #fff;
-        color: #000;
-        z-index: 1;
-        display: block;
-        opacity: 0;
-        -webkit-transition: visibility 0s, opacity 0.1s linear;
-        -o-transition: visibility 0s, opacity 0.1s linear;
-        transition: visibility 0s, opacity 0.1s linear;
-        position: absolute; }
-        .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li .product-over-details .product-variation {
-          display: -ms-flexbox;
-          display: flex;
-          -ms-flex-pack: space-evenly;
-              justify-content: space-evenly;
-          text-transform: uppercase; }
-      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li h3 {
-        font-size: 1.8rem;
-        line-height: 2rem; }
-      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li:hover .product-over-details {
-        visibility: visible;
-        opacity: 1; }
-      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li button {
-        background: none; }
-    @media (hover: none), (hover: on-demand) {
-      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li {
-        background-color: white;
-        opacity: 0.8;
-        padding-right: 12px;
-        margin-top: 4px; }
-        .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab ul.products_list li .product-over-details {
-          display: none; } }
+  .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab .product-over-details {
+    right: 2rem;
+    bottom: 2rem;
+    width: 20rem;
+    padding: 2rem 2rem 2rem;
+    background: #fff;
+    color: #000;
+    z-index: 1;
+    display: block;
+    opacity: 0;
+    -webkit-transition: visibility 0s, opacity 0.1s linear;
+    -o-transition: visibility 0s, opacity 0.1s linear;
+    transition: visibility 0s, opacity 0.1s linear;
+    position: absolute; }
+    .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab .product-over-details .product-variation {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+      text-transform: uppercase; }
+      .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab .product-over-details .product-variation li {
+        display: block; }
+  .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab h3 {
+    font-size: 1.8rem;
+    line-height: 2rem; }
+  .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab button {
+    background: none; }
 
-.products_list_footer {
-  display: none;
-  margin: 0; }
-  .products_list_footer li {
-    display: block; }
+.wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer:hover .product-over-details,
+.wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .product-over-details.hover {
+  visibility: visible;
+  opacity: 1 !important; }
+
+.wp-block-abourgeons-guten-product-cover-block .products_list_footer {
+  margin: 0;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-direction: column;
+      flex-direction: column; }
+  .wp-block-abourgeons-guten-product-cover-block .products_list_footer button {
+    background: none; }
+  .wp-block-abourgeons-guten-product-cover-block .products_list_footer strong:hover {
+    border-bottom: solid 1px #014a28; }
 /**
  * #.# Common SCSS
  *

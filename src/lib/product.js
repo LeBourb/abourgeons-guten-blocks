@@ -1,6 +1,7 @@
 const { __ } = wp.i18n;
 const { Toolbar, Dropdown, Dashicon } = wp.components;
 const { apiFetch } = wp;
+const { Fragment , Component } = wp.element;
 
 /**
  * Product data cache.
@@ -210,7 +211,8 @@ class ProductSpecificSearchResultsDropdown extends React.Component {
       apiFetch( {
         path: '/wc/v2/products?per_page=10&search=' + searchString
       }).then( (products) => {
-
+					if( searchString  != this.props.searchString )
+						return;
 
       		// Populate the cache.
       		for ( let product of products ) {
@@ -237,7 +239,7 @@ class ProductSpecificSearchResultsDropdown extends React.Component {
 		let productElements = [];
     if(!products && searchString) {
       this.fetch();
-      return <span className="wc-products-list-card__search-no-results"> { __( 'No products found' ) } </span>;
+      return <span className="wc-products-list-card__search-searching"> { __( 'Searching...' ) } </span>;
     }
 
     if (products) {
@@ -411,6 +413,80 @@ export class ProductNamePrice extends   React.Component {
         }
       );
     }
+		const title = product ? ( product.name + ' - ' + product.price ) : 'Loading...';
+		return (
+			<Fragment>
+        {  title
+        }
+			</Fragment>
+		);
+	}
+
+}
+
+export class ProductTileVariations extends   React.Component {
+
+	/**
+	 * Constructor.
+	 */
+	constructor( props ) {
+		super( props );
+	}
+
+	/**
+	 * Render the product specific select screen.
+   <ProductSpecificSelectedProducts
+     columns={ this.props.attributes.columns }
+     productIds={ this.state.selectedProducts }
+     addOrRemoveProduct={ this.addOrRemoveProduct.bind( this ) }
+   />
+	 */
+	render() {
+    /*if(!this.state || !this.state.product) {
+      this.fetch();
+    }
+    console.log(product_cover);*/
+    var product = PRODUCT_DATA[ this.props.productId ];
+    if(!product) {
+      apiFetch( {
+        path: '/wc/v2/products/' + this.props.productId
+      }).then( (product) => {
+
+
+          // Populate the cache.
+
+          PRODUCT_DATA[ product.id ] = product;
+
+          this.setState ( {
+            product: product
+          } );
+
+        }
+      );
+    }
+		/*if(!is_a($product, 'WC_Product_Variation') && !is_a($product, 'WC_Product_Simple') && !empty($product->get_available_variations( ))) {
+				$variations = $product->get_available_variations( );
+				?>
+				<ul class="product-variation">
+				<?php
+				foreach($variations as $variation) {
+						if ($variation['variation_is_active'] && $variation['variation_is_visible']) {
+								//$variation->is_in_stock
+								if(sizeof($variation['attributes']) == 1) {
+										$attrs = $variation['attributes'];
+										reset($attrs);
+										$first_key = key($attrs);
+										if(!$variation['is_in_stock']) {
+												echo '<li class="item"><del>' . $attrs[$first_key] . '</del></li>';
+										}else {
+												echo '<li class="item">' . $attrs[$first_key] . '</li>';
+										}
+
+								}
+						}
+				}
+				?>
+				*/
 		return (
 			<div className="wc-products-list-card wc-products-list-card--specific">
         { product ? (<a>{product.name} - {product.price}</a>) : (<p>Loading...</p>)

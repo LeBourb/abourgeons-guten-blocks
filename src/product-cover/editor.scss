@@ -17,12 +17,12 @@
 }
 
 
-.wp-block-abourgeons-guten-product-cover-block {
-  .products_list_bottom {
-    li {
-      .wc-products-list-card {
-        display: inline-block;
-      }
+
+.products_list_bottom {
+  li {
+    display: flex;
+    .wc-products-list-card {
+      display: inline-block;
     }
   }
 }

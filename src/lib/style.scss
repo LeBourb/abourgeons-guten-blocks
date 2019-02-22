@@ -156,6 +156,14 @@
     min-height: 100%;
   }
 
+  @media (hover:none), (hover:on-demand) {
+  /* custom css for "touch targets" */
+    .block-img {
+      background-size: cover;
+      background-attachment: scroll!important;
+    }
+  }
+
   &.background-image-fixed .block-img {
       background-attachment: fixed;
   }
@@ -232,6 +240,7 @@
         display: flex;
         justify-content: space-evenly;
         text-transform: uppercase;
+        list-style: none;
     }
   }
 
