@@ -489,6 +489,10 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
     background: none; }
   .wp-block-abourgeons-guten-product-cover-block .products_list_footer strong:hover {
     border-bottom: solid 1px #014a28; }
+
+@media (hover: none), (hover: on-demand) {
+  .textcontainer .products_list {
+    display: none; } }
 /**
  * #.# Common SCSS
  *

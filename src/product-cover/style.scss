@@ -98,3 +98,9 @@
 
 }
 }
+
+  @media (hover:none), (hover:on-demand) {
+    .textcontainer .products_list {
+      display: none;
+    }
+  }
