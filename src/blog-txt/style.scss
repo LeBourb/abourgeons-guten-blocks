@@ -1,0 +1,58 @@
+@import "../common.scss";
+
+.wp-block-abourgeons-guten-blog-txt {
+
+  display: flex;
+  flex-wrap: wrap!important;
+
+
+  .paragraph-inner-blocks {
+    width: 100%;
+    padding: 2rem;
+    .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+      min-height: unset;
+      .block-img {
+        display: block;
+        .imagecontainer {
+
+        }
+      }
+      @include break-medium() {
+        .block-img {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .featuring-image-container {
+        /* height: 100%; */
+    position: relative;
+    overflow: unset;
+    width: 0%;
+    padding: 8rem;
+    display: none;
+    .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {
+      position: sticky;
+      top: 10%;
+      .block-img {
+        height: 70vh;
+        .imagecontainer {
+
+        }
+      }
+    }
+
+
+  }
+  @include break-medium() {
+    .featuring-image-container {
+      width: 50%;
+      display: block;
+    }
+    .paragraph-inner-blocks {
+      width: 50%;
+    }
+  }
+
+}

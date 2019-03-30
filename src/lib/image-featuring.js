@@ -164,7 +164,7 @@ export class FeaturingImage extends React.Component {
 				if(this.container.parentElement) {
 					this.state.refwidth = this.container.parentElement.offsetWidth;
 					this.state.refheight = this.container.parentElement.offsetHeight;
-				}				
+				}
 			}
 
 		};
@@ -407,9 +407,6 @@ function backgroundImageStyles( url ) {
 		image: id ? getMedia( id ) : null,
 	};
 } )( carouselImage );*/
-
-
-
 
 
 /**
