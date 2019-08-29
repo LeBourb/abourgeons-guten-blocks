@@ -49,7 +49,7 @@
                 z-index: 1;
                 display: block;
                 opacity: 0;
-                transition: visibility 0s, opacity 0.1s linear;
+                transition: opacity 1.5s ease 0.05s;
                 position: absolute;
                 .product-variation {
                     display: flex;
