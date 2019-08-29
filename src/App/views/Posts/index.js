@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Tags from './Tags';
 import InfinitePosts from './InfinitePosts';
 
+//  Import CSS.
+import './style.scss?result';
+
 const { Fragment } = wp.element;
 
 class Posts extends Component {
@@ -16,7 +19,7 @@ class Posts extends Component {
         <div className="main">
           <InfinitePosts location={location} categories={[]}/>
         </div>
-        <div className="refine">
+        <div className="refine-tab">
           <Categories/>
           <Tags/>
         </div>

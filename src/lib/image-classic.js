@@ -147,7 +147,7 @@ export class ClassicImage extends React.Component {
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
 //'is-transient': url && 0 === url.indexOf( 'blob:' ),
-		const className = classnames( {
+		const className = classnames.default( {
 			'textAligned': textAligned,
 			'abourgeons_fall18abourgeons_fall18_render_responsivemultimedias':true,
 			'image_classic-editor': true

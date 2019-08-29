@@ -1,3 +1,6 @@
+//  Import CSS.
+import './style.scss?result';
+
 import  React, { Component } from  'react';
 import ReactDOM from 'react-dom';
 import { createStore} from 'redux';
@@ -8,8 +11,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import {store, persistor} from './configureStore'
 import registerServiceWorker from './registerServiceWorker';
-//  Import CSS.
-import './style.scss';
+
 
 /*store.dispatch({
   type: ADD_CATEGORY
@@ -24,6 +26,10 @@ class  App  extends  Component {
               <Provider store={store}>
                <PersistGate persistor={persistor}>
                 <Router >
+                  <header className={"entry-header"}>
+                    <h1 className={"entry-title"}>
+                      Journal        </h1>
+                  </header>
                   <div className="container">
                     <Route path="/:id" component={Posts} />
                   </div>
@@ -37,10 +43,12 @@ class  App  extends  Component {
 
 
 $(function() { /* code here */
-  ReactDOM.render(
-    <App/>,
-    document.querySelector('main#blog')
-  );
+  if ( document.querySelector('main#blog') ) {
+    ReactDOM.render(
+      <App/>,
+      document.querySelector('main#blog')
+    );
+    registerServiceWorker();
+  }
 
-  registerServiceWorker();
 });

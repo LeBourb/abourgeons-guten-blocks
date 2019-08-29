@@ -37,7 +37,7 @@ render()  {
   const { attributes, setAttributes, isSelected, className, noticeOperations, noticeUI } = this.props;
   const { media_url, text, media_id, hlink, headline, button, MultiMediaResponsive, hasSubtitle, hasButton, subtitle, textAligned, backgroundColor, textColor, dimRatio, fontSize, isBackgroundFixed } = attributes;
   //const style = backgroundImageStyles( url );
-  const classes = classnames(
+  const classes = classnames.default(
     className
   );
 

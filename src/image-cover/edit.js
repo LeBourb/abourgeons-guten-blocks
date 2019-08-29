@@ -37,7 +37,7 @@ render()  {
 
 
   //const style = backgroundImageStyles( url );
-  const classes = classnames(
+  const classes = classnames.default(
     className
   );
 

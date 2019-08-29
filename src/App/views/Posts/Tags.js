@@ -11,12 +11,13 @@ class Tags extends Component {
           sections: [],
           current:  null,
           tags: [],
-          dataRoute:  "http://127.0.0.1:10080/wordpress/wp-json/wp/v2/tags?taxonomy=post_tag"
+          dataRoute:  '/wp-json/wp/v2/tags?taxonomy=post_tag'
       }
   }
   componentDidMount(){
       const { dispatch } = this.props;
-      fetch(this.state.dataRoute)
+      var url = jQuery('meta[name=site_url]').attr("content") + this.state.dataRoute;
+      fetch(url)
           .then(res  =>  res.json())
           .then(sections  =>  this.setState((prevState, props) => {
               var tags = sections.map(this.mapSection);
@@ -38,7 +39,7 @@ class Tags extends Component {
     return (
       <div className={"tags"}>
             {tags.map((tag, j) =>
-              <Link to={ "?tag=" + tag.name }>{tag.name}</Link>
+              <li><Link to={ "?tag=" + tag.name }>{tag.name}</Link></li>
             )}
       </div>
     );

@@ -1,0 +1,63 @@
+@import "../../../common.scss";
+
+@media only screen and (max-width: $break-medium) {
+  .refine-tab {
+      display: none;
+  }
+  .main {
+    width: 100%;
+  }
+}
+
+.refine-tab {
+  .categories, .tags {
+      width: 20em;
+      padding: 2em;
+      background-color: white;
+      color: black;
+      margin-bottom: 2rem;
+      li {
+        display: block;
+        a {
+          color: black;
+        }
+      }
+
+      .selected {
+        font-weight: bold;
+      }
+  }
+}
+
+
+.tile-post {
+  margin-bottom: 3rem;
+  .abourgeons_fall18abourgeons_fall18_render_imagefeaturing {}
+
+  .date {
+    text-align: center;
+    font-size: 1rem;
+    font-style: italic;
+  }
+  .title {
+    text-align: center;
+  }
+  .category {
+    padding: 0.4em;
+    background-color: #d7d7d7;
+  }
+  .footer {
+      color: black;
+  }
+
+}
+
+.main {
+  .loading {
+    div {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

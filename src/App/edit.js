@@ -170,7 +170,7 @@ class LatestPostsEdit extends Component {
 					<Toolbar controls={ layoutControls } />
 				</BlockControls>
 				<ul
-					className={ classnames( this.props.className, {
+					className={ classnames.default( this.props.className, {
 						'is-grid': postLayout === 'grid',
 						'has-dates': displayPostDate,
 						[ `columns-${ columns }` ]: postLayout === 'grid',

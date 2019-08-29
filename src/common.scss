@@ -28,7 +28,12 @@ $break-mobile: 480px;
 $color-border: #e6eaee;
 $color-link: #0073aa;
 $color-link-hover: #00a0d2;
+$color-neutral: #DDD;
+$color-light: #F1F1F1;
 
+// Distance
+$radius: 4px;
+$margin-default: 2em 0;
 /**
  * Breakpoint mixins
  */

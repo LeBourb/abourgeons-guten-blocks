@@ -6,7 +6,7 @@ class PostTile extends Component {
     super(props);
     this.state = {
         category: '',
-        category_id: props.category_id        
+        category_id: props.category_id
     };
   }
 
@@ -37,7 +37,7 @@ class PostTile extends Component {
 		const className = 'abourgeons_fall18abourgeons_fall18_render_imagefeaturing';
     var d = new Date(date).toLocaleString('fr', { year: 'numeric', month: 'numeric', day: 'numeric' }).replace('/','.').replace('/','.');
 		return (
-      <div className={'tile-post col-xs-6 col-sm-4 col-lg-4'}>
+      <div className={'tile-post col-xs-12 col-sm-6 col-lg-4'}>
         <a href= {href}>
     			<div className={ className } tabIndex="-1" >
     				<div className={ 'block-img' } >
@@ -50,9 +50,11 @@ class PostTile extends Component {
     					</div>
     				</div>
     			</div>
-          <div className="title">{title}</div>
-          <div className="date">{d}</div>
-          <div className="category">{this.getCategory(categories[0])}</div>
+          <div className={'footer'}>
+            <span className="category">{this.getCategory(categories[0])}</span>
+            <div className="date">{d}</div>
+            <div className="title">{title}</div>
+          </div>
         </a>
       </div>
     );

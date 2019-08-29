@@ -30,6 +30,14 @@ function abourgeons_cgb_block_assets() {
 		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
 	);
 
+	wp_enqueue_style(
+		'abourgeons-cgb-result-style-css', // Handle.
+		plugins_url( 'dist/blocks.result.build.css', dirname( __FILE__ ) ) // Block style CSS.
+		, array()
+		, filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.result.build.css' )//array( 'wp-blocks' ) // Dependency to include the CSS after it.
+		// filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
+	);
+
 	wp_enqueue_script(
 		'abourgeons-cgb-result-build-js', // Handle.
 		plugins_url( 'dist/result.build.js', dirname( __FILE__ ) ), // Block style CSS.
@@ -45,6 +53,7 @@ function abourgeons_cgb_block_assets() {
 	require_once ('image-instagram/render.php');
 	require_once ('product-cover/render.php');
 	require_once ('products-grid/render.php');
+	require_once ('post/render.php');
 } // End function abourgeons_cgb_block_assets().
 
 // Hook: Frontend assets.

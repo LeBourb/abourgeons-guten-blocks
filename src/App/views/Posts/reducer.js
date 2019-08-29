@@ -2,29 +2,46 @@ import { combineReducers } from 'redux';
 import { ADD_TAG, ADD_POST, ADD_CATEGORY } from './actions';
 
 //function R_Tag(state = [], action) {
-const tags = (state = false, action) => {
+const tags = (state = [], action) => {
   switch (action.type) {
     case ADD_TAG:
-      return state.concat(action.tags)
+      if(Array.isArray(state))
+        return state.concat(action.tags)
+      else
+        return action.tags
     default:
       return state
   }
 }
 
 //function R_Category(state = [], action) {
-const categories = (state = false, action) => {
+const categories = (state = [], action) => {
   switch (action.type) {
     case ADD_CATEGORY:
-      return state.concat(action.categories)
+      if(Array.isArray(state))
+        return state.concat(action.categories)
+      else
+        return action.categories
     default:
       return state
   }
 }
 
-const posts = (state = false, action) => {
+const posts = (state = [], action) => {
   switch (action.type) {
     case ADD_POST:
-      return action.posts
+      if(Array.isArray(state)) {
+        state = state.concat(action.posts);
+        var reduced = [];
+        state.forEach(function(el){
+            if( reduced.findIndex(function(element) {
+              return el.link == element.link;
+            }) < 0) reduced.push(el);
+        });
+        return reduced;
+      }
+      else
+        return action.posts
     default:
       return state
   }

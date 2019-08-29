@@ -185,7 +185,7 @@ export class FeaturingImage extends React.Component {
 		// interactive, but should direct image selection and unfocus caption fields
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
 
-		const className = classnames( 'text-aligned-' + textAligned , 'image-aligned-' + imageAligned, {
+		const className = classnames.default( 'text-aligned-' + textAligned , 'image-aligned-' + imageAligned, {
 			'is-selected': isSelected,
 			'is-transient': url && 0 === url.indexOf( 'blob:' ),
 			'is-featuring': !MultiMediaResponsive,
@@ -196,7 +196,7 @@ export class FeaturingImage extends React.Component {
 
 
 
-		const classNameBack = classnames(
+		const classNameBack = classnames.default(
 			'has-background-dim'
 		);
 
@@ -357,7 +357,7 @@ export class FeaturingImage extends React.Component {
 				bottom: true,
 				left: false,
 			} }
-			className={ classnames('image-aligned-' + imageAligned) }
+			className={ classnames.default('image-aligned-' + imageAligned) }
 			onResizeStop={ ( event, direction, elt, delta ) => {
 					var refwidth = this.state.refwidth;
 					var refheight = this.state.refheight;

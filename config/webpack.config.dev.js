@@ -30,6 +30,11 @@ const blocksCSSPlugin = new ExtractTextPlugin( {
 	filename: './dist/blocks.style.build.css',
 } );
 
+// Extract style.css for frontend styles only.
+const resultBlocksCSSPlugin = new ExtractTextPlugin( {
+	filename: './dist/blocks.result.build.css',
+} );
+
 // Extract editor.css for editor styles.
 const editBlocksCSSPlugin = new ExtractTextPlugin( {
 	filename: './dist/blocks.editor.build.css',
@@ -69,6 +74,7 @@ const extractConfig = {
     		]
 			},
 		},
+
 	],
 };
 
@@ -100,6 +106,8 @@ module.exports = {
 						// It enables caching results in ./node_modules/.cache/babel-loader/
 						// directory for faster rebuilds.
 						cacheDirectory: true,
+						plugins: ['lodash'],
+						presets: [['env', { 'targets': { 'node': 6 } }]]
 					},
 				},
 			},
@@ -120,15 +128,20 @@ module.exports = {
             resourceQuery: /editor/, // foo.css?editor
             use: editBlocksCSSPlugin.extract( extractConfig )
           },
+					{
+						resourceQuery: /result/, // foo.css?editor
+            use: resultBlocksCSSPlugin.extract( extractConfig )
+        	},
           {
 			//			resourceQuery: /^$/, // foo.css?editor
             use: blocksCSSPlugin.extract( extractConfig )
-        }]
+        	},
+					]
 			}
 		],
 	},
 	// Add plugins.
-	plugins: [ blocksCSSPlugin, editBlocksCSSPlugin,   new webpack.ProvidePlugin({
+	plugins: [ blocksCSSPlugin, editBlocksCSSPlugin, resultBlocksCSSPlugin,  new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'

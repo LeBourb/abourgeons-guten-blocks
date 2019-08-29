@@ -40,7 +40,7 @@ class productCoverEdit extends Component {
       }
     };
 
-		const mainClassName = classnames( className, {
+		const mainClassName = classnames.default( className, {
 			'is-selected': isSelected
 		});
 

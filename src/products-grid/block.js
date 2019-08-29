@@ -65,7 +65,7 @@ registerBlockType( name, {
 		const { productIds } = attributes;
 
 
-	/*	const classes = classnames(
+	/*	const classes = classnames.default(
 			className,
 			{
 				'has-img-on-right': hasImgonRight,

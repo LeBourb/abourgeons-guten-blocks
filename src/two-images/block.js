@@ -109,7 +109,7 @@ registerBlockType( name, {
 			}
 			setAttributes( { right_url: media.url, right_id: media.id } );
 		};
-    const classes = classnames(
+    const classes = classnames.default(
 			className
 		);
 		const toggleMultiMediaResponsive = (MultiMediaResponsive) => {

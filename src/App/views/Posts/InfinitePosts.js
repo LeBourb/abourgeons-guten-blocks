@@ -2,7 +2,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import PostTile from './PostTile';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPosts } from './actions'
+import { addPosts } from './actions';
+import { ClipLoader } from 'react-spinners';
+
 
 var app_this = null;
 class InfinitePosts extends Component {
@@ -12,7 +14,7 @@ class InfinitePosts extends Component {
           isOpen:  false,
           sections: [],
           current:  null,
-          dataRoute:  "http://127.0.0.1:10080/wordpress/wp-json/wp/v2/posts",
+          dataRoute:  "/wp-json/wp/v2/posts",
           per_page: 10,
           page: 1,
           categories: []
@@ -110,7 +112,8 @@ class InfinitePosts extends Component {
     var categoryId = this.getCategoryId(category);
     var tagId = this.getTagId(tag);
     const { dispatch } = this.props;
-    fetch(app_this.state.dataRoute + '?' + ( categoryId ? 'categories=' + categoryId + '&': '' ) + ( tagId ? 'tags=' + tagId + '&': '' ) + 'per_page=' + this.state.per_page + '&page=' + this.state.page + '&link')
+    var url = jQuery('meta[name=site_url]').attr("content") + app_this.state.dataRoute;
+    fetch(url + '?' + ( categoryId ? 'categories=' + categoryId + '&': '' ) + ( tagId ? 'tags=' + tagId + '&': '' ) + 'per_page=' + this.state.per_page + '&page=' + this.state.page + '&link')
         .then(res  =>  res.json())
         .then(sections  =>  app_this.setState((prevState, props) => {
           var posts = sections.map(this.mapSection);
@@ -139,7 +142,22 @@ class InfinitePosts extends Component {
       this.state.search = location.search;
       var extract = this.deparam(location.search);
       this.fetch(extract.category, extract.tag);
-      return null;
+      const override = `
+          display: block;
+          margin: 0 auto;
+          border-color: red;
+          margin-left: auto;
+          margin-right: auto;
+          display: block;
+      `;
+      return (<span className={'loading'}><ClipLoader
+        css={override}
+        sizeUnit={"px"}
+        size={150}
+        color={'#123abc'}
+        loading={true}
+        className={'spinner'}
+      /></span>);
     }
     var items = [];
     if(posts !== false) {
@@ -156,6 +174,7 @@ class InfinitePosts extends Component {
       </div>
       );
     }
+
     return (  <InfiniteScroll
         dataLength={items.length} //This is important field to render the next data
         next={this.componentDidMount}
@@ -175,7 +194,7 @@ class InfinitePosts extends Component {
         releaseToRefreshContent={
           <h3 style={{textAlign: 'center'}}>&#8593; Release to refresh</h3>
         }>
-        {items}
+        { items }
       </InfiniteScroll>);
   }
 
