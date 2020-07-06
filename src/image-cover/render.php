@@ -6,7 +6,7 @@ require_once __DIR__ . '/../lib/render.php';
 function abourgeons_18_image_cover_text_content( $attributes ) {
   if( isset($attributes['headline']) && !empty($attributes['headline']) )  {
     ?>
-    <h3 class="headline"><?php
+    <h3 class="headline" style="font-size:<?php echo $attributes['fontSize']; ?>px"><?php
     wp_print_rich_text_editor($attributes['headline']);
     ?></h3>
   <?php

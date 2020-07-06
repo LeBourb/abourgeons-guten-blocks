@@ -54,6 +54,7 @@ function abourgeons_cgb_block_assets() {
 	require_once ('product-cover/render.php');
 	require_once ('products-grid/render.php');
 	require_once ('post/render.php');
+	require_once ('post-cover/render.php');
 } // End function abourgeons_cgb_block_assets().
 
 // Hook: Frontend assets.

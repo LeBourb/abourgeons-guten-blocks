@@ -454,9 +454,9 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
     z-index: 1;
     display: block;
     opacity: 0;
-    -webkit-transition: visibility 0s, opacity 0.1s linear;
-    -o-transition: visibility 0s, opacity 0.1s linear;
-    transition: visibility 0s, opacity 0.1s linear;
+    -webkit-transition: opacity 1.5s ease 0.05s;
+    -o-transition: opacity 1.5s ease 0.05s;
+    transition: opacity 1.5s ease 0.05s;
     position: absolute; }
     .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab .product-over-details .product-variation {
       display: -ms-flexbox;
@@ -472,7 +472,6 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
   .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .offsettab button {
     background: none; }
 
-.wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer:hover .product-over-details,
 .wp-block-abourgeons-guten-product-cover-block .abourgeons_fall18abourgeons_fall18_render_imagefeaturing .textcontainer .product-over-details.hover {
   visibility: visible;
   opacity: 1 !important; }
@@ -493,6 +492,71 @@ a:hover, .abourgeons_fall18abourgeons_fall18_render_imagefeaturing a, .abourgeon
 @media (hover: none), (hover: on-demand) {
   .textcontainer .products_list {
     display: none; } }
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+/**
+ * Breakpoints & Media Queries
+ */
+/**
+ * Breakpoint mixins
+ */
+.wp-block-abourgeons-guten-image-postcover {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap !important;
+      flex-wrap: wrap !important;
+  -ms-flex-flow: row-reverse;
+      flex-flow: row-reverse; }
+  .wp-block-abourgeons-guten-image-postcover.has-img-on-right {
+    -ms-flex-flow: row;
+        flex-flow: row; }
+    @media (min-width: 992px) {
+      .wp-block-abourgeons-guten-image-postcover.has-img-on-right .block-text .block-inside {
+        margin-left: 67px; } }
+  .wp-block-abourgeons-guten-image-postcover .textcontainer .headline {
+    margin-left: auto;
+    margin-right: auto; }
+  .wp-block-abourgeons-guten-image-postcover .textcontainer svg {
+    margin-left: auto;
+    margin-right: auto; }
+  .wp-block-abourgeons-guten-image-postcover .textcontainer svg.postcover_icon {
+    width: 100px;
+    height: 100px;
+    fill: white;
+    margin-left: auto;
+    margin-right: auto; }
+  .wp-block-abourgeons-guten-image-postcover .postcover_icon {
+    enable-background: new 0 0 169.063 169.063;
+    margin-right: 10px; }
+  .wp-block-abourgeons-guten-image-postcover .block-text {
+    padding: 1em;
+    position: relative; }
+    .wp-block-abourgeons-guten-image-postcover .block-text hr {
+      width: 70px;
+      clear: both;
+      border-top: solid #d9d9d9;
+      border-width: 1px 0 0;
+      margin: 20px 0;
+      height: 0; }
+    .wp-block-abourgeons-guten-image-postcover .block-text .block-inside {
+      width: 100%;
+      background-color: white; }
+    @media (min-width: 992px) {
+      .wp-block-abourgeons-guten-image-postcover .block-text .block-inside {
+        margin-left: -67px;
+        margin-top: 40px;
+        position: absolute;
+        z-index: 1;
+        padding: 2rem; } }
+  .wp-block-abourgeons-guten-image-postcover .block-img {
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat; }
 /**
  * #.# Common SCSS
  *

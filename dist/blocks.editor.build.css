@@ -313,5 +313,37 @@
   display: flex; }
   .products_list_bottom li .wc-products-list-card {
     display: inline-block; }
+.wp-block-abourgeons-guten-image-postcover {
+  margin: 0; }
+  .wp-block-abourgeons-guten-image-postcover .editor-rich-text__tinymce[data-is-empty="true"]::before {
+    position: inherit; }
+  .wp-block-abourgeons-guten-image-postcover .editor-rich-text__tinymce:focus a[data-mce-selected] {
+    padding: 0 2px;
+    margin: 0 -2px;
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    background: rgba(255, 255, 255, 0.3); }
+  .wp-block-abourgeons-guten-image-postcover .editor-rich-text strong {
+    font-weight: 300; }
+  .wp-block-abourgeons-guten-image-postcover .editor-rich-text {
+    display: inline-block;
+    width: 100%; }
+  .wp-block-abourgeons-guten-image-postcover .block-inside {
+    width: 20rem; }
+    .wp-block-abourgeons-guten-image-postcover .block-inside hr {
+      margin: 6px 0; }
+  .wp-block-abourgeons-guten-image-postcover .block-img {
+    width: 100%; }
+  .wp-block-abourgeons-guten-image-postcover .block-text {
+    width: 40%; }
+  .wp-block-abourgeons-guten-image-postcover.components-placeholder h2 {
+    color: inherit; }
+  .wp-block-abourgeons-guten-image-postcover.has-left-content .editor-rich-text__inline-toolbar {
+    -ms-flex-pack: start;
+        justify-content: flex-start; }
+  .wp-block-abourgeons-guten-image-postcover.has-right-content .editor-rich-text__inline-toolbar {
+    -ms-flex-pack: end;
+        justify-content: flex-end; }
 .wp-block-abourgeons-guten-blog-txt .featuring-image-container {
   display: none !important; }
