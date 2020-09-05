@@ -271,6 +271,7 @@ function wc_product_display_info($product) {
     <h4 class="title"><?php echo $product->get_title(); ?></h4>
     <p class="price"><?php echo $product->get_price_html();?></p>
     <?php
+      return;
       if($product->is_type( 'variable' ) && !empty($product->get_available_variations( ))) {
           $variations = $product->get_available_variations( );
           ?>

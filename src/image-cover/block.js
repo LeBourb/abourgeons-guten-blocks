@@ -43,7 +43,7 @@ const blockAttributes = {
 		default: []
 	},
 	button: {
-		type: 'array',
+		type: 'string',
 	},
 	media_id: {
 		type: 'array',
